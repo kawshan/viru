@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>item master</title>
+
+    <!--    bootstrap cdn links-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/commonjs/selectcommonfunction.js"></script>
+    <script src="/commonjs/jquery.js"></script>
+    <script src="/commonjs/validation.js"></script>
+    <script src="/commonjs/ajaxcommonfunction.js"></script>
+    <script src="/commonjs/tablecommonfuntion.js"></script>
+    <script src="/controllerjs/itemMaster.js"></script>
+
+
+
+    <!--    jquery cdn start-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    <!--    jquery cdn end-->
+</head>
+<body>
+
+
+<!--header area start-->
+<div class="row p-4" style="background-color: #3C3D37;">
+    <h1 class="text-center" style="color: whitesmoke">Item Master</h1>
+</div>
+<!--header area start-->
+
+<!--    edit delete print button start-->
+<div class="row mt-2">
+    <div id="divModifyButton" class="d-none">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-warning fw-bold"
+                    style="width: 15%; color: whitesmoke; border: 1px solid black;"
+                    onclick="refillItemMaster(window['editOb'],window['editRow'])">
+                <i class="fa-solid fa-recycle fa-beat"></i> refill
+            </button>
+            <button type="button" id="divModifyButtonDelete" class="btn btn-danger fw-bold"
+                    style=" width: 15%; color: whitesmoke; border: 1px solid black; pointer-events: all"
+                    onclick="deleteItemMaster(window['editOb'],window['editRow'])">
+                <i class="fa-solid fa-trash fa-beat"></i> Delete
+            </button>
+            <button onclick="printOneItem(window['editOb'],window['editRow'])" type="button"
+                    class="btn btn-primary fw-bold"
+                    style=" width: 15%; color: whitesmoke;border: 1px solid black">
+                <i class="fa-solid fa-eye fa-beat"></i> Print
+            </button>
+        </div>
+    </div>
+</div>
+<!--    edit delete print button end-->
+
+<div class="card m-5 p-5">
+    <form onsubmit="return false">
+
+        <div class="row mt-5">
+            <div class="col-md-3">
+                <label for="selectItemCategory" class="form-label fw-bold">Item Category <i class="text-danger fw-bold">*</i> </label>
+                <select id="selectItemCategory" class="form-select text-start" onchange="selectDBValidator(this,'','itemMaster','item_category_master_id')"></select>
+            </div>
+            <div class="col-md-3">
+                <label for="textItemName" class="form-label fw-bold">Item Name <i class="text-danger fw-bold">*</i> </label>
+                <input type="text" id="textItemName" class="form-control text-start" placeholder="Enter Item Name" onkeyup="textValidator(this,'','itemMaster','item_name')">
+            </div>
+            <div class="col-md-3">
+                <label for="selectItemSize" class="form-label fw-bold">Size <i class="text-danger fw-bold">*</i> </label>
+                <select id="selectItemSize" class="form-select text-start" onchange="selectDBValidator(this,'','itemMaster','item_size_id')"></select>
+            </div>
+            <div class="col-md-3">
+                <label for="textItemBooksInPack" class="form-label fw-bold">Books In Pack</label>
+                <input type="number" id="textItemBooksInPack" class="form-control text-start" placeholder="Enter Books In Packs" onkeyup="textValidator(this,'','itemMaster','item_books_in_pack')">
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-3">
+                <label for="textPacksInBox" class="form-label fw-bold">Packs In Box</label>
+                <input type="number" id="textPacksInBox" class="form-control text-start" placeholder="Enter Packs In Box" onkeyup="textValidator(this,'','itemMaster','item_packs_in_box')">
+
+            </div>
+            <div class="col-md-3">
+                <label for="textBarCode" class="form-label fw-bold">Barcode</label>
+                <input type="text" id="textBarCode" class="form-control text-start" placeholder="Enter Barcode" onkeyup="textValidator(this,'','itemMaster','item_barcode')">
+            </div>
+            <div class="col-md-3">
+                <label for="textItemCost" class="form-label fw-bold">Item Cost</label>
+                <input type="number" id="textItemCost" class="form-control text-start" placeholder="Enter Item Cost" onkeyup="textValidator(this,'','itemMaster','item_cost')">
+            </div>
+            <div class="col-md-3">
+                <label for="textItemPrice" class="form-label fw-bold">Item Price</label>
+                <input type="number" id="textItemPrice" class="form-control text-start" placeholder="Enter Item Price" onkeyup="textValidator(this,'','itemMaster','item_price')">
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-9">
+                <label for="textDescription" class="form-label fw-bold">Description</label>
+                <input type="text" class="form-control text-start" id="textDescription" placeholder="Enter Description" onkeyup="textValidator(this,'','itemMaster','item_description')">
+            </div>
+            <div class="col-md-3">
+                <label for="selectItemStatus" class="form-label fw-bold">Status <i class="text-danger fw-bold">*</i> </label>
+                <select id="selectItemStatus" class="form-select text-start" onchange="selectDBValidator(this,'','itemMaster','item_master_status_id')"></select>
+            </div>
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col-md-4 text-start">
+                <button type="button" class="btn btn-danger">Reset</button>
+            </div>
+            <div class="col-md-4 text-center">
+                <button type="button" class="btn btn-warning" onclick="updateItemMaster()">Update</button>
+            </div>
+            <div class="col-md-4 text-end">
+                <button type="button" class="btn btn-primary" onclick="submitItemMaster()">Save</button>
+            </div>
+
+        </div>
+
+
+    </form>
+</div>
+
+
+
+<div class="row mt-5">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-primary" onclick="printAllItem()">Print Full Table</button>
+    </div>
+</div>
+
+
+<div class="card m-5 p-5">
+    <table class="table table-bordered" id="tableItemMaster">
+        <thead class="text-center">
+            <th>#</th>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Action</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+<div id="divTableItemMasterPrint" class="d-none">
+    <table class="table table-bordered" id="tableItemMasterPrint" style="font-size: 11px">
+        <thead class="text-center">
+        <th>#</th>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Status</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+
+
+</body>
+</html>
