@@ -44,6 +44,14 @@ const refreshItemMasterForm = ()=>{
     itemMasterStatusList = ajaxGetRequest("/item-master-status/findall")
     fillDataIntoSelect(selectItemStatus,'Select Item Master Status',itemMasterStatusList,'name')
 
+
+    buttonUpdateItemMaster.disabled=true;
+    buttonUpdateItemMaster.style.cursor="not-allowed";
+
+
+    buttonSaveItemMaster.disabled=false;
+    buttonSaveItemMaster.style.cursor="default";
+
 }
 
 
@@ -161,6 +169,13 @@ const refillItemMaster = (ob)=>{
     itemMasterStatusList = ajaxGetRequest("/item-master-status/findall")
     fillDataIntoSelect(selectItemStatus,'Select Item Master Status',itemMasterStatusList,'name',itemMaster.item_master_status_id.name)
 
+
+    buttonUpdateItemMaster.disabled=false;
+    buttonUpdateItemMaster.style.cursor="default";
+
+
+    buttonSaveItemMaster.disabled=true;
+    buttonSaveItemMaster.style.cursor="not-allowed";
 
 }
 
@@ -402,6 +417,7 @@ const loadDataIntoTablePrint = ()=>{
 
 //we declare this because we need to devide that for names
 let categoryNameForPrint = ' '
+
 const getCategoryNameForPrint = (ob)=>{
     if (ob.item_category_master_id.item_category_name != categoryNameForPrint){
         categoryNameForPrint=ob.item_category_master_id.item_category_name
@@ -419,10 +435,14 @@ const getItemCost = (ob)=>{
 
 
 
+const handelResetItemMaster = ()=>{
+    divModifyButton.classList.add('d-none');
+
+    refreshItemMasterTable();
+    refreshItemMasterForm();
 
 
-
-
+}
 
 
 

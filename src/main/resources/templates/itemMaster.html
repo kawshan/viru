@@ -111,13 +111,13 @@
 
         <div class="row mt-5">
             <div class="col-md-4 text-start">
-                <button type="button" class="btn btn-danger">Reset</button>
+                <button type="button" class="btn btn-danger" onclick="handelResetItemMaster()">Reset</button>
             </div>
             <div class="col-md-4 text-center">
-                <button type="button" class="btn btn-warning" onclick="updateItemMaster()">Update</button>
+                <button type="button" class="btn btn-warning" id="buttonUpdateItemMaster" style="pointer-events: all" onclick="updateItemMaster()">Update</button>
             </div>
             <div class="col-md-4 text-end">
-                <button type="button" class="btn btn-primary" onclick="submitItemMaster()">Save</button>
+                <button type="button" class="btn btn-primary" id="buttonSaveItemMaster" style="pointer-events: all" onclick="submitItemMaster()">Save</button>
             </div>
 
         </div>
@@ -153,7 +153,7 @@
 
 
 <div id="divTableItemMasterPrint" class="d-none">
-    <table class="table table-bordered" id="tableItemMasterPrint" style="font-size: 11px">
+    <table class="table table-bordered" id="tableItemMasterPrint" style="font-size: 11px; border: 1px solid black">
         <thead class="text-center">
         <th>#</th>
         <th>Category</th>

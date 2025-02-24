@@ -201,7 +201,7 @@ const printItemCategoryFullTable = async ()=>{
         <p style="font-size: 14px; font-weight: bold;">All Item Categories</p>
     </div>
 
-    <div class="row">
+    <div class="row" style="padding: 3px">
        ${tableItemCategoryPrint.outerHTML} 
     </div>
 </div>
