@@ -384,12 +384,13 @@ const printAllItem = async ()=>{
 
 const loadDataIntoTablePrint = ()=>{
 
-    itemMasterList = ajaxGetRequest("/item-master/findall");
+    itemMasterList = ajaxGetRequest("/item-master/item-list-for-print");
 
     displayProperty = [
-        {dataType:'function',propertyName:getCategoryName},
+        {dataType:'function',propertyName:getCategoryNameForPrint},
         {dataType:'text',propertyName:'item_name'},
         {dataType:'function',propertyName:getItemSize},
+        {dataType:'function',propertyName:getItemCost},
         {dataType:'function',propertyName:getItemPrice},
         {dataType:'function',propertyName:getItemStatus},
     ];
@@ -399,12 +400,22 @@ const loadDataIntoTablePrint = ()=>{
 }
 
 
+//we declare this because we need to devide that for names
+let categoryNameForPrint = ' '
+const getCategoryNameForPrint = (ob)=>{
+    if (ob.item_category_master_id.item_category_name != categoryNameForPrint){
+        categoryNameForPrint=ob.item_category_master_id.item_category_name
+        return ob.item_category_master_id.item_category_name;
+    }else {
+        return " "
+    }
+}
 
 
 
-
-
-
+const getItemCost = (ob)=>{
+    return `<p class="text-end" ">${Number(ob.item_cost).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`
+}
 
 
 

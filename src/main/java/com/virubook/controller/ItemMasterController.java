@@ -5,6 +5,7 @@ import com.virubook.dao.ItemMasterStatusDao;
 import com.virubook.entity.ItemMaster;
 import com.virubook.entity.ItemMasterStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,7 +24,7 @@ public class ItemMasterController {
 
     @GetMapping(value = "/findall")
     public List<ItemMaster> findAllItems(){
-        return itemMasterDao.findAll();
+        return itemMasterDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
     @GetMapping
@@ -36,7 +37,7 @@ public class ItemMasterController {
     @PostMapping
     public String saveItemMaster(@RequestBody ItemMaster itemMaster){
         try {
-            ItemMaster existingItemMaster = itemMasterDao.findByItemName(itemMaster.getItem_name());
+            ItemMaster existingItemMaster = itemMasterDao.findByItemName(itemMaster.getItem_name(), itemMaster.getItem_category_master_id().getItem_category_name());
             if(existingItemMaster != null){
                 return "Item Master Already Exist";
             }
@@ -78,6 +79,13 @@ public class ItemMasterController {
         }catch (Exception e){
             return "delete not complete"+e.getMessage();
         }
+    }
+
+
+    //why we defined this because of we need to divide item master print into category wise
+    @GetMapping(value = "/item-list-for-print")
+    public List<ItemMaster> listAllItemMasterForPrint(){
+        return itemMasterDao.listItemsForItemMasterPrint();
     }
 
 
