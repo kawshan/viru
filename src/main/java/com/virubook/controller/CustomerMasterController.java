@@ -4,6 +4,7 @@ import com.virubook.dao.CustomerMasterDao;
 import com.virubook.entity.CustomerMaster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -19,6 +20,12 @@ public class CustomerMasterController {
         return customerMasterDao.findAll();
     }
 
+    @GetMapping
+    public ModelAndView customerMasterView(){
+        ModelAndView customerMasterUI = new ModelAndView();
+        customerMasterUI.setViewName("customerMaster.html");
+        return customerMasterUI;
+    }
 
 
     @PostMapping
