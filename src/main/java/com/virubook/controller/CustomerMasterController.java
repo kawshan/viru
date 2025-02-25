@@ -3,6 +3,7 @@ package com.virubook.controller;
 import com.virubook.dao.CustomerMasterDao;
 import com.virubook.entity.CustomerMaster;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,7 +18,7 @@ public class CustomerMasterController {
 
     @GetMapping(value = "/findall")
     public List<CustomerMaster> listCustomerMaster() {
-        return customerMasterDao.findAll();
+        return customerMasterDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
     @GetMapping
