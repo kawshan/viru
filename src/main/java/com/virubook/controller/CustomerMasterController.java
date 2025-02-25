@@ -31,6 +31,21 @@ public class CustomerMasterController {
     @PostMapping
     public String saveCustomerMaster(@RequestBody CustomerMaster customerMaster) {
         try {
+
+            String maxCustomerCode = customerMasterDao.getMaxCustomerCode();
+            if (maxCustomerCode == null || maxCustomerCode.equals(" ")) {
+                customerMaster.setCustomer_code("CM0001");
+            }
+            customerMaster.setCustomer_code(maxCustomerCode);
+
+
+            CustomerMaster existingCustomer = customerMasterDao.getCustomerMasterByCustomerNameAndCustomerMobile(customerMaster.getCustomer_name(),customerMaster.getCustomer_mobile());
+            if (existingCustomer != null) {
+                return "customer is already exists";
+            }
+
+
+
             customerMasterDao.save(customerMaster);
             return "ok";
         }catch (Exception e){
