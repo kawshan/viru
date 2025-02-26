@@ -152,7 +152,7 @@ const submitItemMaster = ()=>{
             }
         }
     }else {
-        alert(`You Have Some Errors ${errors}`)
+        alert(`You Have Some Errors \n ${errors}`)
     }
 }
 
