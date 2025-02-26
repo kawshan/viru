@@ -21,6 +21,8 @@ const refreshItemMasterForm = ()=>{
     textItemPrice.style.border="2px solid #ced4da";
     textDescription.style.border="2px solid #ced4da";
     selectItemStatus.style.border="2px solid #ced4da";
+    textNumberOfPages.style.border="2px solid #ced4da";
+    textItemShortName.style.border="2px solid #ced4da";
 
 
 
@@ -32,6 +34,8 @@ const refreshItemMasterForm = ()=>{
     textItemCost.value="";
     textItemPrice.value="";
     textDescription.value="";
+    textNumberOfPages.value="";
+    textItemShortName.value="";
 
 
 
@@ -63,7 +67,9 @@ const refreshItemMasterTable = ()=>{
     displayProperty = [
         {dataType:'function',propertyName:getCategoryName},
         {dataType:'text',propertyName:'item_name'},
+        {dataType:'text',propertyName:'item_short_name'},
         {dataType:'function',propertyName:getItemSize},
+        {dataType:'function',propertyName:getNumberOfPages},
         {dataType:'function',propertyName:getItemPrice},
         {dataType:'function',propertyName:getItemStatus},
     ];
@@ -79,6 +85,9 @@ const getCategoryName = (ob)=>{
    return ob.item_category_master_id.item_category_name;
 }
 
+const getNumberOfPages = (ob)=>{
+    return ob.number_of_pages;
+}
 
 const getItemSize = (ob)=>{
     return ob.item_size_id.name;
@@ -110,7 +119,10 @@ const checkErrorsItemMaster = ()=>{
     }
 
     if (itemMaster.item_master_status_id == null){
-        errors=errors+"Status Cannot Be Empty"
+        errors=errors+"Status Cannot Be Empty \n"
+    }
+    if (itemMaster.item_short_name==null){
+        errors=errors+"Short name Cannot Be Empty \n"
     }
 
 
@@ -124,6 +136,7 @@ const submitItemMaster = ()=>{
     if (errors==''){
         const userConfirm =confirm(`Are You Sure To Add Following Item
         Item Name Is ${itemMaster.item_name}
+        Item Short Name Is ${itemMaster.item_short_name}
         Category Is ${itemMaster.item_category_master_id.item_category_name}
         Size Is ${itemMaster.item_size_id.name}
         Status Is ${itemMaster.item_master_status_id.name}
@@ -157,6 +170,8 @@ const refillItemMaster = (ob)=>{
     textItemCost.value=itemMaster.item_cost
     textItemPrice.value=itemMaster.item_price
     textDescription.value=itemMaster.item_description
+    textNumberOfPages.value=itemMaster.number_of_pages
+    textItemShortName.value=itemMaster.item_short_name
 
 
 
@@ -218,6 +233,12 @@ const checkUpdateItemMaster = ()=>{
     if (itemMaster.item_master_status_id.name != olditemMaster.item_master_status_id.name){
         updates=updates+"Status Is Changed \n"
     }
+    if (itemMaster.number_of_pages != olditemMaster.number_of_pages){
+        updates=updates+"Number Of Pages Are Changed \n"
+    }
+    if (itemMaster.item_short_name != olditemMaster.item_short_name){
+        updates=updates+"Short Name Is Changed \n"
+    }
 
     return updates;
 }
@@ -254,6 +275,7 @@ const updateItemMaster = ()=>{
 const deleteItemMaster = (ob)=>{
     const userConfirm = confirm(`Are You Sure To Delete Following Item
         Item Name Is ${ob.item_name}
+        Short Name Is ${ob.item_name}
         Category Is ${ob.item_category_master_id.item_category_name}
         Size Is ${ob.item_size_id.name}
         Status Is ${ob.item_master_status_id.name}
@@ -305,45 +327,56 @@ const printOneItem = (ob)=>{
 
         <tr>
             <td>Item Name</td>
-            <td>${ob.item_name=="null"?" ":ob.item_name}</td>
+            <td>${ob.item_name==null?" ":ob.item_name}</td>
         </tr>
 
         <tr>
+            <td>Item Name</td>
+            <td>${ob.item_short_name==null?" ":ob.item_short_name}</td>
+        </tr>
+
+
+        <tr>
             <td>Barcode</td>
-            <td>${ob.item_barcode=="null"?" ":ob.item_barcode}</td>
+            <td>${ob.item_barcode==null?" ":ob.item_barcode}</td>
         </tr>
 
 
         <tr>
             <td>Size</td>
-            <td>${ob.item_size_id.name}</td>
+            <td>${ob.item_size_id.name==null?" ":ob.item_size_id.name}</td>
+        </tr>
+        
+        <tr>
+            <td>Number Of Pages</td>
+            <td>${ob.number_of_pages==null? " ":ob.number_of_pages}</td>
         </tr>
         
         
         <tr>
             <td>Books In Pack</td>
-            <td>${ob.item_books_in_pack=="null"?" ":ob.item_books_in_pack}</td>
+            <td>${ob.item_books_in_pack==null?" ":ob.item_books_in_pack}</td>
         </tr>
         
         <tr>
             <td>Packs In Box</td>
-            <td>${ob.item_packs_in_box=="null"?" ":ob.item_packs_in_box}</td>
+            <td>${ob.item_packs_in_box==null?" ":ob.item_packs_in_box}</td>
         </tr>
         
         
         <tr>
             <td>Cost</td>
-            <td>${ob.item_cost=="null"?" ":ob.item_cost}</td>
+            <td>${ob.item_cost==null?" ":ob.item_cost}</td>
         </tr>
         
         <tr>
             <td>Cost</td>
-            <td>${ob.item_price=="null"?" ":ob.item_price}</td>
+            <td>${ob.item_price==null?" ":ob.item_price}</td>
         </tr>
         
         <tr>
             <td>Cost</td>
-            <td>${ob.item_master_status_id.name}</td>
+            <td>${ob.item_master_status_id.name==null?" ":ob.item_master_status_id.name}</td>
         </tr>
         
         </tbody>
@@ -404,7 +437,9 @@ const loadDataIntoTablePrint = ()=>{
     displayProperty = [
         {dataType:'function',propertyName:getCategoryNameForPrint},
         {dataType:'text',propertyName:'item_name'},
+        {dataType:'text',propertyName:'item_short_name'},
         {dataType:'function',propertyName:getItemSize},
+        {dataType:'function',propertyName:getNumberOfPages},
         {dataType:'function',propertyName:getItemCost},
         {dataType:'function',propertyName:getItemPrice},
         {dataType:'function',propertyName:getItemStatus},
@@ -426,8 +461,6 @@ const getCategoryNameForPrint = (ob)=>{
         return " "
     }
 }
-
-
 
 const getItemCost = (ob)=>{
     return `<p class="text-end" ">${Number(ob.item_cost).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`

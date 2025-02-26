@@ -31,7 +31,11 @@ public class ItemMaster {
     @Column(name = "item_barcode")
     private String item_barcode;
 
+    @Column(name = "item_short_name")
+    private String item_short_name;
 
+    @Column(name = "number_of_pages")
+    private BigDecimal number_of_pages;
 
     @Column(name = "item_books_in_pack")
     private BigDecimal item_books_in_pack;

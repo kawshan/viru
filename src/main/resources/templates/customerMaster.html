@@ -67,7 +67,7 @@
             </div>
             <div class="col-md-3">
                 <label for="textMobile" class="form-label fw-bold">Mobile <i class="text-danger fw-bold">*</i> </label>
-                <input type="text" id="textMobile" class="form-control text-start" placeholder="Enter Customer Mobile" onkeyup="textValidator(this,'','customerMaster','customer_mobile')">
+                <input type="text" id="textMobile" class="form-control text-start" placeholder="Enter Customer Mobile" onkeyup="textValidator(this,'^[0-9]{10}$','customerMaster','customer_mobile')">
             </div>
             <div class="col-md-3">
                 <label for="textEmail" class="form-label fw-bold">Email</label>
