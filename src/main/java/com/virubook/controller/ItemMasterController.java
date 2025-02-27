@@ -44,9 +44,9 @@ public class ItemMasterController {
 
             String maxItemMasterCode =itemMasterDao.findMaxItemMasterCode();
             if(maxItemMasterCode == null || maxItemMasterCode.equals(" ")){
-                itemMaster.setItem_code("IM0001");
+                itemMaster.setItem_key("IM0001");
             }else {
-                itemMaster.setItem_code(maxItemMasterCode);
+                itemMaster.setItem_key(maxItemMasterCode);
             }
 
 

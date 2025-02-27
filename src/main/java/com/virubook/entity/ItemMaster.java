@@ -19,6 +19,9 @@ public class ItemMaster {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "item_key")
+    private String item_key;
+
     @Column(name = "item_code")
     private String item_code;
 

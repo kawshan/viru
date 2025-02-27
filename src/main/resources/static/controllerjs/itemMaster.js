@@ -23,6 +23,7 @@ const refreshItemMasterForm = ()=>{
     selectItemStatus.style.border="2px solid #ced4da";
     textNumberOfPages.style.border="2px solid #ced4da";
     textItemShortName.style.border="2px solid #ced4da";
+    textItemCode.style.border="2px solid #ced4da";
 
 
 
@@ -36,6 +37,7 @@ const refreshItemMasterForm = ()=>{
     textDescription.value="";
     textNumberOfPages.value="";
     textItemShortName.value="";
+    textItemCode.value="";
 
 
 
@@ -172,6 +174,7 @@ const refillItemMaster = (ob)=>{
     textDescription.value=itemMaster.item_description
     textNumberOfPages.value=itemMaster.number_of_pages
     textItemShortName.value=itemMaster.item_short_name
+    textItemCode.value=itemMaster.item_code
 
 
 
@@ -238,6 +241,9 @@ const checkUpdateItemMaster = ()=>{
     }
     if (itemMaster.item_short_name != olditemMaster.item_short_name){
         updates=updates+"Short Name Is Changed \n"
+    }
+    if (itemMaster.item_code != olditemMaster.item_code){
+        updates=updates+"Code Is Changed \n"
     }
 
     return updates;
@@ -331,8 +337,14 @@ const printOneItem = (ob)=>{
         </tr>
 
         <tr>
-            <td>Item Name</td>
+            <td>Short Name</td>
             <td>${ob.item_short_name==null?" ":ob.item_short_name}</td>
+        </tr>
+        
+        
+        <tr>
+            <td>Item Code</td>
+            <td>${ob.item_code==null?" ":ob.item_code}</td>
         </tr>
 
 
@@ -375,7 +387,7 @@ const printOneItem = (ob)=>{
         </tr>
         
         <tr>
-            <td>Cost</td>
+            <td>Status</td>
             <td>${ob.item_master_status_id.name==null?" ":ob.item_master_status_id.name}</td>
         </tr>
         
