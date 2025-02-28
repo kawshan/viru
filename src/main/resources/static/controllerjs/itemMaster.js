@@ -76,7 +76,15 @@ const refreshItemMasterTable = ()=>{
         {dataType:'function',propertyName:getItemStatus},
     ];
 
+    // Check if DataTable is already initialized and destroy it
+    if ($.fn.DataTable.isDataTable("#tableItemMaster")) {
+        $("#tableItemMaster").DataTable().destroy();
+    }
+
+
     fillDataIntoTable2(tableItemMaster,itemMasterList,displayProperty,true,divModifyButton);
+    $("#tableItemMaster").dataTable();
+
     $("#tableItemMaster").dataTable();
 
 }
