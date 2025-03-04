@@ -95,6 +95,7 @@ const handelResetInvoiceMaster = ()=>{
     divModifyButton2.classList.add('d-none');
     divModifyButton3.classList.add('d-none');
     divInvoiceDetail.classList.add('d-none');
+    displayCustomerName.innerHTML=""
 }
 
 
@@ -231,6 +232,21 @@ const deleteInvoiceHeader = (ob)=>{
         refreshInvoiceMasterHeaderTable();
         divModifyButton2.classList.add('d-none');
     }
+}
+
+
+const showCustomerName = async (fieldId) =>{
+    console.log("hela");
+
+    console.log(fieldId.value);
+
+    const customerFromServer = await ajaxGetRequest(`/customer-master/getCustomerByMobile/${fieldId.value}`)
+    console.log(customerFromServer.customer_name);
+
+    displayCustomerName.innerHTML=""//issalama empty karala innawa
+    displayCustomerName.innerHTML=customerFromServer.customer_name;
+
+
 }
 
 
@@ -446,11 +462,32 @@ const deleteInvoiceDetail = (ob)=>{
 
 
 
+const calculateValue = (fieldId)=>{
+    let rate = Number(fieldId.value);
+    let quantity = Number(textQuantity.value);
+
+    const finalValue = rate* quantity;
+
+    textValue.value = finalValue;
+    textValue.style.border='2px solid green';
+    invoiceDetail.invoice_detail_value=textValue.value
+
+
+}
 
 
 
+const printInvoice = ()=>{
+    const newWindow = window.open();
+    newWindow.document.write(`
+    
+    `);
 
+    newWindow.stop();
+    newWindow.print();
+    newWindow.close();
 
+}
 
 
 
