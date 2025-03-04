@@ -32,7 +32,7 @@
 </div>
 <!--header area start-->
 
-
+<!--  invoice header area start  -->
 <div class="card p-4">
     <form onsubmit="return false">
 
@@ -161,6 +161,102 @@
 
     </form>
 </div>
+<!--  invoice header area end  -->
+
+
+<!--invoice detail area start-->
+<div>
+    <form onsubmit="return false">
+        <table class="table table-bordered">
+            
+            <tr>
+                
+                <td>
+                    <label for="selectItem" class="form-label fw-bold">Item</label>
+                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start" placeholder="Type & Search Item Short Code" onkeyup="dataListValidator2(this,'itemList','invoiceDetail','item_master_id','item_short_name')">
+                    <datalist id="dataListItem"></datalist>
+                </td>
+                
+                
+                <td>
+                    <label for="textQuantity" class="form-label fw-bold">Quantity</label>
+                    <input type="number" id="textQuantity" class="form-control text-start" placeholder="Enter Quantity" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_quantity')">
+                </td>
+
+
+                <td>
+                    <label for="textRate" class="form-label fw-bold">Rate</label>
+                    <input type="number" id="textRate" class="form-control text-start" placeholder="Enter Rate" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_rate')">
+                </td>
+
+                <td>
+                    <label for="textValue" class="form-label fw-bold">Value</label>
+                    <input type="number" id="textValue" class="form-control text-start" placeholder="Enter Value" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_value')">
+                </td>
+
+
+                <td class="text-end" style="padding-top: 20px">
+                    <button type="button" class="btn btn-lg btn-success" style="pointer-events: all" id="buttonInvoiceDetailAdd" onclick="submitInvoiceDetails()">Add</button>
+                    <button type="button" class="btn btn-lg btn-warning" style="pointer-events: all" id="buttonInvoiceDetailUpdate" onclick="updateInvoiceDetails()">Update</button>
+                </td>
+                
+                
+            </tr>
+            
+            
+        </table>
+    </form>
+
+
+    <div class="row">
+        <div class="col-md-5">
+            <!--                div modify button 2 start-->
+            <div id="divModifyButton3" class="d-none">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-warning fw-bold"
+                            style="width: 15%; color: whitesmoke; border: 1px solid black;"
+                            onclick="refillInvoiceDetails(window['editOb'],window['editRow'])">
+                        <i class="fa-solid fa-recycle fa-beat"></i> Refill
+                    </button>
+                    <button type="button" class="btn btn-danger fw-bold"
+                            style=" width: 15%; color: whitesmoke; border: 1px solid black; pointer-events: all"
+                            onclick="deleteInvoiceDetail(window['editOb'],window['editRow'])">
+                        <i class="fa-solid fa-trash fa-beat"></i> Delete
+                    </button>
+                    <button onclick="printStudent(window['editOb'],window['editRow'])" type="button"
+                            class="btn btn-primary fw-bold d-none"
+                            style=" width: 15%; color: whitesmoke;border: 1px solid black">
+                        <i class="fa-solid fa-eye fa-beat"></i> Print
+                    </button>
+                </div>
+            </div>
+            <!--                div modify button 2 end-->
+        </div>
+    </div>
+
+</div>
+<!--invoice detail area end-->
+
+
+<!--invoice details table area start-->
+<div class="d-none" id="divInvoiceDetail">
+<table class="table table-bordered" id="tableInvoiceDetail">
+    <thead>
+        <th>#</th>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>Value</th>
+        <th>Action</th>
+    </thead>
+    <tbody></tbody>
+</table>
+</div>
+<!--invoice details table area end-->
+
+
+
+
 
 
 
