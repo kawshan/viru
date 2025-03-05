@@ -38,7 +38,7 @@ const refreshInvoiceMasterHeaderForm = ()=>{
 
 
     customersList = ajaxGetRequest("/customer-master/findall")
-    fillDataIntoDataList(dataListCustomer,customersList,'customer_name');
+    fillDataIntoDataList(dataListCustomer,customersList,'customer_name','customer_mobile');
 
     getNextInvoiceNumber();
 }
@@ -99,6 +99,15 @@ const handelResetInvoiceMaster = ()=>{
     divModifyButton3.classList.add('d-none');
     divInvoiceDetail.classList.add('d-none');
     displayCustomerName.innerHTML=""
+    displayCustomerAddress.innerHTML=""
+
+
+
+    displayGrossValue.innerHTML="";
+    displayTotalDiscount.innerHTML="";
+    displayTotalNetValue.innerHTML="";
+    divGrossDiscountNet.classList.add('d-none')
+
 }
 
 
@@ -124,10 +133,6 @@ const checkErrorsInvoiceMasterHeader = ()=>{
         errors=errors+"Date Cannot Be Empty \n"
     }
 
-    if (invoiceHeader.invoice_header_discount == null){
-        errors=errors+"Discount Cannot Be Empty \n"
-    }
-
     return errors;
 }
 
@@ -146,7 +151,6 @@ const saveInvoiceHeader = async ()=>{
             Invoice Number Is ${invoiceHeader.invoice_header_number}
             Customer Mobile Is ${invoiceHeader.customer_master_id.customer_mobile}
             Invoice Date Is ${invoiceHeader.invoice_header_date}
-            Discount Is ${invoiceHeader.invoice_header_discount}
             `);
             if (userConfirm){
                 const postServerResponse = ajaxPostRequest("/invoice-header",invoiceHeader);
@@ -207,7 +211,7 @@ const refillInvoiceMaster = (ob)=>{
     invoiceHeader=JSON.parse(JSON.stringify(ob));
     oldinvoiceHeader=JSON.parse(JSON.stringify(ob));
 
-    selectCustomer.value=invoiceHeader.customer_master_id.customer_mobile
+    selectCustomer.value=invoiceHeader.customer_master_id.customer_name
     textInvoiceHeaderKey.value=invoiceHeader.invoice_header_key
     textInvoiceNO.value=invoiceHeader.invoice_header_number
     textInvoiceDate.value=invoiceHeader.invoice_header_date
@@ -219,6 +223,7 @@ const refillInvoiceMaster = (ob)=>{
     refreshInvoiceDetailsForm();
     refreshInvoiceDetailsTable();
 
+    showTotalNetDiscountAndGross();
 
 }
 
@@ -335,7 +340,7 @@ const getItemRate = (ob)=>{
 }
 
 const getItemDiscount = (ob)=>{
-    return `<p class="text-end">${ob.invoice_detail_discount}</p>`;
+    return `<p class="text-end">${ob.invoice_detail_discount==null?" ":ob.invoice_detail_discount}</p>`;
 }
 
 const getItemValue = (ob)=>{
@@ -385,6 +390,7 @@ const submitInvoiceDetails = ()=>{
                 alert(`Save Successful`);
                 refreshInvoiceDetailsForm();
                 refreshInvoiceDetailsTable();
+                showTotalNetDiscountAndGross();
             }else {
              alert(`Save Unsuccessful ${postServerResponse}`);
             }
@@ -412,6 +418,9 @@ const refillInvoiceDetails = (ob)=>{
 
     buttonInvoiceDetailUpdate.disabled=false;
     buttonInvoiceDetailUpdate.style.cursor="default";
+
+
+
 
 }
 
@@ -449,6 +458,7 @@ const updateInvoiceDetails = ()=>{
                 refreshInvoiceDetailsForm();
                 refreshInvoiceDetailsTable();
                 divModifyButton3.classList.add('d-none');
+                showTotalNetDiscountAndGross();
             }else {
                 alert(`Update Unsuccessful \n ${putServerResponse}`);
             }
@@ -476,6 +486,7 @@ const deleteInvoiceDetail = (ob)=>{
          refreshInvoiceDetailsForm();
          refreshInvoiceDetailsTable();
          divModifyButton3.classList.add('d-none');
+         showTotalNetDiscountAndGross();
      }else {
       alert(`Delete Unsuccessful \n ${deleteServerResponse}`);
      }
@@ -486,20 +497,62 @@ const deleteInvoiceDetail = (ob)=>{
 
 
 const calculateValue = (fieldId)=>{
-    let rate = Number(fieldId.value);
-    let quantity = Number(textQuantity.value);
-    let discount = Number()
-
-    const finalValue = rate* quantity;
-
-    textValue.value = finalValue;
-    textValue.style.border='2px solid green';
-    invoiceDetail.invoice_detail_value=textValue.value
 
 
+    
+    if (selectDiscount.value!=""){
+        let headerDiscount =selectDiscount.value;
+        let quantity = Number(textQuantity.value);
+        let rate = Number(fieldId.value);
+
+        let valueBeforeDiscount = quantity*rate;
+
+        let discountAmount = (valueBeforeDiscount/100)*headerDiscount;
+        let finalValue = valueBeforeDiscount-discountAmount;
+        console.log(`discounted amount ${discountAmount} from quantity ${quantity} and Rate ${rate} and total value before discount is ${valueBeforeDiscount} after discount is ${finalValue}`);
+
+
+        textDiscount.value= discountAmount;
+        textValue.value = finalValue;
+
+        textDiscount.style.border="2px solid green";
+        textValue.style.border="2px solid green";
+
+
+        invoiceDetail.invoice_detail_discount = textDiscount.value;
+        invoiceDetail.invoice_detail_value = textValue.value;
+    }else {
+        console.log(`discount is empty`);
+        let rate = Number(fieldId.value);
+        let quantity = Number(textQuantity.value);
+
+        const finalValue = rate* quantity;
+
+        textValue.value = finalValue;
+        textValue.style.border='2px solid green';
+        invoiceDetail.invoice_detail_value=textValue.value
+    }
 }
 
 
+const showTotalNetDiscountAndGross = ()=>{
+
+    const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${textInvoiceHeaderKey.value}`);
+    const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${textInvoiceHeaderKey.value}`);
+    const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${textInvoiceHeaderKey.value}`);
+
+    divGrossDiscountNet.classList.remove('d-none')
+
+    displayGrossValue.innerHTML="";
+    displayTotalDiscount.innerHTML="";
+    displayTotalNetValue.innerHTML="";
+
+    displayGrossValue.innerHTML=`${Number(getGrossFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}`
+    displayTotalDiscount.innerHTML=`${Number(getDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}`
+    displayTotalNetValue.innerHTML=`${Number(getTotalFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}`
+
+
+}
 
 const printInvoice = ()=>{
     const newWindow = window.open();

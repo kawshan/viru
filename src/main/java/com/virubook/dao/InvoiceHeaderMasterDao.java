@@ -1,7 +1,9 @@
 package com.virubook.dao;
 
 import com.virubook.entity.InvoiceHeaderMaster;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -25,6 +27,12 @@ public interface InvoiceHeaderMasterDao extends JpaRepository<InvoiceHeaderMaste
 
     @Query(value = "select max(invoice_header_number)+1 from invoice_header_master as next_invoice_Number;",nativeQuery = true)
     public String getNextInvoiceNumber();
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from invoice_detail where invoice_detail_header_key=?1;",nativeQuery = true)
+    public void deleteInvoiceDetailByInvoiceHeaderKey(String invoiceHeaderKey);
 
 
 }

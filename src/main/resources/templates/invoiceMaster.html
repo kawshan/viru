@@ -93,18 +93,27 @@
 
             <div class="col-md-2">
                 <label for="selectDiscount" class="form-label fw-bold">Discount</label>
-                <select id="selectDiscount" class="form-select text-start" onchange="selectValidator(this,'','invoiceHeader','invoice_header_discount')">
-                <option value="" selected disabled>Select An Option</option>
-                <option value="0">0</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                </select>
+                <input type="number" id="selectDiscount" class="form-control text-start" placeholder="Enter Discount Amount" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_discount')">
             </div>
 
 
-            <div class="col-md-2"></div>
+            <div class="col-md-2" style="margin-top: 130px; padding-left: 30px">
+                <div class="card d-none p-3" style="border: 1px solid black; width: 220px;" id="divGrossDiscountNet">
+                    <div class="d-flex justify-content-between">
+                        <span class="text-start">Gross Value</span>
+                        <span class="text-end" id="displayGrossValue"></span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-start">Total Discount</span>
+                        <span class="text-end" id="displayTotalDiscount"></span>
+                    </div>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span class="text-start">Net Value</span>
+                        <span class="text-end" id="displayTotalNetValue"></span>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="col-md-1">
                 <label for="textInvoiceHeaderKey" class="form-label fw-bold">Invoice code</label>
@@ -175,8 +184,16 @@
             </div>
 
         </div>
-
     </form>
+
+
+<!--  display total gross discount net start    -->
+
+<!--  display total gross discount net end    -->
+
+
+
+
 </div>
 <!--  invoice header area end  -->
 
@@ -207,8 +224,8 @@
                 </td>
 
                 <td>
-                    <label for="textDiscount" class="form-label fw-bold">Discount</label>
-                    <input type="number" id="textDiscount" class="form-control text-start" placeholder="Enter Discount Percentage" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_discount')">
+                    <label for="textDiscount" class="form-label fw-bold">Discounted Amount</label>
+                    <input type="number" id="textDiscount" class="form-control text-start" placeholder="Enter Discount Amount" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_discount')">
                 </td>
 
                 <td>
@@ -268,6 +285,7 @@
         <th>Item Name</th>
         <th>Quantity</th>
         <th>Rate</th>
+        <th>Discount</th>
         <th>Value</th>
         <th>Action</th>
     </thead>

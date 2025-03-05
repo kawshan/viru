@@ -57,5 +57,22 @@ public class InvoiceDetailController {
         return  invoiceDetailDao.getAllByInvoiceHeader(headerKey);
     }
 
+    @GetMapping(value = "/getGrossValue/{headerKey}")
+    public String getGrossValue(@PathVariable("headerKey")String headerKey){
+        return invoiceDetailDao.getGrossValue(headerKey);
+    }
+
+    @GetMapping(value = "/getTotalDiscount/{headerKey}")
+    public String getTotalDiscount(@PathVariable("headerKey")String headerKey){
+        return invoiceDetailDao.getTotalDiscount(headerKey);
+    }
+
+
+    @GetMapping(value = "/getNetValue/{headerKey}")
+    public String getNetValue(@PathVariable("headerKey")String headerKey){
+        return invoiceDetailDao.getNetValue(headerKey);
+    }
+
+
 
 }
