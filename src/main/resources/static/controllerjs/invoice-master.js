@@ -36,7 +36,7 @@ const refreshInvoiceMasterHeaderForm = ()=>{
 
 
     customersList = ajaxGetRequest("/customer-master/findall")
-    fillDataIntoDataList(dataListCustomer,customersList,'customer_mobile');
+    fillDataIntoDataList(dataListCustomer,customersList,'customer_name');
 
     getNextInvoiceNumber();
 }
@@ -266,11 +266,13 @@ const refreshInvoiceDetailsForm = ()=>{
     textQuantity.style.border=`2px solid #ced4da`;
     textRate.style.border=`2px solid #ced4da`;
     textValue.style.border=`2px solid #ced4da`;
+    textDiscount.style.border=`2px solid #ced4da`;
 
     selectItem.value="";
     textQuantity.value="";
     textRate.value="";
     textValue.value="";
+    textDiscount.value="";
 
 
     itemList = ajaxGetRequest("/item-master/findall")
@@ -296,6 +298,7 @@ const refreshInvoiceDetailsTable =  ()=>{
         {dataType:'function',propertyName:getItemName},
         {dataType:'function',propertyName:getItemQuantity},
         {dataType:'function',propertyName:getItemRate},
+        {dataType:'function',propertyName:getItemDiscount},
         {dataType:'function',propertyName:getItemValue},
     ];
 
@@ -313,6 +316,10 @@ const getItemQuantity = (ob)=>{
 
 const getItemRate = (ob)=>{
     return `<p class="text-end">${Number(ob.invoice_detail_rate).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+}
+
+const getItemDiscount = (ob)=>{
+    return `<p class="text-end">${ob.invoice_detail_discount}</p>`;
 }
 
 const getItemValue = (ob)=>{
@@ -465,6 +472,7 @@ const deleteInvoiceDetail = (ob)=>{
 const calculateValue = (fieldId)=>{
     let rate = Number(fieldId.value);
     let quantity = Number(textQuantity.value);
+    let discount = Number()
 
     const finalValue = rate* quantity;
 

@@ -73,6 +73,15 @@
                 <label for="textEmail" class="form-label fw-bold">Email</label>
                 <input type="text" id="textEmail" class="form-control text-start" placeholder="Enter Email" onkeyup="textValidator(this,'','customerMaster','customer_email')">
             </div>
+
+            <div class="col-md-3">
+                <label for="textCustomerAddress" class="form-label fw-bold">Address</label>
+                <input type="text" class="form-control text-start" id="textCustomerAddress" placeholder="Enter Customer Address" onkeyup="textValidator(this,'','customerMaster','customer_master_address')">
+            </div>
+
+        </div>
+
+        <div class="row mt-5">
             <div class="col-md-3">
                 <label for="selectStatus" class="form-label fw-bold">Status <i class="text-danger fw-bold">*</i> </label>
                 <select id="selectStatus" class="form-select text-start" onchange="selectValidator(this,'','customerMaster','customer_status')">
@@ -118,6 +127,7 @@
             <th>#</th>
             <th>Name</th>
             <th>Mobile</th>
+            <th>Address</th>
             <th>Email</th>
             <th>Status</th>
             <th>Action</th>

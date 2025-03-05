@@ -15,11 +15,13 @@ const refreshCustomerMasterForm = ()=>{
     textMobile.style.border="2px solid #ced4da";
     textEmail.style.border="2px solid #ced4da";
     selectStatus.style.border="2px solid #ced4da";
+    textCustomerAddress.style.border="2px solid #ced4da";
 
     textCustomerName.value="";
     textMobile.value="";
     textEmail.value="";
     selectStatus.value="";
+    textCustomerAddress.value="";
 
 
     buttonCustomerMasterUpdate.disabled=true;
@@ -39,6 +41,7 @@ const refreshCustomerMasterTable = ()=>{
     displayProperty=[
         {dataType:'text',propertyName:'customer_name'},
         {dataType:'text',propertyName:'customer_mobile'},
+        {dataType:'text',propertyName:'customer_master_address'},
         {dataType:'text',propertyName:'customer_email'},
         {dataType:'function',propertyName:getCustomerStatus},
     ];
@@ -105,6 +108,7 @@ const refillCustomerMaster = (ob)=>{
     textMobile.value=customerMaster.customer_mobile;
     textEmail.value=customerMaster.customer_email;
     selectStatus.value=customerMaster.customer_status;
+    textCustomerAddress.value=customerMaster.customer_master_address;
 
 
 
@@ -133,6 +137,9 @@ const checkUpdatesCustomerMaster = ()=>{
     }
     if (customerMaster.customer_status !=  oldcustomerMaster.customer_status){
         updates=updates+"Status Is Updated \n"
+    }
+    if (customerMaster.customer_master_address !=  oldcustomerMaster.customer_master_address){
+        updates=updates+"Address Is Updated \n"
     }
     return updates;
 }

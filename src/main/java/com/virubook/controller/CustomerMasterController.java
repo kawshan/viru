@@ -77,9 +77,9 @@ public class CustomerMasterController {
     }
 
 
-    @GetMapping(value = "/getCustomerByMobile/{mobile}")
-    public CustomerMaster getCustomerByMobile(@PathVariable("mobile") String mobile) {
-        return customerMasterDao.getCustomerMasterByCustomerMobile(mobile);
+    @GetMapping(value = "/getCustomerByMobile/{name}")
+    public CustomerMaster getCustomerByMobile(@PathVariable("name") String name) {
+        return customerMasterDao.getCustomerMasterByCustomerName(name);
     }
 
 

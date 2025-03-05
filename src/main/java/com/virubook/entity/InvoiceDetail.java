@@ -34,9 +34,16 @@ public class InvoiceDetail {
     @Column(name = "invoice_detail_value")
     private BigDecimal invoice_detail_value;
 
+
+    @Column(name = "invoice_detail_discount")
+    private BigDecimal invoice_detail_discount;
+
+
     @ManyToOne
     @JoinColumn(name = "item_master_id",referencedColumnName = "id")
     private ItemMaster item_master_id;
+
+
 
 
 

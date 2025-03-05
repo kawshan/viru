@@ -36,6 +36,9 @@ public class CustomerMaster {
     @Column(name = "customer_status")
     private Boolean customer_status;
 
+    @Column(name = "customer_master_address")
+    private String customer_master_address;
+
 
 
 
