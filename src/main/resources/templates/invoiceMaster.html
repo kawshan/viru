@@ -87,8 +87,24 @@
                 <input type="text" id="selectCustomer" list="dataListCustomer" class="form-control text-start" placeholder="Type & Search Customer" onkeyup="dataListValidator2(this,'customersList','invoiceHeader','customer_master_id','customer_name');" onchange="showCustomerName(this)">
                 <datalist id="dataListCustomer"></datalist>
                 <p id="displayCustomerName"></p>
+                <p id="displayCustomerAddress"></p>
             </div>
-            <div class="col-md-4"></div>
+
+
+            <div class="col-md-2">
+                <label for="selectDiscount" class="form-label fw-bold">Discount</label>
+                <select id="selectDiscount" class="form-select text-start" onchange="selectValidator(this,'','invoiceHeader','invoice_header_discount')">
+                <option value="" selected disabled>Select An Option</option>
+                <option value="0">0</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                </select>
+            </div>
+
+
+            <div class="col-md-2"></div>
 
             <div class="col-md-1">
                 <label for="textInvoiceHeaderKey" class="form-label fw-bold">Invoice code</label>

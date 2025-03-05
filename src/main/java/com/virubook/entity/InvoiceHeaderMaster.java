@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -33,6 +34,10 @@ public class InvoiceHeaderMaster {
 
     @Column(name = "invoice_header_dispatch_number")
     private String invoice_header_dispatch_number;
+
+    @Column(name = "invoice_header_discount")
+    private BigDecimal invoice_header_discount;
+
 
     @ManyToOne
     @JoinColumn(name = "customer_master_id",referencedColumnName = "id")

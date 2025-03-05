@@ -24,9 +24,11 @@ const refreshInvoiceMasterHeaderForm = ()=>{
     textInvoiceDate.style.border="2px solid #ced4da";
     textPoNumber.style.border="2px solid #ced4da";
     textDispatchKey.style.border="2px solid #ced4da";
+    selectDiscount.style.border="2px solid #ced4da";
 
 
 
+    selectDiscount.value="";
     selectCustomer.value="";
     textInvoiceHeaderKey.value="";
     textInvoiceNO.value="";
@@ -53,6 +55,7 @@ const getNextInvoiceNumber = ()=>{
 
 const changeColoursToDefault = ()=>{
     selectCustomer.style.border="2px solid #ced4da";
+    selectDiscount.style.border="2px solid #ced4da";
     textInvoiceHeaderKey.style.border="2px solid #ced4da";
     textInvoiceNO.style.border="2px solid #ced4da";
     textInvoiceDate.style.border="2px solid #ced4da";
@@ -120,6 +123,11 @@ const checkErrorsInvoiceMasterHeader = ()=>{
     if (invoiceHeader.invoice_header_date == null){
         errors=errors+"Date Cannot Be Empty \n"
     }
+
+    if (invoiceHeader.invoice_header_discount == null){
+        errors=errors+"Discount Cannot Be Empty \n"
+    }
+
     return errors;
 }
 
@@ -138,6 +146,7 @@ const saveInvoiceHeader = async ()=>{
             Invoice Number Is ${invoiceHeader.invoice_header_number}
             Customer Mobile Is ${invoiceHeader.customer_master_id.customer_mobile}
             Invoice Date Is ${invoiceHeader.invoice_header_date}
+            Discount Is ${invoiceHeader.invoice_header_discount}
             `);
             if (userConfirm){
                 const postServerResponse = ajaxPostRequest("/invoice-header",invoiceHeader);
@@ -204,6 +213,7 @@ const refillInvoiceMaster = (ob)=>{
     textInvoiceDate.value=invoiceHeader.invoice_header_date
     textPoNumber.value=invoiceHeader.invoice_header_po_number
     textDispatchKey.value=invoiceHeader.invoice_header_dispatch_number;
+    selectDiscount.value=invoiceHeader.invoice_header_discount;
 
 
     refreshInvoiceDetailsForm();
@@ -236,7 +246,9 @@ const deleteInvoiceHeader = (ob)=>{
 
 
 const showCustomerName = async (fieldId) =>{
-    console.log("hela");
+
+
+
 
     console.log(fieldId.value);
 
@@ -245,6 +257,10 @@ const showCustomerName = async (fieldId) =>{
 
     displayCustomerName.innerHTML=""//issalama empty karala innawa
     displayCustomerName.innerHTML=customerFromServer.customer_name;
+
+
+    displayCustomerAddress.innerHTML=""//issalama empty karala innawa
+    displayCustomerAddress.innerHTML=customerFromServer.customer_master_address;
 
 
 }
