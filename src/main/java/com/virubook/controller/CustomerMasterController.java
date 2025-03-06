@@ -40,7 +40,7 @@ public class CustomerMasterController {
             customerMaster.setCustomer_code(maxCustomerCode);
 
 
-            CustomerMaster existingCustomer = customerMasterDao.getCustomerMasterByCustomerNameAndCustomerMobile(customerMaster.getCustomer_name(),customerMaster.getCustomer_mobile());
+            CustomerMaster existingCustomer = customerMasterDao.getCustomerMasterByCustomerNameAndCustomerMobile(customerMaster.getCustomer_mobile());
             if (existingCustomer != null) {
                 return "customer is already exists";
             }
@@ -77,9 +77,9 @@ public class CustomerMasterController {
     }
 
 
-    @GetMapping(value = "/getCustomerByMobile/{name}")
-    public CustomerMaster getCustomerByMobile(@PathVariable("name") String name) {
-        return customerMasterDao.getCustomerMasterByCustomerName(name);
+    @GetMapping(value = "/getCustomerByMobile/{mobile}")
+    public CustomerMaster getCustomerByMobile(@PathVariable("mobile") String mobile) {
+        return customerMasterDao.getCustomerMasterByCustomerMobile(mobile);
     }
 
 

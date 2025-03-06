@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="selectCustomer" class="form-label fw-bold"> Customer <i class="text-danger">*</i></label>
-                <input type="text" id="selectCustomer" list="dataListCustomer" class="form-control text-start" placeholder="Type & Search Customer" onkeyup="dataListValidator2(this,'customersList','invoiceHeader','customer_master_id','customer_name');" onchange="showCustomerName(this)">
+                <input type="text" id="selectCustomer" list="dataListCustomer" class="form-control text-start" placeholder="Type & Search Customer" onkeyup="dataListValidatorWithTwoValues(this,'customersList','invoiceHeader','customer_master_id','customer_name','customer_mobile');" onchange="showCustomerName(this)">
                 <datalist id="dataListCustomer"></datalist>
                 <p id="displayCustomerName"></p>
                 <p id="displayCustomerAddress"></p>

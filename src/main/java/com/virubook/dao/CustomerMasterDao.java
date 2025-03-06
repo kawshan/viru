@@ -10,10 +10,10 @@ public interface CustomerMasterDao extends JpaRepository<CustomerMaster,Integer>
     public String getMaxCustomerCode();
 
 
-    @Query(value = "select cm from CustomerMaster cm where cm.customer_name=?1 and cm.customer_mobile=?2")
-    public CustomerMaster getCustomerMasterByCustomerNameAndCustomerMobile(String customerName, String customerMobile);
+    @Query(value = "select cm from CustomerMaster cm where cm.customer_mobile=?1")
+    public CustomerMaster getCustomerMasterByCustomerNameAndCustomerMobile(String customerMobile);
 
-    @Query(value = "select c from CustomerMaster c where c.customer_name=?1")
-    public CustomerMaster getCustomerMasterByCustomerName(String customerName);
+    @Query(value = "select c from CustomerMaster c where c.customer_mobile=?1")
+    public CustomerMaster getCustomerMasterByCustomerMobile(String customerMobile);
 
 }

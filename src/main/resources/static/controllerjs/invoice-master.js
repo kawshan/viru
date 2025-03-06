@@ -38,8 +38,8 @@ const refreshInvoiceMasterHeaderForm = ()=>{
 
 
     customersList = ajaxGetRequest("/customer-master/findall")
-    fillDataIntoDataList(dataListCustomer,customersList,'customer_name','customer_mobile');
-
+    // fillDataIntoDataList(dataListCustomer,customersList,'customer_name','customer_mobile');
+    fillDataIntoDataListWithTwoValues(dataListCustomer,customersList,'customer_name','customer_mobile')
     getNextInvoiceNumber();
 }
 
@@ -253,11 +253,15 @@ const deleteInvoiceHeader = (ob)=>{
 const showCustomerName = async (fieldId) =>{
 
 
+    const fieldValue = fieldId.value;
+    const numberPart =fieldValue.split(" ").pop();
+    console.log(`mobile number is ${numberPart}`);
+    console.log(numberPart);
 
 
     console.log(fieldId.value);
 
-    const customerFromServer = await ajaxGetRequest(`/customer-master/getCustomerByMobile/${fieldId.value}`)
+    const customerFromServer = await ajaxGetRequest(`/customer-master/getCustomerByMobile/${numberPart}`)
     console.log(customerFromServer.customer_name);
 
     displayCustomerName.innerHTML=""//issalama empty karala innawa
