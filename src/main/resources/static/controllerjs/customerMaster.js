@@ -46,6 +46,11 @@ const refreshCustomerMasterTable = ()=>{
         {dataType:'function',propertyName:getCustomerStatus},
     ];
 
+    if ($.fn.DataTable.isDataTable("#tableInvoiceDetail")){
+        $("#tableCustomerMaster").dataTable().destroy();
+    }
+
+
     fillDataIntoTable2(tableCustomerMaster,customersList,displayProperty,true,divModifyButton)
     $("#tableCustomerMaster").dataTable();
 }

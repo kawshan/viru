@@ -327,7 +327,12 @@ const refreshInvoiceDetailsTable =  ()=>{
         {dataType:'function',propertyName:getItemValue},
     ];
 
+    if ($.fn.DataTable.isDataTable("#tableInvoiceDetail")){
+        $("#tableInvoiceDetail").dataTable().destroy();
+    }
+
     fillDataIntoTable2(tableInvoiceDetail,invoiceDetailsList,displayProperty,true,divModifyButton3)
+    $("#tableInvoiceDetail").dataTable();
 }
 
 
@@ -336,19 +341,19 @@ const getItemName = (ob)=>{
 }
 
 const getItemQuantity = (ob)=>{
-    return `<p class="text-end">${Number(ob.invoice_detail_quantity).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+    return `<p style="padding-top: 2px; margin-bottom: -2px" class="text-end">${Number(ob.invoice_detail_quantity).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
 }
 
 const getItemRate = (ob)=>{
-    return `<p class="text-end">${Number(ob.invoice_detail_rate).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+    return `<p style="padding-top: 2px; margin-bottom: -2px" class="text-end">${Number(ob.invoice_detail_rate).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
 }
 
 const getItemDiscount = (ob)=>{
-    return `<p class="text-end">${ob.invoice_detail_discount==null?" ":ob.invoice_detail_discount}</p>`;
+    return `<p style="padding-top: 2px; margin-bottom: -2px" class="text-end">${ob.invoice_detail_discount==null?" ":Number(ob.invoice_detail_discount).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
 }
 
 const getItemValue = (ob)=>{
-    return `<p class="text-end">${Number(ob.invoice_detail_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+    return `<p style="padding-top: 2px; margin-bottom: -2px" class="text-end">${Number(ob.invoice_detail_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
 }
 
 
@@ -558,20 +563,173 @@ const showTotalNetDiscountAndGross = ()=>{
 
 }
 
-const printInvoice = ()=>{
+const printInvoice =async (ob)=>{
+
+    await fillDataIntoInvoicePrint(ob.invoice_header_key);
+
+    await getGrossDiscountNetValuesForTablePrint(ob.invoice_header_key);
+
+
     const newWindow = window.open();
     newWindow.document.write(`
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Print</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
+    <style>
+        #tableInvoiceDetailPrint td,
+        #tableInvoiceDetailPrint th {
+            height: 5px !important;
+            padding: 1px !important;
+            vertical-align: middle !important;
+        }
+
+        /* Override the header and footer styles */
+        #tableInvoiceDetailPrint th {
+            height: auto !important;  /* Restore the height for the header */
+            padding: 10px !important; /* Add some padding for the header */
+            font-size: 11px !important; /* Adjust font size if needed */
+        }
+
+        #tableInvoiceDetailPrint tfoot td {
+            height: 5px !important;  /* Ensure footer cells have normal height */
+            padding: 5px !important; /* Add padding to footer cells */
+        }
+    </style>
+    
+    
+</head>
+<body style="font-family: Verdana">
+
+
+<div style=" margin-top: 1cm">
+
+    <div class="row" style="margin-bottom: 0; padding-bottom: 0">
+        <div class="col-6"></div>
+        <div class="col-4 text-end">
+            <p style="font-size: 14px; font-weight: bold;">Invoice</p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card" style="border: 1px solid black">
+                <p style="font-size: 11px; padding-left: 5px; padding-top: 3px">${ob.customer_master_id.customer_name}</p>
+                <p style="font-size: 11px; padding-left: 5px">${ob.customer_master_id.customer_master_address==null?" ":ob.customer_master_id.customer_master_address}</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <table class="table table-bordered" style="font-size: 11px; border: 1px solid black; line-height: 6px">
+                <tr>
+                    <td>Invoice No</td>
+                    <td class="text-end">${ob.invoice_header_key}</td>
+                </tr>
+
+                <tr>
+                    <td>Date</td>
+                    <td class="text-end">${new Date(ob.invoice_header_date).toLocaleString('en-GB',{year:"numeric",month:"2-digit",day:"2-digit"})}</td>
+                </tr>
+
+
+                <tr>
+                    <td>PO No</td>
+                    <td class="text-end">${ob.invoice_header_po_number==null? " ":ob.invoice_header_po_number}</td>
+                </tr>
+
+                <tr>
+                    <td>Dispatch No</td>
+                    <td class="text-end">${ob.invoice_header_dispatch_number==null? " ":ob.invoice_header_dispatch_number}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+<div style="margin-top: -10px; margin-left: 3px; margin-right: 5px">
+${tableInvoiceDetailPrint.outerHTML}
+</div>
+
+<div style="position: absolute; width: 100%; bottom: 1cm; font-size: 11px;">
+<div class="row">
+    <div class="col-2 text-start">
+        <p style="margin: 0 0 0 0">___________</p>
+        <p class="text-start">prepared by</p>
+    </div>
+    <div class="col-2 text-start">
+        <p style="margin: 0 0 0 0">___________</p>
+        <p class="text-start">Checked By</p>
+    </div>
+    <div class="col-3 text-start">
+        <p style="margin: 0 0 0 0">___________</p>
+        <p class="text-start">Customer Signature</p>
+    </div>
+    <div class="col-5"></div>
+</div>
+</div>
+
+
+
+</body>
+</html>
     `);
 
     newWindow.stop();
     newWindow.print();
     newWindow.close();
+    divModifyButton2.classList.add('d-none');
 
 }
 
 
 
+const fillDataIntoInvoicePrint = (headerKey)=>{
+
+    invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${headerKey}`)
+
+    const displayProperty=[
+        {dataType:'function',propertyName:getItemNameForPrint},
+        {dataType:'function',propertyName:getItemQuantity},
+        {dataType:'function',propertyName:getItemRate},
+        {dataType:'function',propertyName:getItemDiscount},
+        {dataType:'function',propertyName:getItemValue},
+    ];
+
+    fillDataIntoTable2(tableInvoiceDetailPrint,invoiceDetailsList,displayProperty,false)
+
+
+
+}
+
+const getItemNameForPrint = (ob)=>{
+    return `<p class="text-start" style="padding-top: 3px; padding-bottom: -1px">${ob.item_master_id.item_name}</p>`
+}
+
+
+const getGrossDiscountNetValuesForTablePrint = (headerKey)=>{
+    const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${headerKey}`);
+    const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${headerKey}`);
+    const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
+
+
+    tdGrossValue.innerHTML=""
+    tdDiscountValue.innerHTML=""
+    tdNetValue.innerHTML=""
+
+    tdGrossValue.innerHTML=Number(getGrossFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
+    tdDiscountValue.innerHTML=Number(getDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
+    tdNetValue.innerHTML=Number(getTotalFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
+
+
+
+
+
+}
 
 
 

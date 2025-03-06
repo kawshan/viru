@@ -23,6 +23,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <!--    jquery cdn end-->
 
+
 </head>
 <body>
 
@@ -55,7 +56,7 @@
                                 onclick="deleteInvoiceHeader(window['editOb'],window['editRow'])">
                             <i class="fa-solid fa-trash fa-beat"></i> Delete
                         </button>
-                        <button onclick="printStudent(window['editOb'],window['editRow'])" type="button"
+                        <button onclick="printInvoice(window['editOb'],window['editRow'])" type="button"
                                 class="btn btn-primary fw-bold"
                                 style=" width: 15%; color: whitesmoke;border: 1px solid black">
                             <i class="fa-solid fa-eye fa-beat"></i> Print
@@ -199,7 +200,7 @@
 
 
 <!--invoice detail area start-->
-<div>
+<div class="p-4">
     <form onsubmit="return false">
         <table class="table table-bordered">
             
@@ -278,7 +279,7 @@
 
 
 <!--invoice details table area start-->
-<div class="d-none" id="divInvoiceDetail">
+<div class="d-none p-4" id="divInvoiceDetail">
 <table class="table table-bordered" id="tableInvoiceDetail">
     <thead>
         <th>#</th>
@@ -293,28 +294,6 @@
 </table>
 </div>
 <!--invoice details table area end-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--search model area start-->
@@ -349,6 +328,46 @@
     </div>
 </div>
 <!--search model area end-->
+
+
+
+
+
+<!--invoice details table area start-->
+<div id="divInvoiceDetailsTableAreaPrint" class="d-none">
+    <table class="table table-bordered" style="border: 1px solid black; line-height: 5px; font-family: Verdana; font-size: 11px" id="tableInvoiceDetailPrint">
+        <thead style="line-height: 10px">
+        <th>#</th>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>Discount</th>
+        <th>Amount</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot style="line-height: 5px;">
+        <tr><td class="justify-content-between" colspan="5">Gross Value</td> <td class="text-end" id="tdGrossValue"></td> </tr>
+        <tr><td class="justify-content-between" colspan="5">Total Discount</td> <td class="text-end" id="tdDiscountValue"></td> </tr>
+        <tr><td class="justify-content-between" colspan="5">Net Value</td> <td class="text-end" id="tdNetValue"></td> </tr>
+        </tfoot>
+    </table>
+</div>
+<!--invoice details table area end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </body>

@@ -9,7 +9,7 @@ import java.util.List;
 public interface InvoiceDetailDao extends JpaRepository<InvoiceDetail,Integer> {
 
 
-    @Query(value = "select ind from InvoiceDetail ind where ind.invoice_detail_header_key=?1")
+    @Query(value = "select ind from InvoiceDetail ind where ind.invoice_detail_header_key=?1 order by ind.id desc ")
     public List<InvoiceDetail> getAllByInvoiceHeader(String headerKey);
 
     @Query(value = "select sum(invoice_detail_rate*invoice_detail_quantity) as gross_value from invoice_detail  where invoice_detail_header_key=?1",nativeQuery = true)
