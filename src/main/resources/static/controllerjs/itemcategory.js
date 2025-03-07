@@ -38,6 +38,10 @@ const refreshItemCategoryMasterTable = ()=>{
         {dataType:'function',propertyName:getItemCategoryStatus }
     ];
 
+    if ($.fn.DataTable.isDataTable("#tableItemCategory")){
+        $("#tableItemCategory").DataTable.destroy();
+    }
+
 
     fillDataIntoTable2(tableItemCategory,itemCategoriesList,displayProperty,true,divModifyButton);
     $("#tableItemCategory").dataTable();

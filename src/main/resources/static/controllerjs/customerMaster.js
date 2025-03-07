@@ -47,7 +47,7 @@ const refreshCustomerMasterTable = ()=>{
     ];
 
     if ($.fn.DataTable.isDataTable("#tableInvoiceDetail")){
-        $("#tableCustomerMaster").dataTable().destroy();
+        $("#tableCustomerMaster").DataTable().destroy();
     }
 
 

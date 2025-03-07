@@ -328,7 +328,7 @@ const refreshInvoiceDetailsTable =  ()=>{
     ];
 
     if ($.fn.DataTable.isDataTable("#tableInvoiceDetail")){
-        $("#tableInvoiceDetail").dataTable().destroy();
+        $("#tableInvoiceDetail").DataTable().destroy();
     }
 
     fillDataIntoTable2(tableInvoiceDetail,invoiceDetailsList,displayProperty,true,divModifyButton3)
@@ -583,8 +583,8 @@ const printInvoice =async (ob)=>{
     <style>
         #tableInvoiceDetailPrint td,
         #tableInvoiceDetailPrint th {
-            height: 5px !important;
-            padding: 1px !important;
+            height: 10px !important;
+            padding: 10px !important;
             vertical-align: middle !important;
         }
 
@@ -595,13 +595,43 @@ const printInvoice =async (ob)=>{
             font-size: 11px !important; /* Adjust font size if needed */
         }
 
-        #tableInvoiceDetailPrint tfoot td {
-            height: 5px !important;  /* Ensure footer cells have normal height */
-            padding: 5px !important; /* Add padding to footer cells */
+        /*#tableInvoiceDetailPrint tfoot td {*/
+        /*    height: 5px !important;  !* Ensure footer cells have normal height *!*/
+        /*    padding:5px 10px 5px 5px !important; !* Add padding to footer cells *!*/
+        /*}*/
+        
+        #labelGross{
+        border: 2px solid white; border-right: 1px solid black; border-top: 1px solid black; text-align: right; !important;
         }
+        #labelTotal{
+        border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
+        }
+        #labelNet{
+        border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
+        }
+        
+        
+        #tdGrossValue{
+        text-align: right;
+        }
+        #tdDiscountValue{
+        text-align: right;
+        }
+        #tdNetValue{
+        text-align: right;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </style>
-    
-    
 </head>
 <body style="font-family: Verdana">
 
@@ -707,7 +737,7 @@ const fillDataIntoInvoicePrint = (headerKey)=>{
 }
 
 const getItemNameForPrint = (ob)=>{
-    return `<p class="text-start" style="padding-top: 3px; padding-bottom: -1px">${ob.item_master_id.item_name}</p>`
+    return `<p class="text-start" style=" padding-top: 2px; margin-bottom: -2px">${ob.item_master_id.item_name}</p>`
 }
 
 
