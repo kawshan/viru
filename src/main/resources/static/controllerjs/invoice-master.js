@@ -581,24 +581,21 @@ const printInvoice =async (ob)=>{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <style>
-        #tableInvoiceDetailPrint td,
         #tableInvoiceDetailPrint th {
             height: 10px !important;
             padding: 10px !important;
             vertical-align: middle !important;
+            border-top: 1px solid black;
         }
-
-        /* Override the header and footer styles */
-        #tableInvoiceDetailPrint th {
-            height: auto !important;  /* Restore the height for the header */
-            padding: 10px !important; /* Add some padding for the header */
-            font-size: 11px !important; /* Adjust font size if needed */
-        }
-
-        /*#tableInvoiceDetailPrint tfoot td {*/
-        /*    height: 5px !important;  !* Ensure footer cells have normal height *!*/
-        /*    padding:5px 10px 5px 5px !important; !* Add padding to footer cells *!*/
-        /*}*/
+        
+        
+#tableInvoiceDetailPrint tbody td {
+    height: 10px !important;
+    padding: 10px !important;
+    vertical-align: middle !important;
+    border-top: 1px solid lightgray;
+}
+        
         
         #labelGross{
         border: 2px solid white; border-right: 1px solid black; border-top: 1px solid black; text-align: right; !important;
