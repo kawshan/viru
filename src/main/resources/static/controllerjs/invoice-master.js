@@ -1,14 +1,16 @@
 window.addEventListener('load',function (){
 
+    refreshInvoiceDetailsForm();
+
+
     refreshInvoiceMasterHeaderForm();
 
 
     refreshInvoiceMasterHeaderTable();
 
-    refreshInvoiceDetailsForm();
 
-    buttonInvoiceDetailAdd.disabled=true;
-    buttonInvoiceDetailAdd.style.cursor='not-allowed';
+
+
 
 
 })
@@ -41,6 +43,9 @@ const refreshInvoiceMasterHeaderForm = ()=>{
     // fillDataIntoDataList(dataListCustomer,customersList,'customer_name','customer_mobile');
     fillDataIntoDataListWithTwoValues(dataListCustomer,customersList,'customer_name','customer_mobile')
     getNextInvoiceNumber();
+
+    buttonInvoiceDetailAdd.disabled=true;
+    buttonInvoiceDetailAdd.style.cursor='not-allowed';
 }
 
 

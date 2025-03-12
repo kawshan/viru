@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@Table
+@Table(name = "production_header")
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductionHeader {
