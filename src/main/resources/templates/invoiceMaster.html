@@ -208,7 +208,8 @@
                 
                 <td>
                     <label for="selectItem" class="form-label fw-bold">Item</label>
-                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start" placeholder="Type & Search Item Short Code" onkeyup="dataListValidator2(this,'itemList','invoiceDetail','item_master_id','item_short_name')">
+<!--                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start" placeholder="Type & Search Item Short Code" onkeyup="dataListValidator2(this,'itemList','invoiceDetail','item_master_id','item_short_name')">-->
+                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start" placeholder="Type & Search Item Short Code" onkeyup="dataListValidatorWithThreeValues(this,'itemList','invoiceDetail','item_master_id','item_short_name','item_code','item_barcode')">
                     <datalist id="dataListItem"></datalist>
                 </td>
                 

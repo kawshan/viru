@@ -69,6 +69,8 @@ const dataListValidator2 = (fieldId,dataListName,object,property,displayProperty
     }
 };
 
+
+
 const dataListValidatorWithTwoValues = (fieldId,dataListName,object,property,displayPropertyOne,displayPropertyTwo)=>{
     const fieldValue = fieldId.value;
     if (fieldId !==""){
@@ -97,8 +99,31 @@ const dataListValidatorWithTwoValues = (fieldId,dataListName,object,property,dis
 }
 
 
+const dataListValidatorWithThreeValues = (fieldId, dataListName,object,property,displayPropertyOne,displayPropertyTwo,displayPropertyThree)=>{
 
+    const fieldValue = fieldId.value;
+    if (fieldId !==""){
+        let dataList = window[dataListName];
+        let extIndex = -1;
 
+        for (const index in dataList){
+            if (fieldValue == dataList[index][displayPropertyOne]+ " "+ dataList[index][displayPropertyTwo]+" "+dataList[index][displayPropertyThree]){
+                extIndex=index;
+                break;
+            }
+        }
+        if (extIndex!=-1){
+            window[object][property] = dataList[extIndex];
+            fieldId.style.border=`2px solid green`;
+        }else {
+            window[object][property] = null;
+            fieldId.style.border=`2px solid red`
+        }
+    }else {
+        window[object][property] = null;
+        fieldId.style.border = fieldId.required ? `2px solid red` : `2px solid ced4da`;
+    }
+}
 
 
 

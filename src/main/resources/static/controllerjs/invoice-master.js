@@ -306,7 +306,7 @@ const refreshInvoiceDetailsForm = ()=>{
 
 
     itemList = ajaxGetRequest("/item-master/findall")
-    fillDataIntoDataList(dataListItem,itemList,'item_short_name');
+    fillDataIntoDataListWithThreeValues(dataListItem,itemList,'item_short_name','item_code','item_barcode');
 
 
     buttonInvoiceDetailAdd.disabled=false;

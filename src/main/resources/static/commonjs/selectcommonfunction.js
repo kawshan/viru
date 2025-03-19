@@ -43,6 +43,23 @@ const fillDataIntoDataListWithTwoValues = (fieldId,dataList,property,propertyTwo
 
 
 
+const fillDataIntoDataListWithThreeValues = (fieldId, dataList, propertyOne, propertyTwo, propertyThree)=>{
+    console.log(`fill`);
+    fieldId.innerHTML='';
+
+    for (const ob of dataList){
+        let option = document.createElement('option');
+        option.value = ob[propertyOne]+ " "+ob[propertyTwo]+" "+ob[propertyThree];
+        fieldId.appendChild(option);
+    }
+
+
+
+
+}
+
+
+
 
 
 
