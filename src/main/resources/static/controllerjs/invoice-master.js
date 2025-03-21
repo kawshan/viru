@@ -766,7 +766,27 @@ const getGrossDiscountNetValuesForTablePrint = (headerKey)=>{
 
 
 
+const readBarcode = (fieldId)=>{
+    if (RegExp('^[0-9]{13}$').test(fieldId.value)){
 
+        const serverResponse = ajaxGetRequest(`/item-master/getFromBarCode/${fieldId.value}`);
+
+        //showing on front end
+        textRate.value=serverResponse.item_price
+
+
+        //binding on js object
+        invoiceDetail.item_master_id = serverResponse;
+        invoiceDetail.invoice_detail_rate = serverResponse.item_price;
+
+        //style the border
+        selectItem.style.border="2px solid purple"
+
+
+    }else {
+    //no logic here
+    }
+}
 
 
 

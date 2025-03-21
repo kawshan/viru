@@ -39,6 +39,10 @@ public class CustomerMaster {
     @Column(name = "customer_master_address")
     private String customer_master_address;
 
+    @ManyToOne
+    @JoinColumn(name = "school_master_id", referencedColumnName = "id")
+    private SchoolMaster school_master_id;
+
 
 
 

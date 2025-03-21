@@ -22,4 +22,6 @@ public interface InvoiceDetailDao extends JpaRepository<InvoiceDetail,Integer> {
     public String getNetValue(String headerKey);
 
 
+
+
 }

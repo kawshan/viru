@@ -6,6 +6,7 @@ import com.virubook.entity.ItemMaster;
 import com.virubook.entity.ItemMasterStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -82,11 +83,18 @@ public class ItemMasterController {
     }
 
 
-    //why we defined this because of we need to divide item master print into category wise
+    //why we defined this because we need to divide item master print into category wise
     @GetMapping(value = "/item-list-for-print")
     public List<ItemMaster> listAllItemMasterForPrint(){
         return itemMasterDao.listItemsForItemMasterPrint();
     }
+
+
+    @GetMapping(value = "/getFromBarCode/{barcode}")
+    public ItemMaster getFromBarCode(@PathVariable("barcode") String barcode){
+        return itemMasterDao.findByBarcode(barcode);
+    }
+
 
 
 

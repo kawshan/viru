@@ -17,4 +17,7 @@ public interface ItemMasterDao extends JpaRepository<ItemMaster,Integer> {
     @Query(value = "select im from ItemMaster im order by im.item_category_master_id.item_category_name asc")
     public List<ItemMaster> listItemsForItemMasterPrint();
 
+    @Query(value = "select im from ItemMaster im where im.item_barcode=?1")
+    public ItemMaster findByBarcode(String barcode);
+
 }
