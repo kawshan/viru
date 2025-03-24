@@ -44,6 +44,10 @@ public class CustomerMaster {
     private SchoolMaster school_master_id;
 
 
+    @Column(name = "customer_master_school_index_no")
+    private String customer_master_school_index_no;
+
+
 
 
 }

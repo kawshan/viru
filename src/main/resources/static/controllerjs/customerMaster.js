@@ -16,13 +16,18 @@ const refreshCustomerMasterForm = ()=>{
     textEmail.style.border="2px solid #ced4da";
     selectStatus.style.border="2px solid #ced4da";
     textCustomerAddress.style.border="2px solid #ced4da";
+    selectSchool.style.border="2px solid #ced4da";
+    textIndexNumber.style.border="2px solid #ced4da";
 
     textCustomerName.value="";
     textMobile.value="";
     textEmail.value="";
     selectStatus.value="";
     textCustomerAddress.value="";
+    textIndexNumber.value="";
 
+    schoolList= ajaxGetRequest("/school-master/findAll");
+    fillDataIntoSelect(selectSchool,'Select School',schoolList,'school_master_name');
 
     buttonCustomerMasterUpdate.disabled=true;
     buttonCustomerMasterUpdate.style.cursor="not-allowed"
@@ -114,6 +119,11 @@ const refillCustomerMaster = (ob)=>{
     textEmail.value=customerMaster.customer_email;
     selectStatus.value=customerMaster.customer_status;
     textCustomerAddress.value=customerMaster.customer_master_address;
+    textIndexNumber.value=customerMaster.customer_master_school_index_no;
+
+    fillDataIntoSelect(selectSchool,'Select School',schoolList,'school_master_name',customerMaster.school_master_id.school_master_name);
+
+
 
 
 
@@ -146,6 +156,15 @@ const checkUpdatesCustomerMaster = ()=>{
     if (customerMaster.customer_master_address !=  oldcustomerMaster.customer_master_address){
         updates=updates+"Address Is Updated \n"
     }
+
+    if (customerMaster.school_master_id.school_master_name != oldcustomerMaster.school_master_id.school_master_name){
+        updates=updates+"School Is Updated \n"
+    }
+
+    if (customerMaster.customer_master_school_index_no != oldcustomerMaster.customer_master_school_index_no){
+        updates=updates+"Index number is Updated \n"
+    }
+
     return updates;
 }
 

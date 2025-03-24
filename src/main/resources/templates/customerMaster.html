@@ -82,6 +82,19 @@
         </div>
 
         <div class="row mt-5">
+
+            <div class="col-md-3">
+                <label for="selectSchool" class="form-label fw-bold">School</label>
+                <select id="selectSchool" class="form-select text-start" onchange="selectDBValidator(this,'','customerMaster','school_master_id')"></select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="textIndexNumber" class="form-label fw-bold">Index Number</label>
+                <input type="text" id="textIndexNumber" class="form-control text-start" placeholder="Enter Index Number" onkeyup="textValidator(this,'^[0-9]{3,20}$','customerMaster','customer_master_school_index_no')">
+            </div>
+
+
+
             <div class="col-md-3">
                 <label for="selectStatus" class="form-label fw-bold">Status <i class="text-danger fw-bold">*</i> </label>
                 <select id="selectStatus" class="form-select text-start" onchange="selectValidator(this,'','customerMaster','customer_status')">
