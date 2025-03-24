@@ -1,9 +1,6 @@
 package com.virubook.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class SchoolMaster {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -40,6 +38,8 @@ public class SchoolMaster {
     @Column(name = "school_master_email")
     private String school_master_email;
 
+    @Column(name = "school_master_status")
+    private Boolean school_master_status;
 
 
 
