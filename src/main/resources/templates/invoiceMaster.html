@@ -83,9 +83,9 @@
 
 
         <div class="row">
-            <div class="col-md-3">
-                <label for="selectCustomer" class="form-label fw-bold"> Customer <i class="text-danger">*</i></label>
-                <input type="text" id="selectCustomer" list="dataListCustomer" class="form-control text-start" placeholder="Type & Search Customer" onkeyup="dataListValidatorWithTwoValues(this,'customersList','invoiceHeader','customer_master_id','customer_name','customer_mobile');" onchange="showCustomerName(this)">
+            <div class="col-md-2">
+                <label for="selectCustomer" class="form-label"> Customer <i class="text-danger">*</i></label>
+                <input type="text" id="selectCustomer" list="dataListCustomer" class="form-control text-start fw-bold" style="height: 60px" placeholder="Type & Search Customer" onkeyup="dataListValidatorWithTwoValues(this,'customersList','invoiceHeader','customer_master_id','customer_name','customer_mobile');" onchange="showCustomerName(this)">
                 <datalist id="dataListCustomer"></datalist>
                 <p id="displayCustomerName"></p>
                 <p id="displayCustomerAddress"></p>
@@ -93,8 +93,8 @@
 
 
             <div class="col-md-2">
-                <label for="selectDiscount" class="form-label fw-bold">Discount</label>
-                <input type="number" id="selectDiscount" class="form-control text-start" placeholder="Enter Discount Amount" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_discount')">
+                <label for="selectDiscount" class="form-label">Discount</label>
+                <input type="number" id="selectDiscount" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter Discount Amount" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_discount')">
             </div>
 
 
@@ -117,11 +117,12 @@
 
 
             <div class="col-md-1">
-                <label for="textInvoiceHeaderKey" class="form-label fw-bold">Invoice code</label>
-                <input type="text" class="form-control" id="textInvoiceHeaderKey" disabled>
+                <label for="textInvoiceHeaderKey" class="form-label">Invoice code</label>
+                <input type="text" class="form-control fw-bold" style="height: 60px" id="textInvoiceHeaderKey" disabled>
             </div>
 
 
+            <div class="col-md-1"></div>
 
 
             <div class="col-md-4">
@@ -132,12 +133,12 @@
                     <!--                first row-->
                     <tr>
                         <td>
-                            <label for="textInvoiceNO" class="form-label fw-bold"> Invoice Number <i
+                            <label for="textInvoiceNO" class="form-label"> Invoice Number <i
                                     class="text-danger">*</i> </label>
                         </td>
                         <td>
-                            <input type="text" id="textInvoiceNO" class="form-control text-start"
-                                   placeholder="Enter Invoice Number" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_number')">
+                            <input type="text" id="textInvoiceNO" class="form-control text-start fw-bold"
+                                   placeholder="Enter Invoice Number" style="height: 60px" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_number')">
                         </td>
                     </tr>
                     <!--                first row-->
@@ -146,11 +147,11 @@
                     <!--                second row-->
                     <tr>
                         <td>
-                            <label for="textInvoiceDate" class="form-label fw-bold">Invoice Date <i class="text-danger">*</i> </label>
+                            <label for="textInvoiceDate" class="form-label">Invoice Date <i class="text-danger">*</i> </label>
 
                         </td>
                         <td>
-                            <input type="date" id="textInvoiceDate" class="form-control" placeholder="Enter Invoice Date" onchange="textValidator(this,'','invoiceHeader','invoice_header_date')">
+                            <input type="date" id="textInvoiceDate" class="form-control fw-bold" style="height: 60px" placeholder="Enter Invoice Date" onchange="textValidator(this,'','invoiceHeader','invoice_header_date')">
                         </td>
                     </tr>
                     <!--                second row-->
@@ -159,10 +160,10 @@
                     <!--                third row-->
                     <tr>
                         <td>
-                            <label for="textPoNumber" class="form-label fw-bold"> PO Number  </label>
+                            <label for="textPoNumber" class="form-label"> PO Number  </label>
                         </td>
                         <td>
-                            <input type="text" id="textPoNumber" class="form-control text-start" placeholder="Enter PO Number" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_po_number');">
+                            <input type="text" id="textPoNumber" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter PO Number" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_po_number');">
                         </td>
                     </tr>
                     <!--                third row-->
@@ -171,10 +172,10 @@
                     <!--                forth row-->
                     <tr>
                         <td>
-                            <label for="textDispatchKey" class="form-label fw-bold">Dispatch Number</label>
+                            <label for="textDispatchKey" class="form-label">Dispatch Number</label>
                         </td>
                         <td>
-                            <input type="text" id="textDispatchKey" class="form-control" placeholder="enter dispatch key" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_dispatch_number')">
+                            <input type="text" id="textDispatchKey" class="form-control fw-bold" style="height: 60px" placeholder="enter dispatch key" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_dispatch_number')">
                         </td>
                     </tr>
                     <!--                forth row-->
@@ -202,37 +203,36 @@
 <!--invoice detail area start-->
 <div class="p-4">
     <form onsubmit="return false">
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="height: 100px">
             
             <tr>
                 
                 <td>
-                    <label for="selectItem" class="form-label fw-bold">Item</label>
-<!--                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start" placeholder="Type & Search Item Short Code" onkeyup="dataListValidator2(this,'itemList','invoiceDetail','item_master_id','item_short_name')">-->
-                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start" placeholder="Type & Search Item Short Code" onkeyup="dataListValidatorWithThreeValues(this,'itemList','invoiceDetail','item_master_id','item_short_name','item_code','item_barcode'); readBarcode(this)">
+                    <label for="selectItem" class="form-label">Item</label>
+                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start fw-bold" style="height: 60px" placeholder="Type & Search Item Short Code" onkeyup="dataListValidatorWithThreeValues(this,'itemList','invoiceDetail','item_master_id','item_short_name','item_code','item_barcode'); readBarcode(this)">
                     <datalist id="dataListItem"></datalist>
                 </td>
                 
                 
                 <td>
-                    <label for="textQuantity" class="form-label fw-bold">Quantity</label>
-                    <input type="number" id="textQuantity" class="form-control text-start" placeholder="Enter Quantity" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_quantity')">
+                    <label for="textQuantity" class="form-label">Quantity</label>
+                    <input type="number" id="textQuantity" class="form-control text-start fw-bold" placeholder="Enter Quantity" style="height: 60px" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_quantity')">
                 </td>
 
 
                 <td>
-                    <label for="textRate" class="form-label fw-bold">Rate</label>
-                    <input type="number" id="textRate" class="form-control text-start" placeholder="Enter Rate" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_rate'); calculateValue(this);">
+                    <label for="textRate" class="form-label">Rate</label>
+                    <input type="number" id="textRate" class="form-control text-start fw-bold" placeholder="Enter Rate" style="height: 60px" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_rate'); calculateValue(this);">
                 </td>
 
                 <td>
-                    <label for="textDiscount" class="form-label fw-bold">Discounted Amount</label>
-                    <input type="number" id="textDiscount" class="form-control text-start" placeholder="Enter Discount Amount" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_discount')">
+                    <label for="textDiscount" class="form-label">Discounted Amount</label>
+                    <input type="number" id="textDiscount" class="form-control text-start fw-bold" placeholder="Enter Discount Amount" style="height: 60px" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_discount')">
                 </td>
 
                 <td>
-                    <label for="textValue" class="form-label fw-bold">Value</label>
-                    <input type="number" id="textValue" class="form-control text-start" placeholder="Enter Value" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_value')">
+                    <label for="textValue" class="form-label">Value</label>
+                    <input type="number" id="textValue" class="form-control text-start fw-bold" placeholder="Enter Value" style="height: 60px" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_value')">
                 </td>
 
 

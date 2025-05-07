@@ -57,47 +57,47 @@
 <!--    edit delete print button end-->
 
 <!--form area start -->
-<div class="card m-5 p-5">
+<div class="card p-5">
     <form onsubmit="return false">
 
-        <div class="row mt-5">
-            <div class="col-md-3">
-                <label for="textCustomerName" class="form-label fw-bold">Name <i class="text-danger fw-bold">*</i> </label>
-                <input type="text" id="textCustomerName" class="form-control text-start" placeholder="Enter Customer Name" onkeyup="textValidator(this,'','customerMaster','customer_name')">
+        <div class="row mt-2"  style="margin-bottom: 20px">
+            <div class="col-md-2">
+                <label for="textCustomerName" class="form-label">Name <i class="text-danger fw-bold">*</i> </label>
+                <input type="text" id="textCustomerName" style="height: 80%" class="form-control text-start fw-bold" placeholder="Enter Customer Name" onkeyup="textValidator(this,'','customerMaster','customer_name')">
             </div>
-            <div class="col-md-3">
-                <label for="textMobile" class="form-label fw-bold">Mobile <i class="text-danger fw-bold">*</i> </label>
-                <input type="text" id="textMobile" class="form-control text-start" placeholder="Enter Customer Mobile" onkeyup="textValidator(this,'^[0-9]{10}$','customerMaster','customer_mobile')">
+            <div class="col-md-2">
+                <label for="textMobile" class="form-label">Mobile <i class="text-danger fw-bold">*</i> </label>
+                <input type="text" id="textMobile" style="height: 80%" class="form-control text-start fw-bold" placeholder="Enter Customer Mobile" onkeyup="textValidator(this,'^[0-9]{10}$','customerMaster','customer_mobile')">
             </div>
-            <div class="col-md-3">
-                <label for="textEmail" class="form-label fw-bold">Email</label>
-                <input type="text" id="textEmail" class="form-control text-start" placeholder="Enter Email" onkeyup="textValidator(this,'','customerMaster','customer_email')">
+            <div class="col-md-2">
+                <label for="textEmail" class="form-label">Email</label>
+                <input type="text" id="textEmail" style="height: 80%" class="form-control text-start fw-bold" placeholder="Enter Email" onkeyup="textValidator(this,'','customerMaster','customer_email')">
             </div>
 
-            <div class="col-md-3">
-                <label for="textCustomerAddress" class="form-label fw-bold">Address</label>
-                <input type="text" class="form-control text-start" id="textCustomerAddress" placeholder="Enter Customer Address" onkeyup="textValidator(this,'','customerMaster','customer_master_address')">
+            <div class="col-md-6">
+                <label for="textCustomerAddress" class="form-label">Address</label>
+                <input type="text" class="form-control text-start fw-bold" style="height: 80%" id="textCustomerAddress" placeholder="Enter Customer Address" onkeyup="textValidator(this,'','customerMaster','customer_master_address')">
             </div>
 
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-2">
 
-            <div class="col-md-3">
-                <label for="selectSchool" class="form-label fw-bold">School</label>
-                <select id="selectSchool" class="form-select text-start" onchange="selectDBValidator(this,'','customerMaster','school_master_id')"></select>
+            <div class="col-md-2">
+                <label for="selectSchool" class="form-label">School</label>
+                <select id="selectSchool" style="height: 80%; color: gray" class="form-select text-start fw-bold" onchange="selectDBValidator(this,'','customerMaster','school_master_id')"></select>
             </div>
 
-            <div class="col-md-3">
-                <label for="textIndexNumber" class="form-label fw-bold">Index Number</label>
-                <input type="text" id="textIndexNumber" class="form-control text-start" placeholder="Enter Index Number" onkeyup="textValidator(this,'^[0-9]{3,20}$','customerMaster','customer_master_school_index_no')">
+            <div class="col-md-2">
+                <label for="textIndexNumber" class="form-label">Index Number</label>
+                <input type="text" id="textIndexNumber" style="height: 80%" class="form-control text-start fw-bold" placeholder="Enter Index Number" onkeyup="textValidator(this,'^[0-9]{3,20}$','customerMaster','customer_master_school_index_no')">
             </div>
 
 
 
-            <div class="col-md-3">
-                <label for="selectStatus" class="form-label fw-bold">Status <i class="text-danger fw-bold">*</i> </label>
-                <select id="selectStatus" class="form-select text-start" onchange="selectValidator(this,'','customerMaster','customer_status')">
+            <div class="col-md-2">
+                <label for="selectStatus" class="form-label">Status <i class="text-danger fw-bold">*</i> </label>
+                <select id="selectStatus" style="height: 80%; color: gray" class="form-select text-start fw-bold" onchange="selectValidator(this,'','customerMaster','customer_status')">
                     <option value="" selected disabled>Select An Option</option>
                     <option value="true">Active</option>
                     <option value="false">Inactive</option>

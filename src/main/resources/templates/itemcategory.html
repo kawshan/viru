@@ -62,24 +62,22 @@
 
 
 <!--form area start-->
-<div class="card m-5 p-5">
+<div class="card p-5">
     <form onsubmit="return false">
 
-        <div class="row mt-5">
-            <div class="col-md-3"></div>
-            <div class="col-md-3">
-                <label for="textItemCategoryName" class="form-label fw-bold">Name</label>
-                <input type="text" id="textItemCategoryName" class="form-control text-start" placeholder="Enter Item Category Name" onkeyup="textValidator(this,'','itemCategoryMaster','item_category_name')">
+        <div class="row mt-5"  style="margin-bottom: 20px">
+            <div class="col-md-2">
+                <label for="textItemCategoryName" class="form-label">Name</label>
+                <input type="text" id="textItemCategoryName" style="height: 80%" class="form-control text-start fw-bold" placeholder="Enter Item Category Name" onkeyup="textValidator(this,'','itemCategoryMaster','item_category_name')">
             </div>
-            <div class="col-md-3">
-                <label for="selectItemCategoryStatus" class="form-label fw-bold">status</label>
-                <select type="text" id="selectItemCategoryStatus" class="form-select text-start" onchange="selectValidator(this,'','itemCategoryMaster','item_category_status')">
-                    <option value="" selected disabled>Select Status</option>
+            <div class="col-md-2">
+                <label for="selectItemCategoryStatus" class="form-label">status</label>
+                <select type="text" id="selectItemCategoryStatus" style="height: 80%; color: gray" class="form-select text-start fw-bold" onchange="selectValidator(this,'','itemCategoryMaster','item_category_status')">
+                    <option value="" selected disabled >Select Status</option>
                     <option value="true">Active</option>
                     <option value="false">Inactive</option>
                 </select>
             </div>
-            <div class="col-md-3"></div>
         </div>
 
         <div class="row mt-5">
