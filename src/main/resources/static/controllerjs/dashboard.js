@@ -4,7 +4,7 @@ window.addEventListener('load',function (){
     const user = JSON.parse(localStorage.getItem('loggedUser'));
 
     if (!user) {
-        window.location.href = 'login.html'; // Redirect if not logged in
+        window.location.href = '/login'; // Redirect if not logged in
     } else {
         document.getElementById('lblUserName').innerText = `Welcome ${user.username} `;
         document.getElementById('lblUserRole').innerText = `Role : ${user.role} `;
@@ -20,3 +20,31 @@ window.addEventListener('load',function (){
 
 
 })
+
+
+function logoutHandler(){
+    const userConfirm = confirm(`Are You Sure To Logout`);
+    if (userConfirm){
+        localStorage.removeItem("loggedUser");
+        window.location.href = '/login';
+    }else {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
