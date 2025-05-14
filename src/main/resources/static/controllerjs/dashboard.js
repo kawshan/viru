@@ -1,6 +1,5 @@
 window.addEventListener('load',function (){
 
-
     const user = JSON.parse(localStorage.getItem('loggedUser'));
 
     if (!user) {
@@ -9,6 +8,17 @@ window.addEventListener('load',function (){
         document.getElementById('lblUserName').innerText = `Welcome ${user.username} `;
         document.getElementById('lblUserRole').innerText = `Role : ${user.role} `;
 
+        // const hours = new Date().getHours();
+        // if (hours<12){
+        //     document.getElementById('lblUserName').innerText = `Good Morning ${user.username} Welcome Back`;
+        // }else if (hours <18){
+        //     document.getElementById('lblUserName').innerText = `Good Afternoon ${user.username} Welcome Back`;
+        // }else {
+        //     document.getElementById('lblUserName').innerText = `Good Evening ${user.username} Welcome Back`;
+        // }
+
+
+
         // Role-based UI
         // if (user.role === 'admin') {
         //     document.getElementById('adminSection').style.display = 'block';
@@ -16,6 +26,10 @@ window.addEventListener('load',function (){
         //     document.getElementById('adminSection').style.display = 'none';
         // }
     }
+
+
+
+
 
 
 
@@ -31,11 +45,6 @@ function logoutHandler(){
 
     }
 }
-
-
-
-
-
 
 
 
