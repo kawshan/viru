@@ -402,6 +402,7 @@ const submitInvoiceDetails = ()=>{
             const postServerResponse = ajaxPostRequest("/invoiceDetail",invoiceDetail);
             if (postServerResponse=="ok"){
                 alert(`Save Successful`);
+                selectItem.focus();
                 refreshInvoiceDetailsForm();
                 refreshInvoiceDetailsTable();
                 showTotalNetDiscountAndGross();
@@ -720,6 +721,194 @@ ${tableInvoiceDetailPrint.outerHTML}
 
 
 
+
+
+const printInvoiceForA5Size =async (ob)=>{
+
+    await fillDataIntoInvoicePrintForA5(ob.invoice_header_key);
+
+    await getGrossDiscountNetValuesForTablePrintA5(ob.invoice_header_key);
+
+
+    const newWindow = window.open();
+    newWindow.document.write(`
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Print</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        #tableInvoiceDetailPrintA5 th {
+            height: 10px !important;
+            padding: 10px !important;
+            vertical-align: middle !important;
+            border-top: 1px solid black;
+        }
+        
+        
+#tableInvoiceDetailPrintA5 tbody td {
+    height: 10px !important;
+    padding: 10px !important;
+    vertical-align: middle !important;
+    border-top: 1px solid lightgray;
+}
+        
+        
+        #A5labelGross{
+        border: 2px solid white; border-right: 1px solid black; border-top: 1px solid black; text-align: right; !important;
+        }
+        #A5labelTotal{
+        border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
+        }
+        #A5labelNet{
+        border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
+        }
+        
+        
+        #A5tdGrossValue{
+        text-align: right;
+        }
+        #A5tdDiscountValue{
+        text-align: right;
+        }
+        #A5tdNetValue{
+        text-align: right;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </style>
+</head>
+<body style="font-family: Verdana">
+
+
+<div style=" margin-top: 1cm">
+
+    <div class="row" style="margin-bottom: 0; padding-bottom: 0">
+        <div class="col-6"></div>
+        <div class="col-4 text-end">
+            <p style="font-size: 14px; font-weight: bold;">Invoice</p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card" style="border: 1px solid black">
+                <p style="font-size: 11px; padding-left: 5px; padding-top: 3px">${ob.customer_master_id.customer_name}</p>
+                <p style="font-size: 11px; padding-left: 5px">${ob.customer_master_id.customer_master_address==null?" ":ob.customer_master_id.customer_master_address}</p>
+            </div>
+        </div>
+        <div class="col-6">
+            <table class="table table-bordered" style="font-size: 11px; border: 1px solid black; line-height: 6px">
+                <tr>
+                    <td style="font-size: 10px">Invoice No</td>
+                    <td class="text-end">${ob.invoice_header_key}</td>
+                </tr>
+
+                <tr>
+                    <td style="font-size: 10px;">Date</td>
+                    <td class="text-end">${new Date(ob.invoice_header_date).toLocaleString('en-GB',{year:"numeric",month:"2-digit",day:"2-digit"})}</td>
+                </tr>
+
+
+                <tr>
+                    <td style="font-size: 10px;">PO No</td>
+                    <td class="text-end">${ob.invoice_header_po_number==null? " ":ob.invoice_header_po_number}</td>
+                </tr>
+
+                <tr>
+                    <td style="font-size: 10px;">Dispatch No</td>
+                    <td class="text-end">${ob.invoice_header_dispatch_number==null? " ":ob.invoice_header_dispatch_number}</td>
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+<div>
+${tableInvoiceDetailPrintA5.outerHTML}
+</div>
+
+<div style="position: absolute; width: 100%; bottom: 1cm; font-size: 11px;">
+<div class="row">
+    <div class="col-4 text-start">
+        <p style="margin: 0 0 0 0">___________</p>
+        <p class="text-start" style="font-size: 10px">prepared by</p>
+    </div>
+    <div class="col-4 text-start">
+        <p style="margin: 0 0 0 0">___________</p>
+        <p class="text-start" style="font-size: 10px;">Checked By</p>
+    </div>
+    <div class="col-4 text-start">
+        <p style="margin: 0 0 0 0">_______________</p>
+        <p class="text-start" style="font-size: 10px;">Customer Signature</p>
+    </div>
+</div>
+</div>
+
+
+
+</body>
+</html>
+    `);
+
+    newWindow.stop();
+    newWindow.print();
+    newWindow.close();
+    divModifyButton2.classList.add('d-none');
+
+}
+
+const fillDataIntoInvoicePrintForA5 = (headerKey)=>{
+
+    invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${headerKey}`)
+
+    const displayProperty=[
+        {dataType:'function',propertyName:getItemNameForPrint},
+        {dataType:'function',propertyName:getItemQuantity},
+        {dataType:'function',propertyName:getItemRate},
+        {dataType:'function',propertyName:getItemDiscount},
+        {dataType:'function',propertyName:getItemValue},
+    ];
+
+    fillDataIntoTable2(tableInvoiceDetailPrintA5,invoiceDetailsList,displayProperty,false)
+}
+
+
+
+const getGrossDiscountNetValuesForTablePrintA5 = (headerKey)=>{
+    const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${headerKey}`);
+    const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${headerKey}`);
+    const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
+
+
+    A5tdGrossValue.innerHTML=""
+    A5tdDiscountValue.innerHTML=""
+    A5tdNetValue.innerHTML=""
+
+    A5tdGrossValue.innerHTML=Number(getGrossFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
+    A5tdDiscountValue.innerHTML=Number(getDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
+    A5tdNetValue.innerHTML=Number(getTotalFromServer).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
+
+
+}
+
+
+
+
 const fillDataIntoInvoicePrint = (headerKey)=>{
 
     invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${headerKey}`)
@@ -737,6 +926,7 @@ const fillDataIntoInvoicePrint = (headerKey)=>{
 
 
 }
+
 
 const getItemNameForPrint = (ob)=>{
     return `<p class="text-start" style=" padding-top: 2px; margin-bottom: -2px">${ob.item_master_id.item_name}</p>`
@@ -762,8 +952,6 @@ const getGrossDiscountNetValuesForTablePrint = (headerKey)=>{
 
 
 }
-
-
 
 
 const readBarcode = (fieldId)=>{

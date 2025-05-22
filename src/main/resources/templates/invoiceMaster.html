@@ -61,6 +61,15 @@
                                 style=" width: 15%; color: whitesmoke;border: 1px solid black">
                             <i class="fa-solid fa-eye fa-beat"></i> Print
                         </button>
+
+
+                        <button onclick="printInvoiceForA5Size(window['editOb'],window['editRow'])" type="button"
+                                class="btn btn-primary fw-bold"
+                                style=" width: 15%; color: whitesmoke;border: 1px solid black">
+                            <i class="fa-solid fa-eye fa-beat"></i> Print A5
+                        </button>
+
+
                     </div>
                 </div>
                 <!--                div modify button 2 end-->
@@ -357,7 +366,28 @@
 
 
 
+<!--invoice details table area A5 size start-->
+<div id="divInvoiceDetailsTableAreaPrintForA5" class="d-none">
+    <table class="table table-bordered" style="border: 1px solid black; line-height: 5px; font-family: Verdana; font-size: 8px" id="tableInvoiceDetailPrintA5">
+        <thead style="line-height: 10px" class="text-center">
+        <th>#</th>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>Discount</th>
+        <th>Amount</th>
+        </thead>
+        <tbody>
 
+        </tbody>
+        <tfoot style="line-height: 5px;">
+        <tr><td id="A5labelGross" colspan="5">Gross Value &nbsp;&nbsp;</td> <td class="text-end" id="A5tdGrossValue"></td> </tr>
+        <tr><td id="A5labelTotal" colspan="5">Total Discount</td> <td class="text-end" id="A5tdDiscountValue"></td> </tr>
+        <tr><td id="A5labelNet" colspan="5">Net Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> <td class="text-end" id="A5tdNetValue"></td> </tr>
+        </tfoot>
+    </table>
+</div>
+<!--invoice details table area A5 size end-->
 
 
 
