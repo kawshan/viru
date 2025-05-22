@@ -1,6 +1,8 @@
 const users = [
     {username: 'admin', password: '1234', role: 'admin'},
-    {username: 'mihika', password: 'mihika1234', role: 'employee'}
+    {username: 'mihika', password: 'mihika1234', role: 'employee'},
+    {username: 'umesh', password: 'umesh1234', role: 'employee'},
+    {username: 'pravindi', password: 'pravindi1234', role: 'employee'}
 ];
 
 

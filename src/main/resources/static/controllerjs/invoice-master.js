@@ -692,7 +692,7 @@ ${tableInvoiceDetailPrint.outerHTML}
 <div class="row">
     <div class="col-2 text-start">
         <p style="margin: 0 0 0 0">___________</p>
-        <p class="text-start">prepared by</p>
+        <p class="text-start">Prepared by</p>
     </div>
     <div class="col-2 text-start">
         <p style="margin: 0 0 0 0">___________</p>
@@ -746,6 +746,7 @@ const printInvoiceForA5Size =async (ob)=>{
             padding: 10px !important;
             vertical-align: middle !important;
             border-top: 1px solid black;
+            border-bottom: 1px solid black !important;
         }
         
         
@@ -846,7 +847,7 @@ ${tableInvoiceDetailPrintA5.outerHTML}
 <div class="row">
     <div class="col-4 text-start">
         <p style="margin: 0 0 0 0">___________</p>
-        <p class="text-start" style="font-size: 10px">prepared by</p>
+        <p class="text-start" style="font-size: 10px">Prepared by</p>
     </div>
     <div class="col-4 text-start">
         <p style="margin: 0 0 0 0">___________</p>
