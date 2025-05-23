@@ -729,7 +729,7 @@ const printInvoiceForA5Size =async (ob)=>{
 
     await getGrossDiscountNetValuesForTablePrintA5(ob.invoice_header_key);
 
-
+    
     const newWindow = window.open();
     newWindow.document.write(`
     <!DOCTYPE html>
@@ -793,8 +793,9 @@ const printInvoiceForA5Size =async (ob)=>{
 </head>
 <body style="font-family: Verdana">
 
-
-<div style=" margin-top: 1cm">
+<div>
+<img src="/images/Viru_Logo.jpg" alt="viru logo" height="32" width="60">
+</div>
 
     <div class="row" style="margin-bottom: 0; padding-bottom: 0">
         <div class="col-6"></div>
@@ -843,7 +844,7 @@ const printInvoiceForA5Size =async (ob)=>{
 ${tableInvoiceDetailPrintA5.outerHTML}
 </div>
 
-<div style="position: absolute; width: 100%; bottom: 1cm; font-size: 11px;">
+<div style="position: absolute; width: 100%; bottom: 0.1cm; font-size: 11px;">
 <div class="row">
     <div class="col-4 text-start">
         <p style="margin: 0 0 0 0">___________</p>
@@ -858,6 +859,8 @@ ${tableInvoiceDetailPrintA5.outerHTML}
         <p class="text-start" style="font-size: 10px;">Customer Signature</p>
     </div>
 </div>
+<p style="margin: 0 0 0 0">___________________________________________________________________________</p>
+<p style="font-size: 10px">No 489, Waragoda Rd, Kelaniya.</p>
 </div>
 
 
@@ -866,10 +869,12 @@ ${tableInvoiceDetailPrintA5.outerHTML}
 </html>
     `);
 
+setTimeout(function (){
     newWindow.stop();
     newWindow.print();
     newWindow.close();
     divModifyButton2.classList.add('d-none');
+},1000)
 
 }
 
