@@ -794,7 +794,7 @@ const printInvoiceForA5Size =async (ob)=>{
 <body style="font-family: Verdana">
 
 <div>
-<img src="/images/Viru_Logo.jpg" alt="viru logo" height="32" width="60">
+<img src="/images/Viru_Logo.jpg" alt="viru logo" height="32" width="80">
 </div>
 
     <div class="row" style="margin-bottom: 0; padding-bottom: 0">
@@ -860,7 +860,7 @@ ${tableInvoiceDetailPrintA5.outerHTML}
     </div>
 </div>
 <p style="margin: 0 0 0 0">___________________________________________________________________________</p>
-<p style="font-size: 10px">No 489, Waragoda Rd, Kelaniya.</p>
+<p style="font-size: 10px">No 619/1/2, Waragoda Rd, Kelaniya.</p>
 </div>
 
 

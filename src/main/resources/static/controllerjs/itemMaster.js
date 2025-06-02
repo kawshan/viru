@@ -432,7 +432,7 @@ const printAllItem = async ()=>{
 <div class="container-fluid" style="position: relative">
 
     <div class="row mb-2 text-center" style="margin-top: 1cm">
-        <p style="font-size: 14px; font-weight: bold;">All Item Categories</p>
+        <p style="font-size: 14px; font-weight: bold;">Price List</p>
     </div>
 
     <div class="row">
