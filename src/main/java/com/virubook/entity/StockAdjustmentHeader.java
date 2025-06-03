@@ -21,7 +21,7 @@ public class StockAdjustmentHeader {
     private Integer id;
 
     @Column(name = "stock_adjustment_header_no")
-    private String stock_adjustment_header_no;
+    private Integer stock_adjustment_header_no;
 
     @Column(name = "stock_adjustment_header_key")
     private String stock_adjustment_header_key;

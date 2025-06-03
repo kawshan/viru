@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StockAdjustmentHeaderDao extends JpaRepository<StockAdjustmentHeader,Integer> {
 
-    @Query(value = "select sh from StockAdjustmentHeader sh order by sh.id limit 1000")
+    @Query(value = "select sh from StockAdjustmentHeader sh order by sh.id desc limit 1000")
     public List<StockAdjustmentHeader> getRecent1000StockAdjustmentHeaders();
 
     @Query(value = "select sh from StockAdjustmentHeader sh where sh.stock_adjustment_header_no=?1")
@@ -21,7 +21,7 @@ public interface StockAdjustmentHeaderDao extends JpaRepository<StockAdjustmentH
     public String getStockAdjustmentHeaderIdFromHeaderKey(String id);
 
     @Query(value = "select max(stock_adjustment_header_no)+1 from stock_adjustment_header as next_stock_adjustment_number;",nativeQuery = true)
-    public String getNextStockAdjustmentNumber();
+    public Integer getNextStockAdjustmentNumber();
 
 
 }

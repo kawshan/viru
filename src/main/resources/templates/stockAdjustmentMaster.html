@@ -56,7 +56,7 @@
                                 onclick="deleteStockAdjustmentHeader(window['editOb'],window['editRow'])">
                             <i class="fa-solid fa-trash fa-beat"></i> Delete
                         </button>
-                        <button onclick="printInvoice(window['editOb'],window['editRow'])" type="button"
+                        <button onclick="printStockAdjustmentHeader(window['editOb'],window['editRow'])" type="button"
                                 class="btn btn-primary fw-bold"
                                 style=" width: 15%; color: whitesmoke;border: 1px solid black">
                             <i class="fa-solid fa-eye fa-beat"></i> Print
@@ -120,33 +120,33 @@
 
                 <td>
                     <label for="selectItem" class="form-label">Item</label>
-                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start fw-bold" style="height: 60px" placeholder="Type & Search Item Short Code" onkeyup="dataListValidatorWithThreeValues(this,'itemList','invoiceDetail','item_master_id','item_short_name','item_code','item_barcode');">
+                    <input type="text" list="dataListItem" id="selectItem" class="form-control text-start fw-bold" style="height: 60px" placeholder="Type & Search Item Short Code" onkeyup="dataListValidatorWithThreeValues(this,'itemList','stockAdjustmentDetails','item_master_id','item_short_name','item_code','item_barcode');">
                     <datalist id="dataListItem"></datalist>
                 </td>
 
 
                 <td>
                     <label for="textQuantity" class="form-label">Quantity</label>
-                    <input type="number" id="textQuantity" class="form-control text-start fw-bold" placeholder="Enter Quantity" style="height: 60px" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_quantity')">
+                    <input type="number" id="textQuantity" class="form-control text-start fw-bold" placeholder="Enter Quantity" style="height: 60px" onkeyup="textValidator(this,'','stockAdjustmentDetails','stock_adjustment_details_quantity')">
                 </td>
 
-
-                <td>
-                    <label for="textRate" class="form-label">Rate</label>
-                    <input type="number" id="textRate" class="form-control text-start fw-bold" placeholder="Enter Rate" style="height: 60px" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_rate');">
-                </td>
 
                 <td>
                     <label for="textDescription" class="form-label">Description</label>
-                    <input type="text" id="textDescription" class="form-control text-start fw-bold" placeholder="Enter Description" style="height: 60px" onkeyup="textValidator(this,'','invoiceDetail','invoice_detail_discount')">
+                    <input type="text" id="textDescription" class="form-control text-start fw-bold" placeholder="Enter Description" style="height: 60px" onkeyup="textValidator(this,'','stockAdjustmentDetails','stock_adjustment_details_description')">
+                </td>
+
+                <td>
+                    <label for="textRate" class="form-label">Rate</label>
+                    <input type="number" id="textRate" class="form-control text-start fw-bold" placeholder="Enter Rate" style="height: 60px" onkeyup="textValidator(this,'','stockAdjustmentDetails','stock_adjustment_details_rate');">
                 </td>
 
 
 
 
                 <td class="text-end" style="padding-top: 20px">
-                    <button type="button" class="btn btn-lg btn-success" style="pointer-events: all" id="buttonInvoiceDetailAdd" onclick="submitInvoiceDetails()">Add</button>
-                    <button type="button" class="btn btn-lg btn-warning" style="pointer-events: all" id="buttonInvoiceDetailUpdate" onclick="updateInvoiceDetails()">Update</button>
+                    <button type="button" class="btn btn-lg btn-success" style="pointer-events: all" id="buttonStockAdjustmentDetailAdd" onclick="saveStockAdjustmentDetail()">Add</button>
+                    <button type="button" class="btn btn-lg btn-warning" style="pointer-events: all" id="buttonStockAdjustmentDetailUpdate" onclick="updateStockAdjustmentDetails()">Update</button>
                 </td>
 
 
@@ -164,12 +164,12 @@
                 <div class="col-md-12">
                     <button type="button" class="btn btn-warning fw-bold"
                             style="width: 15%; color: whitesmoke; border: 1px solid black;"
-                            onclick="refillInvoiceDetails(window['editOb'],window['editRow'])">
+                            onclick="refillStockAdjustmentDetails(window['editOb'],window['editRow'])">
                         <i class="fa-solid fa-recycle fa-beat"></i> Refill
                     </button>
                     <button type="button" class="btn btn-danger fw-bold"
                             style=" width: 15%; color: whitesmoke; border: 1px solid black; pointer-events: all"
-                            onclick="deleteInvoiceDetail(window['editOb'],window['editRow'])">
+                            onclick="deleteStockAdjustmentDetails(window['editOb'],window['editRow'])">
                         <i class="fa-solid fa-trash fa-beat"></i> Delete
                     </button>
                     <button onclick="printStudent(window['editOb'],window['editRow'])" type="button"
@@ -188,15 +188,14 @@
 
 
 <!--stock adjustment details table area start-->
-<div class="d-none p-4" id="divInvoiceDetail">
-    <table class="table table-bordered" id="tableInvoiceDetail">
+<div class="d-none p-4" id="divStockAdjustmentDetail">
+    <table class="table table-bordered" id="tableStockAdjustmentDetail">
         <thead>
         <th>#</th>
         <th>Item Name</th>
         <th>Quantity</th>
+        <th>Description</th>
         <th>Rate</th>
-        <th>Discount</th>
-        <th>Value</th>
         <th>Action</th>
         </thead>
         <tbody></tbody>
@@ -238,23 +237,22 @@
 
 
 
-<!--adjustment details table area start-->
-<div id="divInvoiceDetailsTableAreaPrint" class="d-none">
-    <table class="table table-bordered" style="border: 1px solid black; line-height: 5px; font-family: Verdana; font-size: 11px" id="tableInvoiceDetailPrint">
+<!--adjustment details print table area start-->
+<div id="divStockAdjustmentDetailsTableAreaPrint" class="d-none">
+    <table class="table table-bordered" style="border: 1px solid black; line-height: 5px; font-family: Verdana; font-size: 11px" id="tableStockAdjustmentDetailPrint">
         <thead style="line-height: 10px" class="text-center">
         <th>#</th>
         <th>Item Name</th>
         <th>Quantity</th>
+        <th>Description</th>
         <th>Rate</th>
-        <th>Discount</th>
-        <th>Amount</th>
         </thead>
         <tbody>
 
         </tbody>
     </table>
 </div>
-<!--adjustment details table area end-->
+<!--adjustment details print table area end-->
 
 
 

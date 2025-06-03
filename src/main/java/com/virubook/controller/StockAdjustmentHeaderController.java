@@ -40,11 +40,6 @@ public class StockAdjustmentHeaderController {
     public ResponseEntity<Object> saveStockAdjustmentHeader(@RequestBody StockAdjustmentHeader stockAdjustmentHeader){
         try {
 
-            StockAdjustmentHeader existingStockAdjustmentHeader = stockAdjustmentHeaderDao.getStockAdjustmentHeaderByHeaderNo(stockAdjustmentHeader.getStock_adjustment_header_no());
-            if(existingStockAdjustmentHeader != null){
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Invoice Number Already exists");
-            }
-
             String maxHeaderKey = stockAdjustmentHeaderDao.getMaxStockAdjustmentHeaderKey();
             if (maxHeaderKey==null || maxHeaderKey.equals("")){
                 stockAdjustmentHeader.setStock_adjustment_header_key("ADJ1001");
@@ -52,9 +47,9 @@ public class StockAdjustmentHeaderController {
                 stockAdjustmentHeader.setStock_adjustment_header_key(maxHeaderKey);
             }
 
-            String maxNumber = stockAdjustmentHeaderDao.getNextStockAdjustmentNumber();
+            Integer maxNumber = stockAdjustmentHeaderDao.getNextStockAdjustmentNumber();
             if (maxNumber==null || maxNumber.equals("")){
-                stockAdjustmentHeader.setStock_adjustment_header_no("1001");
+                stockAdjustmentHeader.setStock_adjustment_header_no(1001);
             }else {
                 stockAdjustmentHeader.setStock_adjustment_header_no(maxNumber);
             }
