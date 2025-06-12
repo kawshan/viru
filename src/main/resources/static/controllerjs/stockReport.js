@@ -40,6 +40,7 @@ const LoadDataIntoTableForPrint = ()=>{
         {dataType:'function',propertyName:getDate},
         {dataType:'function',propertyName:getProductionCode},
         {dataType:'function',propertyName:getInvoiceNumber},
+        {dataType:'function',propertyName:getStockNumber},
         {dataType:'function',propertyName:getIn},
         {dataType:'function',propertyName:getOut},
         {dataType:'function',propertyName:getBalance},
@@ -81,6 +82,8 @@ const getProductionCode = (ob)=>{
             return `<p class="text-end">${ob.code}</p>`;
         }else if (ob.colType=="invoice"){
             return " "
+        }else if (ob.colType=="stock"){
+            return " "
         }
 }
 
@@ -88,6 +91,19 @@ const getProductionCode = (ob)=>{
 const getInvoiceNumber = (ob)=>{
     if (ob.colType=="invoice"){
         return `<p class="text-end">${ob.code}</p>`;
+    }else if (ob.colType=="production"){
+        return " ";
+    }else if (ob.colType=="stock"){
+        return " ";
+    }
+}
+
+
+const getStockNumber = (ob)=>{
+    if (ob.colType=="stock"){
+        return `<p class="text-end">${ob.code}</p>`;
+    }else if (ob.colType=="invoice"){
+        return " ";
     }else if (ob.colType=="production"){
         return " ";
     }
@@ -100,6 +116,13 @@ const getIn = (ob)=>{
         return `<p class="text-end">${Number(ob.itemQuantity).toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
     }else if (ob.colType=="invoice"){
         return " "
+    }else if (ob.colType=="stock"){
+        if (ob.itemQuantity>0){
+            runningValue=runningValue+Number(ob.itemQuantity);
+            return `<p class="text-end">${Number(ob.itemQuantity).toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+        }else {
+            return " "
+        }
     }
 }
 
@@ -110,6 +133,13 @@ const getOut = (ob)=>{
         return `<p class="text-end">${Number(ob.itemQuantity).toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
     }else if (ob.colType=="production"){
         return " ";
+    }else if (ob.colType=="stock"){
+        if (Number(ob.itemQuantity)<0){
+            runningValue=runningValue+Number(ob.itemQuantity);
+            return `<p class="text-end">${Number(ob.itemQuantity).toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+        }else {
+            return " "
+        }
     }
 }
 
@@ -130,7 +160,7 @@ const printStockReport = async ()=>{
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoice Print</title>
+    <title>Stock Report</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     

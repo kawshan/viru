@@ -67,6 +67,7 @@ public class ProductionHeaderController {
     public String deleteProductionHeader(@RequestBody ProductionHeader productionHeader){
         try {
             productionHeaderDao.delete(productionHeader);
+            //need to handel details delete
             return "ok";
         }catch (Exception e){
             return "Delete not complete"+e.getMessage();
