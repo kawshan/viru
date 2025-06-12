@@ -190,6 +190,21 @@
                     <!--                forth row-->
 
 
+                    <!--                forth row-->
+                    <tr>
+                        <td>
+                            <label class="form-label">Payment type</label>
+                        </td>
+                        <td>
+                            <input name="paymentType" required type="radio" id="radioPayTypeCash" onchange="invoiceHeader.invoice_header_master_pay_type=this.value" value="cash"> Cash
+                            <input name="paymentType" required type="radio" id="radioPayTypeCredit" onchange="invoiceHeader.invoice_header_master_pay_type=this.value" value="credit"> Credit
+                        </td>
+                    </tr>
+                    <!--                forth row-->
+
+
+
+
                     </tbody>
                 </table>
             </div>
@@ -322,6 +337,7 @@
                         <thead>
                         <th>#</th>
                         <th>Customer name</th>
+                        <th>Payment Type</th>
                         <th>Invoice NO</th>
                         <th>Invoice date</th>
                         <th>PO Number</th>
