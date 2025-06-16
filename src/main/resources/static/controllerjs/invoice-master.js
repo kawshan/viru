@@ -810,7 +810,7 @@ const printInvoiceForA5Size = async (ob) => {
 <body style="font-family: Verdana">
 
 <div>
-<img src="/images/Viru_Logo.jpg" alt="viru logo" height="32" width="80">
+<img src="/images/Viru_Logo.jpg" height="32" width="80">
 </div>
 
     <div class="row" style="margin-bottom: 0; padding-bottom: 0">
@@ -894,7 +894,7 @@ ${tableInvoiceDetailPrintA5.outerHTML}
         newWindow.print();
         newWindow.close();
         divModifyButton2.classList.add('d-none');
-    }, 1000)
+    }, 3000)
 
 }
 

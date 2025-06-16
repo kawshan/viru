@@ -2,6 +2,7 @@ package com.virubook.service;
 
 import com.virubook.dao.StockReportDao;
 import com.virubook.dto.StockReportDto;
+import com.virubook.dto.StockReportDtoForAllItems;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,23 @@ public class StockReportService {
                 )
                 ).collect(Collectors.toList());
     }
+
+    public List<StockReportDtoForAllItems> generateStockReportForAllItems(String fromDate, String toDate) {
+        List<Object[]> results = stockReportDao.getStockReportForAllItems(fromDate,toDate);
+        return results.stream().map(obj ->
+                new StockReportDtoForAllItems(
+                        (Integer) obj[0],
+                        (String) obj[1],
+                        (String) obj[2],
+                        (BigDecimal) obj[3]
+                )
+                ).collect(Collectors.toList());
+    }
+
+
+
+
+
 
 
 

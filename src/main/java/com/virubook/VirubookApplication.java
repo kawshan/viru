@@ -8,7 +8,7 @@ public class VirubookApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(VirubookApplication.class, args);
-		System.out.println("viru book application started 🔥");
+		System.out.println("viru book application started");
 	}
 
 }

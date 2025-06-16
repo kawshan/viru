@@ -19,6 +19,43 @@ const fillDataIntoSelect = (fieldId,message,dataList,property,selectedValue)=>{
     })
 }
 
+//we're using this because we need to appear All keyword in select element we're only using this in stock report module-- client requirements...
+const fillDataIntoSelectWithValueAll = (fieldId,message,dataList,property,selectedValue)=>{
+    fieldId.innerHTML='';
+    const optionMsj = document.createElement('option');
+    optionMsj.innerText =message;
+    optionMsj.selected='selected';
+    optionMsj.disabled='disabled';
+
+
+    const allValue = document.createElement('option');
+    allValue.innerText = "All";
+    allValue.value="All"
+
+
+
+    fieldId.appendChild(optionMsj);
+    fieldId.appendChild(allValue);
+
+
+    dataList.forEach(element=>{
+        const option = document.createElement('option');
+        option.innerText=element[property];
+        option.value=JSON.stringify(element); // json string ekak set kararanna one nisa meka dynamic dropdown mewa data base eken gannn one
+        if (selectedValue == element[property]){
+            option.selected='selected';
+            console.log("ok")
+        }
+        fieldId.appendChild(option);
+    })
+}
+
+
+
+
+
+
+
 const fillDataIntoDataList = (fieldId,dataList,property,selectedValue) =>{
     console.log("fill into data list")
     fieldId.innerHTML='';

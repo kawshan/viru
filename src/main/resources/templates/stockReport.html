@@ -63,7 +63,7 @@
 
                     <div class="row mt-2">
                         <div class="col-md-12">
-                            <label for="selectItem" class="form-label">Select Raw Material</label>
+                            <label for="selectItem" class="form-label">Select Item</label>
                             <select class="form-select text-start" id="selectItem" onchange="selectDBValidator(this,'','stockReport','item')" required></select>
                         </div>
                     </div>
@@ -116,6 +116,25 @@
         <tbody></tbody>
     </table>
 </div>
+
+
+
+
+<div id="divTableStockReportPrintForAllItems" class="d-none">
+    <table class="table table-bordered" style="font-family: Verdana; font-size: 11px; border: 1px solid black" id="tableStockReportPrintForAllItems">
+        <thead>
+            <th>#</th>
+            <th>Item Category</th>
+            <th>Item Short name</th>
+            <th>Quantity</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+
+
 
 
 

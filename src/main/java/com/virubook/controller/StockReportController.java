@@ -2,6 +2,7 @@ package com.virubook.controller;
 
 import com.virubook.dao.StockReportDao;
 import com.virubook.dto.StockReportDto;
+import com.virubook.dto.StockReportDtoForAllItems;
 import com.virubook.service.StockReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,10 @@ public class StockReportController {
     }
 
 
+    @GetMapping(value = "/forAllItems/{fromDate}/{todate}")
+    public List<StockReportDtoForAllItems> getStockReportForAllItems(@PathVariable("fromDate") String fromDate, @PathVariable("todate") String toDate){
+        return stockReportService.generateStockReportForAllItems(fromDate, toDate);
+    }
 
 
 
