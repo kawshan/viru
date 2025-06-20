@@ -238,7 +238,7 @@ ${tableStockReportPrintForAllItems.outerHTML}
 </div>
 
 </body>
-</html>
+</html> 
     
     `);
 
