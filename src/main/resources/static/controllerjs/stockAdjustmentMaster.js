@@ -247,9 +247,9 @@ const stockAdjustmentDetailsCheckErrors = ()=>{
     if (stockAdjustmentDetails.stock_adjustment_details_quantity == null){
         errors = errors+"Quantity Cannot Be Empty \n"
     }
-    if (stockAdjustmentDetails.stock_adjustment_details_rate == null){
-        errors=errors+"Rate Cannot Be Empty \n"
-    }
+    // if (stockAdjustmentDetails.stock_adjustment_details_rate == null){
+    //     errors=errors+"Rate Cannot Be Empty \n"
+    // }
     if (stockAdjustmentDetails.stock_adjustment_details_header_key == null){
         errors=errors+"Header Cannot Be Empty \n"
     }
@@ -268,7 +268,6 @@ const saveStockAdjustmentDetail = ()=>{
         const userConfirm = confirm(`Are You Sure To Add Following Details 
         Item Name Is ${stockAdjustmentDetails.item_master_id.item_name}
         Quantity Is ${stockAdjustmentDetails.stock_adjustment_details_quantity}
-        Rate Is ${stockAdjustmentDetails.stock_adjustment_details_rate}
         Code Is ${stockAdjustmentDetails.stock_adjustment_details_header_key}
         `);
 
@@ -362,7 +361,6 @@ const deleteStockAdjustmentDetails = (ob)=>{
     const userConfirm  = confirm(`Are You Sure To Delete Following Details 
         Item Name Is ${ob.item_master_id.item_name}
         Quantity Is ${ob.stock_adjustment_details_quantity}
-        Rate Is ${ob.stock_adjustment_details_rate}
         Code Is ${ob.stock_adjustment_details_header_key}
     `);
 
