@@ -96,14 +96,21 @@
 <div id="divTableSalesReportPrint" class="d-none">
     <table class="table table-bordered" style="font-family: Verdana; font-size: 11px; border: 1px solid black" id="tableSalesReportPrint">
         <thead>
-            <th>#</th>
-            <th>Date</th>
-            <th>Invoice Number</th>
-            <th>Customer Name</th>
-            <th>Cash</th>
-            <th>Credit</th>
+            <th class="text-center">#</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Invoice Number</th>
+            <th class="text-center">Customer Name</th>
+            <th class="text-center">Cash</th>
+            <th class="text-center">Credit</th>
         </thead>
         <tbody></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td class="text-end" id="tfootCash"></td>
+                <td class="text-end" id="tfootCredit"></td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 

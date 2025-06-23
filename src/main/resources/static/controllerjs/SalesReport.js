@@ -38,7 +38,8 @@ const refreshSalesReportTable = ()=>{
 
 }
 
-
+let totalCashAmount = 0;
+let totalCreditAmount = 0;
 
 
 const getDate = (ob)=>{
@@ -48,6 +49,7 @@ const getDate = (ob)=>{
 
 const getCash = (ob)=>{
     if (ob.payment_type==="cash"){
+        totalCashAmount=totalCashAmount+Number(ob.total_invoice_value);
         return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
     }else if (ob.payment_type==="credit"){
         return " "
@@ -57,6 +59,7 @@ const getCash = (ob)=>{
 
 const getCredit = (ob)=>{
     if (ob.payment_type==="credit"){
+        totalCreditAmount=totalCreditAmount+Number(ob.total_invoice_value);
         return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
     }else if (ob.payment_type==="cash"){
         return " "
@@ -67,6 +70,9 @@ const getCredit = (ob)=>{
 const printSalesReport = async ()=>{
 
     await refreshSalesReportTable();
+
+    tfootCash.innerText=totalCashAmount.toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2});
+    tfootCredit.innerText=totalCreditAmount.toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2});
 
     const newWindow = window.open();
     newWindow.document.write(`
