@@ -92,7 +92,7 @@ const printSalesReport = async ()=>{
 <div style=" top: 1cm">
 
     <div class="row" style="margin-bottom: 0; padding-bottom: 0">
-            <p class="text-center" style="font-size: 14px; font-weight: bold;">Stock report</p>
+            <p class="text-center" style="font-size: 14px; font-weight: bold;">Sales report</p>
     </div>
 </div>
 

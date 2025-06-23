@@ -1,6 +1,7 @@
 <div th:fragment="offcanvas">
     <!--off canvas start-->
-    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
+         aria-labelledby="staticBackdropLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="staticBackdropLabel">Menu</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -8,11 +9,12 @@
         <div class="offcanvas-body">
 
 
-
             <div class="row mt-2">
                 <!--item collapse start-->
                 <p class="d-inline-flex gap-1">
-                    <button class="btn" style="background-color: #3C3D37; color: whitesmoke;  padding-bottom: 5%" type="button" data-bs-toggle="collapse" data-bs-target="#ItemExample" aria-expanded="false" aria-controls="ItemExample">
+                    <button class="btn" style="background-color: #3C3D37; color: whitesmoke;  padding-bottom: 5%"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#ItemExample" aria-expanded="false"
+                            aria-controls="ItemExample">
                         <span class="material-symbols-outlined">category</span> Item Section
                     </button>
                 </p>
@@ -25,6 +27,12 @@
                             <li class="list-group-item">
                                 <a class="btn" href="/item-master">Item Master</a>
                             </li>
+                            <li class="list-group-item">
+                                <a class="btn" href="/production-header">Production Master</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="btn" href="/stockAdjustmentHeader">Stock Adjustment Master</a>
+                            </li>
 
                         </ul>
                     </div>
@@ -36,7 +44,9 @@
             <div class="row mt-2">
                 <!--stock collapse start-->
                 <p class="d-inline-flex gap-1">
-                    <button class="btn" style="background-color: #3C3D37; color: whitesmoke; padding-bottom: 5%" type="button" data-bs-toggle="collapse" data-bs-target="#StockExample" aria-expanded="false" aria-controls="ItemExample">
+                    <button class="btn" style="background-color: #3C3D37; color: whitesmoke; padding-bottom: 5%"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#StockExample" aria-expanded="false"
+                            aria-controls="ItemExample">
                         <span class="material-symbols-outlined">category</span> Customer Section
                     </button>
                 </p>
@@ -46,7 +56,10 @@
 
 
                             <li class="list-group-item">
-                                <a class="btn" href="/customer-master">Customer</a>
+                                <a class="btn" href="/customer-master">Customer Master</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="btn" href="/school-master">School master</a>
                             </li>
 
                             <!--                    <li class="list-group-item">And a fifth one</li>-->
@@ -60,7 +73,9 @@
             <div class="row mt-2">
                 <!--finance section collapse start-->
                 <p class="d-inline-flex gap-1">
-                    <button class="btn" style="background-color: #3C3D37; color: whitesmoke; padding-bottom: 5%" type="button" data-bs-toggle="collapse" data-bs-target="#FinanceExample" aria-expanded="false" aria-controls="ItemExample">
+                    <button class="btn" style="background-color: #3C3D37; color: whitesmoke; padding-bottom: 5%"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#FinanceExample"
+                            aria-expanded="false" aria-controls="ItemExample">
                         <span class="material-symbols-outlined">category</span> Invoice Section
                     </button>
                 </p>
@@ -81,11 +96,12 @@
             </div>
 
 
-
             <div class="row mt-2">
                 <!--report collapse start-->
                 <p class="d-inline-flex gap-1">
-                    <button class="btn" style="background-color: #3C3D37; color: whitesmoke; padding-bottom: 5%" type="button" data-bs-toggle="collapse" data-bs-target="#reportExample" aria-expanded="false" aria-controls="reportExample">
+                    <button class="btn" style="background-color: #3C3D37; color: whitesmoke; padding-bottom: 5%"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#reportExample"
+                            aria-expanded="false" aria-controls="reportExample">
                         <span class="material-symbols-outlined">pie_chart</span> Report Section
                     </button>
                 </p>
@@ -96,6 +112,9 @@
 
                             <li class="list-group-item">
                                 <a class="btn" href="/stock-report/view">Stock Report</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="btn" href="/sales-report/view">Sales Report</a>
                             </li>
 
                         </ul>
