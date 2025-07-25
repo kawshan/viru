@@ -22,7 +22,7 @@ public class ProductionDetailsReportController {
     @GetMapping(value = "/view")
     public ModelAndView productionDetailsReport() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("productionDetailsReport.html");
+        modelAndView.setViewName("productionReport.html");
         return modelAndView;
     }
 
