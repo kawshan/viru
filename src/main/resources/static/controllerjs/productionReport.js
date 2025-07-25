@@ -27,7 +27,7 @@ const refreshProductionReportTable = ()=>{
     const displayColumns = [
         {dataType:'function',propertyName:getDate},
         {dataType:'text',propertyName:'production_header_key'},
-        {dataType:'text',propertyName:'production_header_number'},
+        {dataType:'function',propertyName:getProductionNumber},
         {dataType:'text',propertyName:'item_short_name'},
         {dataType:'function',propertyName:getTotalQuantity},
     ]
@@ -43,6 +43,9 @@ const getDate = (ob)=>{
     return ob.production_header_date
 }
 
+const getProductionNumber = (ob)=>{
+    return `<div class="text-end">${Number(ob.production_header_number)}</div>`
+}
 
 const getTotalQuantity = (ob)=>{
     return `<div class="text-end">${Number(ob.total_quantity).toLocaleString('en-US')}</div>`
