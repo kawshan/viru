@@ -21,6 +21,9 @@ public interface InvoiceDetailDao extends JpaRepository<InvoiceDetail,Integer> {
     @Query(value = "select sum(invoice_detail_value) as net_value from invoice_detail where invoice_detail_header_key=?1",nativeQuery = true)
     public String getNetValue(String headerKey);
 
+    @Query(value = "SELECT (SELECT SUM(invoice_detail_value / 100) FROM invoice_detail WHERE invoice_detail_header_key = ?1) * COALESCE((SELECT invoice_header_master_additional_discount FROM invoice_header_master WHERE invoice_header_key = ?1), 0) AS discounted_total",nativeQuery = true)
+    public String getAdditionalDiscountValue(String headerKey);
+
 
 
 

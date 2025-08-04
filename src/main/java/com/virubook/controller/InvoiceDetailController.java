@@ -74,5 +74,11 @@ public class InvoiceDetailController {
     }
 
 
+    @GetMapping(value = "/getAdditionalDiscountValue/{headerKey}")
+    public String getAdditionalDiscountValue(@PathVariable("headerKey") String headerKey){
+        return invoiceDetailDao.getAdditionalDiscountValue(headerKey);
+    }
+
+
 
 }

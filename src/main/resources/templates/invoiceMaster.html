@@ -109,9 +109,14 @@
             </div>
 
 
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <label for="selectDiscount" class="form-label">Discount</label>
                 <input type="number" id="selectDiscount" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter Discount Amount" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_discount')">
+            </div>
+
+            <div class="col-md-1">
+                <label for="textAdditionalDiscount" class="form-label">Additional Discount</label>
+                <input type="number" id="textAdditionalDiscount" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter Discount Amount" onkeyup="textValidator(this,'','invoiceHeader','invoice_header_master_additional_discount')">
             </div>
 
 
@@ -129,6 +134,17 @@
                         <span class="text-start">Net Value</span>
                         <span class="text-end" id="displayTotalNetValue"></span>
                     </div>
+
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span class="text-start">Additional Discount</span>
+                        <span class="text-end" id="displayAdditionalDiscount"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span class="text-start">Total Value</span>
+                        <span class="text-end" id="displayTotalValue"></span>
+                    </div>
+
                 </div>
             </div>
 
@@ -139,7 +155,7 @@
             </div>
 
 
-            <div class="col-md-1"></div>
+
 
 
             <div class="col-md-4">
@@ -381,8 +397,10 @@
         </tbody>
         <tfoot style="line-height: 5px;">
         <tr><td id="labelGross" colspan="5">Gross Value &nbsp;&nbsp;</td> <td class="text-end" id="tdGrossValue"></td> </tr>
-        <tr><td id="labelTotal" colspan="5">Total Discount</td> <td class="text-end" id="tdDiscountValue"></td> </tr>
+        <tr><td id="labelTotalDiscount" colspan="5">Total Discount</td> <td class="text-end" id="tdDiscountValue"></td> </tr>
         <tr><td id="labelNet" colspan="5">Net Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> <td class="text-end" id="tdNetValue"></td> </tr>
+        <tr><td id="labelAdditionalDiscount" colspan="5">Add. Disc. &nbsp; &nbsp; &nbsp;</td> <td class="text-end" id="tdAdditionalDiscount"></td> </tr>
+        <tr><td id="labelTotalValue" colspan="5">Total &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td> <td class="text-end" id="tdTotalValue"></td> </tr>
         </tfoot>
     </table>
 </div>
@@ -408,6 +426,8 @@
         <tr><td id="A5labelGross" colspan="5">Gross Value &nbsp;&nbsp;</td> <td class="text-end" id="A5tdGrossValue"></td> </tr>
         <tr><td id="A5labelTotal" colspan="5">Total Discount</td> <td class="text-end" id="A5tdDiscountValue"></td> </tr>
         <tr><td id="A5labelNet" colspan="5">Net Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> <td class="text-end" id="A5tdNetValue"></td> </tr>
+        <tr><td id="A5AdditionalDiscount" colspan="5">Add. Disc. &nbsp; &nbsp; &nbsp;</td> <td class="text-end" id="A5tdAdditionalDiscount"></td> </tr>
+        <tr><td id="A5TotalValue" colspan="5">Total &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td> <td class="text-end" id="A5tdTotalValue"></td> </tr>
         </tfoot>
     </table>
 </div>

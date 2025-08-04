@@ -41,6 +41,9 @@ public class InvoiceHeaderMaster {
     @Column(name = "invoice_header_master_pay_type")
     private String invoice_header_master_pay_type;
 
+    @Column(name = "invoice_header_master_additional_discount")
+    private BigDecimal invoice_header_master_additional_discount;
+
 
     @ManyToOne
     @JoinColumn(name = "customer_master_id",referencedColumnName = "id")

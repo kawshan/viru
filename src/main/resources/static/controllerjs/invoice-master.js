@@ -222,6 +222,7 @@ const refillInvoiceMaster = (ob) => {
     textPoNumber.value = invoiceHeader.invoice_header_po_number
     textDispatchKey.value = invoiceHeader.invoice_header_dispatch_number;
     selectDiscount.value = invoiceHeader.invoice_header_discount;
+    textAdditionalDiscount.value = invoiceHeader.invoice_header_master_additional_discount
 
 
     if (invoiceHeader.invoice_header_master_pay_type == "cash") {
@@ -560,13 +561,16 @@ const showTotalNetDiscountAndGross = () => {
 
     const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${textInvoiceHeaderKey.value}`);
     const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${textInvoiceHeaderKey.value}`);
-    const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${textInvoiceHeaderKey.value}`);
+    const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${textInvoiceHeaderKey.value}`);
+    const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${textInvoiceHeaderKey.value}`);
 
     divGrossDiscountNet.classList.remove('d-none')
 
     displayGrossValue.innerHTML = "";
     displayTotalDiscount.innerHTML = "";
     displayTotalNetValue.innerHTML = "";
+    displayAdditionalDiscount.innerHTML = "";
+    displayTotalValue.innerHTML = "";
 
     displayGrossValue.innerHTML = `${Number(getGrossFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
@@ -576,10 +580,16 @@ const showTotalNetDiscountAndGross = () => {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}`
-    displayTotalNetValue.innerHTML = `${Number(getTotalFromServer).toLocaleString('en-US', {
+    displayTotalNetValue.innerHTML = `${Number(getNetValueFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}`
+
+    displayAdditionalDiscount.innerHTML=(Number(getNetValueFromServer)/100)*Number(textAdditionalDiscount.value);
+
+
+    displayTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+
 
 
 }
@@ -621,10 +631,16 @@ const printInvoice = async (ob) => {
         #labelGross{
         border: 2px solid white; border-right: 1px solid black; border-top: 1px solid black; text-align: right; !important;
         }
-        #labelTotal{
+        #labelTotalDiscount{
         border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
         }
         #labelNet{
+        border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
+        }        
+        #labelAdditionalDiscount{
+        border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
+        }        
+        #labelTotalValue{
         border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
         }
         
@@ -784,6 +800,14 @@ const printInvoiceForA5Size = async (ob) => {
         border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
         }
         
+        #A5AdditionalDiscount{
+        border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
+        }
+        
+        #A5TotalValue{
+        border: 2px solid white; border-right: 1px solid black; text-align: right; !important;
+        }
+        
         
         #A5tdGrossValue{
         text-align: right;
@@ -795,6 +819,13 @@ const printInvoiceForA5Size = async (ob) => {
         text-align: right;
         }
         
+        #A5tdAdditionalDiscount{
+        text-align: right;
+        }
+        
+        #A5tdTotalValue{
+        text-align: right;
+        }
         
         
         
@@ -918,6 +949,9 @@ const getGrossDiscountNetValuesForTablePrintA5 = (headerKey) => {
     const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${headerKey}`);
     const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${headerKey}`);
     const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
+    const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
+    const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${headerKey}`);
+
 
 
     A5tdGrossValue.innerHTML = ""
@@ -935,7 +969,11 @@ const getGrossDiscountNetValuesForTablePrintA5 = (headerKey) => {
     A5tdNetValue.innerHTML = Number(getTotalFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    })
+    });
+
+    A5tdAdditionalDiscount.innerHTML=Number(getAdditionalDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2})
+
+    A5tdTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
 
 }
@@ -967,7 +1005,8 @@ const getItemNameForPrint = (ob) => {
 const getGrossDiscountNetValuesForTablePrint = (headerKey) => {
     const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${headerKey}`);
     const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${headerKey}`);
-    const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
+    const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
+    const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${headerKey}`);
 
 
     tdGrossValue.innerHTML = ""
@@ -982,11 +1021,14 @@ const getGrossDiscountNetValuesForTablePrint = (headerKey) => {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })
-    tdNetValue.innerHTML = Number(getTotalFromServer).toLocaleString('en-US', {
+    tdNetValue.innerHTML = Number(getNetValueFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })
 
+    tdAdditionalDiscount.innerHTML=Number(getAdditionalDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2})
+
+    tdTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
 }
 
