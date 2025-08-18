@@ -47,6 +47,15 @@ public class InvoiceHeaderMasterController {
             }
 
 
+            Integer nextInvoiceNumber = invoiceHeaderMasterDao.getNextInvoiceNumber();
+            if (nextInvoiceNumber == null || nextInvoiceNumber.equals("")){
+                invoiceHeaderMaster.setInvoice_header_number(1001);
+            }else {
+                invoiceHeaderMaster.setInvoice_header_number(nextInvoiceNumber);
+            }
+
+
+
             String maxInvoiceHeaderCode = invoiceHeaderMasterDao.findMaxInvoiceCode();
             if (maxInvoiceHeaderCode == null || maxInvoiceHeaderCode.equals("")) {
                 invoiceHeaderMaster.setInvoice_header_key("IN0001");
@@ -98,10 +107,10 @@ public class InvoiceHeaderMasterController {
 
 
     @GetMapping(value = "/getNextInvoiceNumber")
-    public String getNextInvoiceNumber(){
-        String nextInvoiceNumber = invoiceHeaderMasterDao.getNextInvoiceNumber();
+    public Integer getNextInvoiceNumber(){
+        Integer nextInvoiceNumber = invoiceHeaderMasterDao.getNextInvoiceNumber();
         if(nextInvoiceNumber == null || nextInvoiceNumber.equals("")){
-            return "1001";
+            return 1001;
         }else {
             return nextInvoiceNumber;
         }

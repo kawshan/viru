@@ -39,20 +39,20 @@ const refreshInvoiceMasterHeaderForm = () => {
     customersList = ajaxGetRequest("/customer-master/findall")
     // fillDataIntoDataList(dataListCustomer,customersList,'customer_name','customer_mobile');
     fillDataIntoDataListWithTwoValues(dataListCustomer, customersList, 'customer_name', 'customer_mobile')
-    getNextInvoiceNumber();
+    // getNextInvoiceNumber();
 
     buttonInvoiceDetailAdd.disabled = true;
     buttonInvoiceDetailAdd.style.cursor = 'not-allowed';
 }
 
 
-const getNextInvoiceNumber = () => {
-    const nextInvoiceNumber = ajaxGetRequest("/invoice-header/getNextInvoiceNumber");
-
-    textInvoiceNO.value = Number(nextInvoiceNumber);
-    textInvoiceNO.style.border = "2px solid green";
-    invoiceHeader.invoice_header_number = textInvoiceNO.value;
-}
+// const getNextInvoiceNumber = () => {
+//     const nextInvoiceNumber = ajaxGetRequest("/invoice-header/getNextInvoiceNumber");
+//
+//     textInvoiceNO.value = Number(nextInvoiceNumber);
+//     textInvoiceNO.style.border = "2px solid green";
+//     invoiceHeader.invoice_header_number = textInvoiceNO.value;
+// }
 
 
 const changeColoursToDefault = () => {
@@ -127,9 +127,6 @@ const checkErrorsInvoiceMasterHeader = () => {
     if (invoiceHeader.customer_master_id == null) {
         errors = errors + "Customer Cannot Be Empty \n"
     }
-    if (invoiceHeader.invoice_header_number == null) {
-        errors = errors + "Invoice Number Cannot Be Empty \n"
-    }
     if (invoiceHeader.invoice_header_date == null) {
         errors = errors + "Date Cannot Be Empty \n"
     }
@@ -162,6 +159,7 @@ const saveInvoiceHeader = async () => {
                     alert(`Save Successful`);
                     console.log(postServerResponse.responseText)
                     textInvoiceHeaderKey.value = postServerResponse.invoice_header_key;
+                    textInvoiceNO.value = postServerResponse.invoice_header_number
                     changeColoursToDefault();
                     refreshInvoiceMasterHeaderTable();
                     refreshInvoiceDetailsForm();
@@ -184,6 +182,7 @@ const saveInvoiceHeader = async () => {
             const getIdFromHeaderKey = await ajaxGetRequest(`/invoice-header/findIdByHeaderKey/${textInvoiceHeaderKey.value}`);
             invoiceHeader.id = Number(getIdFromHeaderKey);
             invoiceHeader.invoice_header_key = textInvoiceHeaderKey.value //key eka set karanne mokada upate ekedi key ekek set wenne na ne eka set venne save eke nisa methanath bind karanna one
+            invoiceHeader.invoice_header_number = textInvoiceNO.value //uda reason eka nisama thama
 
             const userConfirm = confirm(`Are You Sure To Update Following Invoice \n
             Customer Is ${invoiceHeader.customer_master_id.customer_name}

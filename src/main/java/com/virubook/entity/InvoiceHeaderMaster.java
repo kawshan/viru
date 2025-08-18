@@ -21,7 +21,7 @@ public class InvoiceHeaderMaster {
     private Integer id;
 
     @Column(name = "invoice_header_number")
-    private String invoice_header_number;
+    private Integer invoice_header_number;
 
     @Column(name = "invoice_header_key")
     private String invoice_header_key;

@@ -18,7 +18,7 @@ public interface InvoiceHeaderMasterDao extends JpaRepository<InvoiceHeaderMaste
     public String findMaxInvoiceCode();
 
     @Query(value = "select ihm from InvoiceHeaderMaster ihm where ihm.invoice_header_number=?1")
-    public InvoiceHeaderMaster findByInvoiceHeaderNumber(String invoiceHeaderNumber);
+    public InvoiceHeaderMaster findByInvoiceHeaderNumber(Integer invoiceHeaderNumber);
 
 
     @Query(value = "select id from invoice_header_master where invoice_header_key=?1",nativeQuery = true)
@@ -26,7 +26,7 @@ public interface InvoiceHeaderMasterDao extends JpaRepository<InvoiceHeaderMaste
 
 
     @Query(value = "select max(invoice_header_number)+1 from invoice_header_master as next_invoice_Number;",nativeQuery = true)
-    public String getNextInvoiceNumber();
+    public Integer getNextInvoiceNumber();
 
 
     @Transactional
