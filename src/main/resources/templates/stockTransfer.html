@@ -91,7 +91,7 @@
     </div>
     <!--button row end-->
 
-    <!--production header area start-->
+    <!--stock transfer header area start-->
     <div class="row p-4">
         <div class="col-md-2">
             <label for="textStockTransferDate" class="form-label">Date <i class="text-danger">*</i> </label>
@@ -112,48 +112,55 @@
 
 
     </div>
-    <!--production header area end-->
+    <!--stock transfer header area end-->
 
 
-    <!--production detail area start-->
+    <!--stock transfer detail area start-->
     <div class="p-4">
         <form onsubmit="return false">
             <table class="table table-bordered" style="height: 100px">
 
-                <tr>
+                <tr style="height: 100px">
 
                     <td>
-                        <label for="textProDetailsItem" class="form-label">Item</label>
-                        <input type="text" id="textProDetailsItem" list="dataListItem"
+                        <label for="textStockTransferDetailsItem" class="form-label">Item</label>
+                        <input type="text" id="textStockTransferDetailsItem" list="dataListItem"
                                class="form-control text-start fw-bold" style="height: 60px;color: gray"
                                placeholder="Type & Search Item"
-                               onkeyup="dataListValidator2(this,'itemsList','productionDetails','item_master_id','item_short_name')">
+                               onkeyup="dataListValidator2(this,'itemsList','stockTransferDetails','item_master_id','item_short_name')">
                         <datalist id="dataListItem"></datalist>
                     </td>
 
-
                     <td>
-                        <label for="textProDetailsQuantity" class="form-label">Quantity</label>
-                        <input type="number" id="textProDetailsQuantity" class="form-control text-start fw-bold"
-                               style="height: 60px" placeholder="Enter Quantity"
-                               onkeyup="textValidator(this,'','productionDetails','production_details_quantity')">
+                        <label for="textStockTransferDetailsQuantity" class="form-label">Quantity</label>
+                        <input type="text" id="textStockTransferDetailsQuantity" style="height: 60px;" class="form-control text-start fw-bold" onkeyup="textValidator(this,'','stockTransferDetails','stock_transfer_details_quantity')">
                     </td>
 
 
                     <td>
-                        <label for="textProDetailsDescription" class="form-label">Description</label>
-                        <input type="text" id="textProDetailsDescription" class="form-control text-start fw-bold"
-                               style="height: 60px" placeholder="Enter Description"
-                               onkeyup="textValidator(this,'','productionDetails','production_details_description')">
+                        <label for="selectStockTransferDetailsFromLocation" class="form-label">From Location</label>
+                        <select class="form-select text-start fw-bold" id="selectStockTransferDetailsFromLocation" style="color: gray; height: 60px" onchange="selectDBValidator(this,'','stockTransferDetails','from_location')"></select>
+                    </td>
+
+
+                    <td>
+                        <label for="selectStockTransferDetailsToLocation" class="form-label">To Location</label>
+                        <select class="form-select text-start fw-bold" id="selectStockTransferDetailsToLocation" style="color: gray; height: 60px" onchange="selectDBValidator(this,'','stockTransferDetails','to_location')"></select>
+                    </td>
+
+
+                    <td>
+                        <label for="selectStockTransferDetailsDescription" class="form-label">Description</label>
+                        <input type="text" id="selectStockTransferDetailsDescription" style="height: 60px;" class="form-control text-start fw-bold" onkeyup="textValidator(this,'','stockTransferDetails','stock_transfer_details_description')">
                     </td>
 
 
                     <td class="text-end">
                         <button type="button" class="btn btn-lg btn-warning" style="pointer-events: all;"
-                                onclick="updateProductionDetails()" id="buttonProductionDetailsUpdate">Update
+                                onclick="updateStockTransferDetails()" id="buttonStockTransferDetailsUpdate">Update
                         </button>
                         <button type="button" class="btn btn-lg btn-success" style="pointer-events: all;"
-                                onclick="saveProductionDetails()" id="buttonProductionDetailsAdd">Add
+                                onclick="saveStockTransferDetails()" id="buttonStockTransferDetailsAdd">Add
                         </button>
                     </td>
 
@@ -172,12 +179,12 @@
                     <div class="col-md-12">
                         <button type="button" class="btn btn-warning fw-bold"
                                 style="width: 15%; color: whitesmoke; border: 1px solid black;"
-                                onclick="refillProductionDetails(window['editOb'],window['editRow'])">
+                                onclick="refillStockTransferDetailsFrom(window['editOb'],window['editRow'])">
                             <i class="fa-solid fa-recycle fa-beat"></i> Refill
                         </button>
                         <button type="button" class="btn btn-danger fw-bold"
                                 style=" width: 15%; color: whitesmoke; border: 1px solid black; pointer-events: all"
-                                onclick="deleteProductionDetails(window['editOb'],window['editRow'])">
+                                onclick="deleteStockTransferDetails(window['editOb'],window['editRow'])">
                             <i class="fa-solid fa-trash fa-beat"></i> Delete
                         </button>
                     </div>
@@ -187,23 +194,25 @@
         </div>
 
     </div>
-    <!--production detail area end-->
+    <!--stock transfer detail area end-->
 
 
-    <!--production details table area start-->
-    <div class="p-5 d-none" id="divProductionDetails">
-        <table class="table table-bordered" id="tableProductionDetails">
+    <!--stock transfer details table area start-->
+    <div class="p-5 d-none" id="divStockTransferDetails">
+        <table class="table table-bordered" id="tableStockTransferDetails">
             <thead>
             <th>#</th>
             <th>Item Name</th>
-            <th>Description</th>
             <th>Quantity</th>
+            <th>From</th>
+            <th>to</th>
+            <th>decription</th>
             <th>Action</th>
             </thead>
             <tbody></tbody>
         </table>
     </div>
-    <!--production details table area end-->
+    <!--stock transfer details table area end-->
 
 
     <!--search model area start-->
