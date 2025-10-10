@@ -25,7 +25,7 @@ public class StockTransferHeader {
     private String stock_transfer_header_key;
 
     @Column(name = "stock_transfer_header_number")
-    private String stock_transfer_header_number;
+    private Integer stock_transfer_header_number;
 
     @Column(name = "stock_transfer_header_date")
     private LocalDate stock_transfer_header_date;

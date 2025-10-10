@@ -44,9 +44,9 @@ public class StockTransferHeaderController {
             }
 
 
-            String stockTransferNumber = stockTransferHeaderDao.getNextStockTransferNumber();
+            Integer stockTransferNumber = stockTransferHeaderDao.getNextStockTransferNumber();
             if (stockTransferNumber==null || stockTransferNumber.equals("")){
-                stockTransferHeader.setStock_transfer_header_number("1001");
+                stockTransferHeader.setStock_transfer_header_number(1001);
             }else {
                 stockTransferHeader.setStock_transfer_header_number(stockTransferNumber);
             }

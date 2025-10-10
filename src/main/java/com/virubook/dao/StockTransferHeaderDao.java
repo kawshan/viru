@@ -13,7 +13,7 @@ public interface StockTransferHeaderDao extends JpaRepository<StockTransferHeade
 
 
     @Query(value = "select max(stock_transfer_header_number)+1 from stock_transfer_header as next_stock_transfer_number;",nativeQuery = true)
-    public String getNextStockTransferNumber();
+    public Integer getNextStockTransferNumber();
 
 
     @Query(value = "select st from StockTransferHeader st order by st.id desc limit 100")
