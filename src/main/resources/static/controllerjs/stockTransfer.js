@@ -39,6 +39,9 @@ const stockTransferHeaderColorRest = () => {
 
 const refreshStockTransferTable = () => {
 
+    divStockTransferFullHeader.classList.add('d-none');
+    divProductionHeaderTable.classList.remove('d-none');
+
     result = ajaxGetRequest("/stock-transfer/last-hundred-records")
 
 
@@ -165,7 +168,26 @@ const deleteStockTransfer = (ob) => {
 
 }
 
+const refreshStockTransferFullTable = () => {
 
+    divProductionHeaderTable.classList.add('d-none');
+    divStockTransferFullHeader.classList.remove('d-none');
+
+
+    const result = ajaxGetRequest("/stock-transfer/findall")
+
+
+    const displayProperties = [
+        {dataType: 'text', propertyName: 'stock_transfer_header_date'},
+        {dataType: 'text', propertyName: 'stock_transfer_header_number'},
+        {dataType: 'text', propertyName: 'stock_transfer_header_key'},
+    ];
+
+
+    fillDataIntoTable2(tableFullStockTransferHeader, result, displayProperties, true, divModifyButton2)
+    $("#tableFullStockTransferHeader").DataTable();
+
+}
 
 
 // stock transfer details section start
@@ -399,8 +421,122 @@ const deleteStockTransferDetails = (ob)=>{
 
 
 
+const printStockTransfer = async (ob)=>{
+
+    await loadStockTransferPrintTable(ob.stock_transfer_header_key);
+
+
+    const newWindow = window.open();
+    newWindow.document.write(`
+    
+    <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stock Transfer Details</title>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid" style="position: relative">
+
+    <div class="row">
+        <div class="col-12 text-center"><h4>Stock Transfer Details</h4></div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4">
+
+        </div>
+        
+        <div class="col-4"></div>
+        <div class="col-4">
+            <table class="table table-bordered" style="border: 1px solid black; height: 50%">
+                <tbody>
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Transfer No</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${ob.stock_transfer_header_number}</td>
+                </tr>
+                
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Transfer Code</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${ob.stock_transfer_header_key}</td>
+                </tr>
+
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Transfer Date</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${new Date(ob.stock_transfer_header_date).toLocaleString('en-GB', { day: "2-digit", month: "short", year: "2-digit" })}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    
+    <div class="row" style="margin-left: 3px; margin-right: 1px">
+    ${tableStockTransferDetailsPrint.outerHTML}
+    </div>
 
 
 
+</div>
+
+<div style="position: absolute; bottom: 1%; width: 100%" >
+    <!--  prepared by, checked by, recieved by area start   -->
+    <div class="row">
+        <div class="col-4 text-start">
+            _____________
+            <p style="font-size: 11px">Prepared By</p>
+        </div>
+        <div class="col-4 text-center">
+            _____________
+            <p style="font-size: 11px">Received By</p>
+        </div>
+        <div class="col-4 text-end">
+            _____________
+            <p style="font-size: 11px; margin-right: 3px">Checked By</p>
+        </div>
+    </div>
+    <!--  prepared by, checked by, recieved by area end   -->
+</div>
 
 
+
+</body>
+</html>
+    `);
+    setTimeout(function () {
+        newWindow.stop();
+        newWindow.print();
+        newWindow.close();
+        divModifyButton2.classList.add('d-none');
+    }, 1000)
+}
+
+
+
+const loadStockTransferPrintTable =async (headerKey)=>{
+
+
+    const result  =await ajaxGetRequest(`/stock_transfer_details/get_by_header_key/${headerKey}`);
+
+    const displayProperty = [
+        {dataType:'function',propertyName:getItemShortName},
+        {dataType:'text',propertyName:'stock_transfer_details_quantity'},
+        {dataType:'text',propertyName:'stock_transfer_details_description'},
+        {dataType:'function',propertyName:getFromLocation},
+        {dataType:'function',propertyName:getToLocation},
+
+
+    ];
+
+    fillDataIntoTable2(tableStockTransferDetailsPrint,result,displayProperty,false);
+
+}
