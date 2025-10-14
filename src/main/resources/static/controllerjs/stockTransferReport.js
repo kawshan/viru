@@ -20,16 +20,36 @@ const refreshStockTransferForm = ()=>{
 
 const refreshStockTransferTable = ()=>{
 
-    const result = ajaxGetRequest("") //need to inset link
+    const result = ajaxGetRequest(`/stock-transfer-report/${selectFromDate.value}/${selectToDate.value}`);
 
     const displayProperties = [
-        {dataType:'',propertyName:''}
-    ]
+        {dataType:'text',propertyName:'stock_transfer_date'},
+        {dataType:'function',propertyName:getStockTransferNumber},
+        {dataType:'text',propertyName:'stock_transfer_key'},
+        {dataType:'text',propertyName:'item_short_name'},
+        {dataType:'text',propertyName:'quantity'},
+        {dataType:'text',propertyName:'from_location'},
+        {dataType:'text',propertyName:'to_location'},
+    ];
 
 
     fillDataIntoTable2(tableStockTransferReportPrint,result,displayProperties,false);
 
 }
+
+let runningTransferNumber = 0;
+
+const getStockTransferNumber = (ob)=>{
+
+    if (runningTransferNumber === ob.stock_transfer_number){
+        return "";
+    }else {
+        runningTransferNumber = ob.stock_transfer_number;
+        return `<p class="text-end">${ob.stock_transfer_number}</p>`
+    }
+
+}
+
 
 
 const printStockTransferReport = async ()=>{
