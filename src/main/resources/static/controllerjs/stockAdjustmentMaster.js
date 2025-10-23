@@ -30,12 +30,17 @@ const refreshStockAdjustmentHeaderForm = () => {
     buttonStockAdjustmentDetailUpdate.disabled=true;
 
 
+    locationList = ajaxGetRequest("/location-master/findall");
+    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name');
+
+
 }
 
 const stockAdjustmentHeaderResetColorsToDefault = () => {
     textStockAdjustmentNumber.style.color = "2px solid #ced4da";
     textStockAdjustmentKey.style.color = "2px solid #ced4da";
     textStockAdjustmentDate.style.color = "2px solid #ced4da";
+    selectBranch.style.color = "2px solid #ced4da";
 }
 
 
@@ -44,6 +49,7 @@ const refreshStockAdjustmentHeaderTable = () => {
     stockAdjustmentHeadersList = ajaxGetRequest("/stockAdjustmentHeader/recent1000StockAdjustments")
 
     displayProperty = [
+        {dataType: 'function', propertyName: getBranchName},
         {dataType: 'text', propertyName: 'stock_adjustment_header_no'},
         {dataType: 'text', propertyName: 'stock_adjustment_header_key'},
         {dataType: 'text', propertyName: 'stock_adjustment_header_date'},
@@ -61,11 +67,22 @@ const refreshStockAdjustmentHeaderTable = () => {
 }
 
 
+const getBranchName = (ob) => {
+    return ob.location_master_id.location_master_name;
+}
+
+
+
 const checkErrorsInStockAdjustmentHeaderForm = () => {
     let errors = "";
 
     if (stockAdjustmentHeader.stock_adjustment_header_date == null) {
         errors = errors + "Date Cannot Be Empty \n"
+    }
+
+
+    if (stockAdjustmentHeader.location_master_id == null) {
+        errors = errors + "Branch Cannot Be Empty \n"
     }
 
     return errors;
@@ -79,11 +96,12 @@ const saveOrUpdateStockAdjustmentHeader = async () => {
         if (errors == "") {
             const userConfirm = confirm(`Are You sure to Add Following Stock Adjustment Details 
              Date Is ${stockAdjustmentHeader.stock_adjustment_header_date}
+             Branch Is ${stockAdjustmentHeader.location_master_id.location_master_name}
              `);
             if (userConfirm) {
                 const postServerResponse = ajaxPostRequest("/stockAdjustmentHeader", stockAdjustmentHeader);
                 if (postServerResponse) {
-                    alert("save successful")
+                    alert("save successful");
                     textStockAdjustmentNumber.value = postServerResponse.stock_adjustment_header_no;
                     textStockAdjustmentKey.value = postServerResponse.stock_adjustment_header_key;
                     stockAdjustmentHeaderResetColorsToDefault();
@@ -109,6 +127,7 @@ const saveOrUpdateStockAdjustmentHeader = async () => {
         Code is ${stockAdjustmentHeader.stock_adjustment_header_key}
         Number is ${stockAdjustmentHeader.stock_adjustment_header_no}
         Date is ${stockAdjustmentHeader.stock_adjustment_header_date}
+        Branch Is ${stockAdjustmentHeader.location_master_id.location_master_name}
         `);
         if (userConfirm) {
             const putServerResponse = ajaxPutRequest("/stockAdjustmentHeader", stockAdjustmentHeader);
@@ -138,6 +157,11 @@ const refillStockAdjustmentMaster = (ob) => {
     textStockAdjustmentKey.value = stockAdjustmentHeader.stock_adjustment_header_key;
     textStockAdjustmentDate.value = stockAdjustmentHeader.stock_adjustment_header_date;
 
+
+    locationList = ajaxGetRequest("/location-master/findall");
+    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name',stockAdjustmentHeader.location_master_id.location_master_name);
+
+
     refreshStockAdjustmentDetailTable();
     refreshStockAdjustmentDetailsForm();
 
@@ -150,6 +174,7 @@ const deleteStockAdjustmentHeader = (ob) => {
         Code is ${ob.stock_adjustment_header_key}
         Number is ${ob.stock_adjustment_header_no}
         Date is ${ob.stock_adjustment_header_date}
+        Branch is ${ob.location_master_id.location_master_name}
     `);
     if (userConfirm){
         const deleteServerResponse = ajaxDeleteRequest("/stockAdjustmentHeader",ob);

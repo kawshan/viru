@@ -36,23 +36,15 @@ const refreshInvoiceMasterHeaderForm = () => {
     document.querySelectorAll('input[name=paymentType]').forEach(rb => rb.checked = false);
 
 
-    customersList = ajaxGetRequest("/customer-master/findall")
-    // fillDataIntoDataList(dataListCustomer,customersList,'customer_name','customer_mobile');
-    fillDataIntoDataListWithTwoValues(dataListCustomer, customersList, 'customer_name', 'customer_mobile')
-    // getNextInvoiceNumber();
+    customersList = ajaxGetRequest("/customer-master/findall");
+    fillDataIntoDataListWithTwoValues(dataListCustomer, customersList, 'customer_name', 'customer_mobile');
+
+    locationList = ajaxGetRequest("/location-master/findall");
+    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name');
 
     buttonInvoiceDetailAdd.disabled = true;
     buttonInvoiceDetailAdd.style.cursor = 'not-allowed';
 }
-
-
-// const getNextInvoiceNumber = () => {
-//     const nextInvoiceNumber = ajaxGetRequest("/invoice-header/getNextInvoiceNumber");
-//
-//     textInvoiceNO.value = Number(nextInvoiceNumber);
-//     textInvoiceNO.style.border = "2px solid green";
-//     invoiceHeader.invoice_header_number = textInvoiceNO.value;
-// }
 
 
 const changeColoursToDefault = () => {
@@ -63,6 +55,7 @@ const changeColoursToDefault = () => {
     textInvoiceDate.style.border = "2px solid #ced4da";
     textPoNumber.style.border = "2px solid #ced4da";
     textDispatchKey.style.border = "2px solid #ced4da";
+    selectBranch.style.border = "2px solid #ced4da";
 
 
 
@@ -75,6 +68,7 @@ const refreshInvoiceMasterHeaderTable = () => {
     invoiceHeadersList = ajaxGetRequest("/invoice-header/findall");
 
     displayProperty = [
+        {dataType: 'function', propertyName: getBranchName},
         {dataType: 'function', propertyName: getCustomerName},
         {dataType: 'text', propertyName: 'invoice_header_master_pay_type'},
         {dataType: 'text', propertyName: 'invoice_header_number'},
@@ -104,8 +98,8 @@ const handelResetInvoiceMaster = () => {
     divModifyButton2.classList.add('d-none');
     divModifyButton3.classList.add('d-none');
     divInvoiceDetail.classList.add('d-none');
-    displayCustomerName.innerHTML = ""
-    displayCustomerAddress.innerHTML = ""
+    displayCustomerName.innerHTML = "";
+    displayCustomerAddress.innerHTML = "";
 
 
     displayGrossValue.innerHTML = "";
@@ -116,19 +110,27 @@ const handelResetInvoiceMaster = () => {
 }
 
 
+const getBranchName = (ob) => {
+    return ob.location_master_id.location_master_name;
+}
+
 const getCustomerName = (ob) => {
     return ob.customer_master_id.customer_name;
 }
 
 
 const checkErrorsInvoiceMasterHeader = () => {
-    let errors = ''
+    let errors = '';
 
     if (invoiceHeader.customer_master_id == null) {
         errors = errors + "Customer Cannot Be Empty \n"
     }
     if (invoiceHeader.invoice_header_date == null) {
         errors = errors + "Date Cannot Be Empty \n"
+    }
+
+    if (invoiceHeader.location_master_id == null) {
+        errors = errors + "Branch Name Cannot Be Empty \n"
     }
 
     if (invoiceHeader.invoice_header_master_pay_type == null) {
@@ -152,12 +154,13 @@ const saveInvoiceHeader = async () => {
             Payment Type Is ${invoiceHeader.invoice_header_master_pay_type}
             Customer Mobile Is ${invoiceHeader.customer_master_id.customer_mobile}
             Invoice Date Is ${invoiceHeader.invoice_header_date}
+            Branch Is ${invoiceHeader.location_master_id.location_master_name}
             `);
             if (userConfirm) {
                 const postServerResponse = ajaxPostRequest("/invoice-header", invoiceHeader);
                 if (postServerResponse && postServerResponse.invoice_header_key) {
                     alert(`Save Successful`);
-                    console.log(postServerResponse.responseText)
+                    console.log(postServerResponse.responseText);
                     textInvoiceHeaderKey.value = postServerResponse.invoice_header_key;
                     textInvoiceNO.value = postServerResponse.invoice_header_number
                     changeColoursToDefault();
@@ -168,7 +171,7 @@ const saveInvoiceHeader = async () => {
                 }
             }
         } else {
-            alert(`You Have Some Errors \n ${errors}`)
+            alert(`You Have Some Errors \n ${errors}`);
         }
     } else {
         console.log(`update part`);
@@ -190,6 +193,7 @@ const saveInvoiceHeader = async () => {
             Payment Type Is ${invoiceHeader.invoice_header_master_pay_type}
             Invoice Number Is ${invoiceHeader.invoice_header_number}
             Invoice Date Is ${invoiceHeader.invoice_header_date}
+            Branch name Is ${invoiceHeader.location_master_id.location_master_name}
             `);
             if (userConfirm) {
                 const putServerResponse = await ajaxPutRequest("/invoice-header", invoiceHeader);
@@ -223,6 +227,8 @@ const refillInvoiceMaster = (ob) => {
     selectDiscount.value = invoiceHeader.invoice_header_discount;
     textAdditionalDiscount.value = invoiceHeader.invoice_header_master_additional_discount
 
+    let locationList = ajaxGetRequest("/location-master/findall");
+    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name',invoiceHeader.location_master_id.location_master_name);
 
     if (invoiceHeader.invoice_header_master_pay_type == "cash") {
         radioPayTypeCash.checked = true;

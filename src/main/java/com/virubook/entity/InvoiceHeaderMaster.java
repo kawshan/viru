@@ -50,6 +50,11 @@ public class InvoiceHeaderMaster {
     private CustomerMaster customer_master_id;
 
 
+    @ManyToOne
+    @JoinColumn(name = "location_master_id",referencedColumnName = "id")
+    private LocationMaster location_master_id;
+
+
 
 
 

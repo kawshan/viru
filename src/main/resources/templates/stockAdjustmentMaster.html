@@ -95,10 +95,16 @@
         
         
         <div class="row mt-3">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label for="textStockAdjustmentNumber" class="form-label">Number</label>
                 <input type="text" id="textStockAdjustmentNumber" disabled class="form-control text-start fw-bold" placeholder="" style="height: 60px" >
             </div>
+
+            <div class="col-md-2">
+                <label for="selectBranch" class="form-label">Branch</label>
+                <select id="selectBranch" class="form-control text-start fw-bold" style="color: gray; height: 60px" onchange="selectDBValidator(this,'','stockAdjustmentHeader','location_master_id')"></select>
+            </div>
+
             <div class="col-md-4">
                 <label for="textStockAdjustmentKey" class="form-label">Code</label>
                 <input type="text" id="textStockAdjustmentKey" disabled class="form-control text-start fw-bold" placeholder="" style="height: 60px" >
@@ -228,6 +234,7 @@
                     <table class="table table-hover table-striped"  id="tableStockAdjustmentHeader">
                         <thead>
                         <th>#</th>
+                        <th>Branch</th>
                         <th>Number</th>
                         <th>Key</th>
                         <th>Date</th>
