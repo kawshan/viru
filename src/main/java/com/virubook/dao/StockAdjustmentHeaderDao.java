@@ -1,7 +1,9 @@
 package com.virubook.dao;
 
 import com.virubook.entity.StockAdjustmentHeader;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -22,6 +24,13 @@ public interface StockAdjustmentHeaderDao extends JpaRepository<StockAdjustmentH
 
     @Query(value = "select max(stock_adjustment_header_no)+1 from stock_adjustment_header as next_stock_adjustment_number;",nativeQuery = true)
     public Integer getNextStockAdjustmentNumber();
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from stock_adjustment_details where stock_adjustment_details_header_key = ?1;",nativeQuery = true)
+    public void deleteStockAdjustmentDetailsByHeaderKey(String headerKey);
+
 
 
 }

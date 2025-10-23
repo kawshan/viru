@@ -84,10 +84,7 @@ public class StockTransferHeaderController {
     @DeleteMapping
     public String deleteStockTransfer(@RequestBody StockTransferHeader stockTransferHeader) {
         try {
-
-            //need to implement delete in details thing.
-
-
+            stockTransferHeaderDao.deleteStockTransferDetailsFromHeaderKey(stockTransferHeader.getStock_transfer_header_key());
             stockTransferHeaderDao.delete(stockTransferHeader);
             return "ok";
         }catch (Exception e) {

@@ -37,10 +37,10 @@ const refreshStockAdjustmentHeaderForm = () => {
 }
 
 const stockAdjustmentHeaderResetColorsToDefault = () => {
-    textStockAdjustmentNumber.style.color = "2px solid #ced4da";
-    textStockAdjustmentKey.style.color = "2px solid #ced4da";
-    textStockAdjustmentDate.style.color = "2px solid #ced4da";
-    selectBranch.style.color = "2px solid #ced4da";
+    textStockAdjustmentNumber.style.border = "2px solid #ced4da";
+    textStockAdjustmentKey.style.border = "2px solid #ced4da";
+    textStockAdjustmentDate.style.border = "2px solid #ced4da";
+    selectBranch.style.border = "2px solid #ced4da";
 }
 
 

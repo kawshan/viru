@@ -1,7 +1,9 @@
 package com.virubook.dao;
 
 import com.virubook.entity.StockTransferHeader;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -23,6 +25,11 @@ public interface StockTransferHeaderDao extends JpaRepository<StockTransferHeade
 
     @Query(value = "select sth from StockTransferHeader sth where sth.stock_transfer_header_key=?1")
     public StockTransferHeader getStockTransferHeaderByKey(String key);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from stock_transfer_details where stock_transfer_details_header_key = ?1;",nativeQuery = true)
+    public void deleteStockTransferDetailsFromHeaderKey(String headerKey);
 
 
 
