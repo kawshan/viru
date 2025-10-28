@@ -37,7 +37,8 @@ public class StockReportService {
                         (Integer) obj[0],
                         (String) obj[1],
                         (String) obj[2],
-                        (BigDecimal) obj[3]
+                        (String) obj[3],
+                        (BigDecimal) obj[4]
                 )
                 ).collect(Collectors.toList());
     }
