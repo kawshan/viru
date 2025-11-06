@@ -21,13 +21,13 @@ public class SalesReportService {
 
 
 
-    public List<SalesReportDto> generateSalesReport(String fromDate, String toDate) {
-        List<Object[]> results = salesReportDao.getSalesReport(fromDate, toDate);
+    public List<SalesReportDto> generateSalesReport(String fromDate, String toDate, String locationId) {
+        List<Object[]> results = salesReportDao.getSalesReport(fromDate, toDate, locationId);
         return results.stream().map(obj->
                 new SalesReportDto(
                         (Date) obj[0],
                         (String) obj[1],
-                        (String) obj[2],
+                        (Integer) obj[2],
                         (String) obj[3],
                         (String) obj[4],
                         (BigDecimal) obj[5]

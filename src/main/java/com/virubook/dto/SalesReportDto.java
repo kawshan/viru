@@ -15,7 +15,7 @@ public class SalesReportDto {
 
     private Date invoice_date;
     private String invoice_key;
-    private String invoice_number;
+    private Integer invoice_number;
     private String customer_name;
     private String payment_type;
     private BigDecimal total_invoice_value;

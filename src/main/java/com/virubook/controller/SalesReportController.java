@@ -18,9 +18,9 @@ public class SalesReportController {
     @Autowired
     private SalesReportService salesReportService;
 
-    @GetMapping(value = "/{fromDate}/{toDate}")
-    public List<SalesReportDto> getSalesReport(@PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate) {
-        return salesReportService.generateSalesReport(fromDate, toDate);
+    @GetMapping(value = "/{fromDate}/{toDate}/{locationId}")
+    public List<SalesReportDto> getSalesReport(@PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate, @PathVariable("locationId")String locationId) {
+        return salesReportService.generateSalesReport(fromDate, toDate, locationId);
     }
 
     @GetMapping(value = "/view")

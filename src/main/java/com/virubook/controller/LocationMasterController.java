@@ -78,6 +78,13 @@ public class LocationMasterController {
 
 
 
+    @GetMapping(value = "/withoutProduction")
+    public List<LocationMaster> getLocationsWithoutProduction() {
+        return locationMasterDao.getLocationMastersWithoutProduction();
+    }
+
+
+
 
 
 }
