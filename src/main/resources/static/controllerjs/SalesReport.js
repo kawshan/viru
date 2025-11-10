@@ -18,11 +18,20 @@ const refreshSalesReportForm = ()=>{
     selectToDate.value="";
 
 
+    locationList = ajaxGetRequest("/location-master/withoutProduction");
+    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name');
+
 }
 
 const refreshSalesReportTable = ()=>{
 
-    const salesReportList = ajaxGetRequest(`/sales-report/${salesReport.fromdate}/${salesReport.todate}`);
+    const selectedBranch = JSON.parse(selectBranch.value);
+    console.log(selectedBranch);
+
+    const branchID = selectedBranch.id;
+
+
+    const salesReportList = ajaxGetRequest(`/sales-report/${salesReport.fromdate}/${salesReport.todate}/${branchID}`);
 
     const displayColumns = [
         {dataType:'function',propertyName:getDate},
@@ -69,6 +78,12 @@ const getCredit = (ob)=>{
 
 const printSalesReport = async ()=>{
 
+    const selectedBranch = JSON.parse(selectBranch.value);
+    console.log(selectedBranch);
+
+    const branchName = selectedBranch.location_master_name
+
+
     await refreshSalesReportTable();
 
     tfootCash.innerText=totalCashAmount.toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -98,7 +113,9 @@ const printSalesReport = async ()=>{
 <div style=" top: 1cm">
 
     <div class="row" style="margin-bottom: 0; padding-bottom: 0">
-            <p class="text-center" style="font-size: 14px; font-weight: bold;">Sales report</p>
+            <u class="text-center" style="font-size: 14px; font-weight: bold;">Sales report</u>
+            <p class="text-center" style="font-size: 11px">${salesReport.fromdate} To ${salesReport.todate}</p>
+            <p class="text-center" style="font-size: 11px; font-weight: bold">${branchName}</p>
     </div>
 </div>
 

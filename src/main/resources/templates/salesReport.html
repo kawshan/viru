@@ -61,6 +61,12 @@
                 <form onsubmit="return false">
 
                     <div class="row mt-5">
+                        <label for="selectBranch" class="form-label">Branch</label>
+                        <select id="selectBranch" class="form-control text-start fw-bold" style="color: gray; height: 15%" onchange="selectDBValidator(this,'','salesReport','location_master_id')"></select>
+                    </div>
+
+
+                    <div class="row mt-5">
                         <div class="col-md-6">
                             <label for="selectFromDate" class="form-label">From Date</label>
                             <input type="date" class="form-control" id="selectFromDate" required onchange="textValidator(this,'','salesReport','fromdate')">
