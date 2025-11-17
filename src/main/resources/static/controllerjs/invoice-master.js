@@ -873,19 +873,14 @@ const printInvoiceForA5Size = async (ob) => {
 
                 <tr>
                     <td style="font-size: 10px;">Date</td>
-                    <td class="text-end">${new Date(ob.invoice_header_date).toLocaleString('en-GB', {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-    })}</td>
+                    <td class="text-end">${new Date(ob.invoice_header_date).toLocaleString('en-GB', {year: "numeric",month: "2-digit",day: "2-digit"})}</td>
                 </tr>
 
 
                 <tr>
                     <td style="font-size: 10px;">PO No</td>
                     <td class="text-end">${ob.invoice_header_po_number == null ? " " : ob.invoice_header_po_number}</td>
-                </tr>
-
+                </t
                 <tr>
                     <td style="font-size: 10px;">Dispatch No</td>
                     <td class="text-end">${ob.invoice_header_dispatch_number == null ? " " : ob.invoice_header_dispatch_number}</td>
@@ -948,6 +943,191 @@ const fillDataIntoInvoicePrintForA5 = (headerKey) => {
 
     fillDataIntoTable2(tableInvoiceDetailPrintA5, invoiceDetailsList, displayProperty, false)
 }
+
+
+const printInvoiceForBill = async (ob)=>{
+
+    await refreshBillTable(ob.invoice_header_key);
+
+
+    const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${ob.invoice_header_key}`);
+    const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${ob.invoice_header_key}`);
+    const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${ob.invoice_header_key}`);
+    const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${ob.invoice_header_key}`);
+    const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${ob.invoice_header_key}`);
+    const getItemCountFromServer = ajaxGetRequest(`/invoiceDetail/getItemCountFromHeaderKey/${ob.invoice_header_key}`);
+
+    const newWindow = window.open();
+    newWindow.document.write(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bill</title>
+    <link rel="stylesheet" href="css/bill.css">
+
+    <!--    bootstrap cdn links-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body class="me-5">
+<div class="billDiv">
+
+    <div class="text-center">
+        <img src="/images/Viru_Logo.jpg" alt="viru" width="150" height="70">
+        <hr>
+    </div>
+
+
+    <div type="button" class="rounded-2 text-center" style="background-color: black; color: white; height: 30px">
+        Sales Receipt
+    </div>
+
+
+    <div>
+
+    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
+        <span>Invoice No</span>
+        <span>${ob.invoice_header_key}</span>
+    </p>
+
+
+    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
+        <span>Date</span>
+        <span>${new Date(ob.invoice_header_date).toLocaleString('en-GB', {year: "numeric",month: "2-digit",day: "2-digit"})}</span>
+    </p>
+    
+    
+    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
+        <span>Po No</span>
+        <span>${ob.invoice_header_po_number == null ? " " : ob.invoice_header_po_number}</span>
+    </p>
+    
+        <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
+        <span>Dispatch No</span>
+        <span>${ob.invoice_header_dispatch_number == null ? " " : ob.invoice_header_dispatch_number}</span>
+    </p>
+
+    </div>
+    
+    <div>
+    ${billTable.outerHTML}
+    </div>
+
+<div>
+    <p class="text-center mb-0">${getItemCountFromServer}X Items Sold</p>
+    
+    <hr style="border-top: 1px solid black; margin: 4px 0;">
+
+    <p style="font-size: 12px; display: flex; justify-content: space-between;">
+        <span>Gross Value</span>
+        <span>${Number(getGrossFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</span>
+    </p>
+    <p style="font-size: 12px; display: flex; justify-content: space-between;">
+        <span>Total Discount</span>
+        <span>${Number(getDiscountFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</span>
+    </p>
+    <p style="font-size: 12px; display: flex; justify-content: space-between;">
+        <span>Net Value</span>
+        <span>${Number(getTotalFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</span>
+    </p>
+
+    <hr style="border-top: 1px solid black; margin: 4px 0;">
+
+    <p style="font-size: 12px; display: flex; justify-content: space-between;">
+        <span>Add. Disc</span>
+        <span>${Number(getAdditionalDiscountFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</span>
+    </p>
+
+    <hr style="border-top: 1px solid black; margin: 4px 0;">
+
+    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
+        <span>Total</span>
+        <span>${Number(Number(getNetValueFromServer) - Number(getAdditionalDiscountFromServer)).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</span>
+    </p>
+</div>
+
+
+    <div>
+        <ul>
+            <li>Address :No 489, Waragoda, Kelaniya</li>
+            <li>Email &nbsp; &nbsp; :viru@gmail.com</li>
+            <li>Contact :072 769 4200</li>
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>
+
+    `)
+
+    setTimeout(function () {
+        newWindow.stop();
+        newWindow.print();
+        newWindow.close();
+        divModifyButton2.classList.add('d-none');
+    }, 3000)
+
+}
+
+
+
+const refreshBillTable = (headerKey)=>{
+
+
+    invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${headerKey}`)
+
+    const displayProperty = [
+        {dataType: 'function', propertyName: getItemNameForBillPrint},
+        {dataType: 'function', propertyName: getItemQuantityForBillPrint},
+        {dataType: 'function', propertyName: getItemRateForBillPrint},
+    ];
+
+    fillDataIntoTable2(billTable, invoiceDetailsList, displayProperty, false)
+
+
+}
+
+const getItemNameForBillPrint = (ob) => {
+    return `<p>${ob.item_master_id.item_short_name}</p>`
+}
+
+
+const getItemQuantityForBillPrint = (ob) => {
+    return `<p>${Number(ob.invoice_detail_quantity).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</p>`;
+}
+
+const getItemRateForBillPrint = (ob) => {
+    return `<p>${Number(ob.invoice_detail_rate).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</p>`;
+}
+
+
+
+
+
 
 
 const getGrossDiscountNetValuesForTablePrintA5 = (headerKey) => {

@@ -3,9 +3,9 @@ package com.virubook.controller;
 import com.virubook.dao.StudentMasterDao;
 import com.virubook.entity.StudentMaster;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -19,8 +19,53 @@ public class StudentController {
 
     @GetMapping(value = "/findall")
     public List<StudentMaster> findAllStudentMaster(){
-        return studentMasterDao.findAll();
+        return studentMasterDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
+
+    @GetMapping
+    public ModelAndView studentView(){
+        ModelAndView studentUI = new ModelAndView();
+        studentUI.setViewName("studentMaster.html");
+        return studentUI;
+    }
+
+
+
+    @PostMapping
+    public String saveStudentMaster(@RequestBody StudentMaster studentMaster){
+        try {
+            studentMasterDao.save(studentMaster);
+            return "ok";
+        }catch (Exception e){
+            return "Student save failed"+e.getMessage();
+        }
+    }
+
+
+
+    @PutMapping
+    public String updateStudentMaster(@RequestBody StudentMaster studentMaster){
+        try {
+            studentMasterDao.save(studentMaster);
+            return "ok";
+        }catch (Exception e){
+            return "Student update failed"+e.getMessage();
+        }
+    }
+
+
+    @DeleteMapping
+    public String deleteStudentMaster(@RequestBody StudentMaster studentMaster){
+        try {
+            studentMaster.setStudent_master_status(false);
+            studentMasterDao.save(studentMaster);
+            return "ok";
+        }catch (Exception e){
+            return "Student delete failed"+e.getMessage();
+        }
+    }
+
+
 
 
 

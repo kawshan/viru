@@ -80,5 +80,10 @@ public class InvoiceDetailController {
     }
 
 
+    @GetMapping(value = "/getItemCountFromHeaderKey/{headerKey}")
+    public String getItemCount(@PathVariable("headerKey") String headerKey){
+        return invoiceDetailDao.getItemCountFromInvoiceNumber(headerKey);
+    }
+
 
 }

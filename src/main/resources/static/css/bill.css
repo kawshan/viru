@@ -1,0 +1,19 @@
+@page  {
+    width: 80mm;
+}
+
+
+.billDiv{
+    /*border: 1px solid #000;*/
+}
+
+
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-right: 4px;
+}
+
+
+ul,li{
+    font-size: 12px;
+}

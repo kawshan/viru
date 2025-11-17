@@ -38,8 +38,15 @@ public class StudentMaster {
     @Column(name = "student_master_guardian_contact_no_home")
     private String student_master_guardian_contact_no_home;
 
+    @Column(name = "student_master_status")
+    private Boolean student_master_status;
 
     @ManyToOne
     @JoinColumn(name = "grade_id", referencedColumnName = "id")
     private Grade grade_id;
+
+
+    @ManyToOne
+    @JoinColumn(name = "school_master_id",referencedColumnName = "id")
+    private SchoolMaster school_master_id;
 }
