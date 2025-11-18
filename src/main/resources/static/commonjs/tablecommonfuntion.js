@@ -138,8 +138,55 @@ const fillDataIntoTableForStockReportPrint = (tableId, dataList, columnList, but
 
 
 
+const fillDataIntoBillTable = (tableId, dataList, columnList, buttonVisibility = true, divModifyElementName) => {
+    const tableBody = tableId.children[1];
+    tableBody.innerHTML = '';
 
+    dataList.forEach((element, index) => {
+        const tr = document.createElement('tr');
 
+        // 1. Styling the Index Column (tdIndex)
+        const tdIndex = document.createElement('td');
+        tdIndex.innerText = parseInt(index) + 1;
+        tdIndex.style.padding = '1px 8px'; // ⭐ REDUCED TO 1px
+        tr.appendChild(tdIndex);
 
+        columnList.forEach(column => {
+            const td = document.createElement('td');
+            // 2. Styling the Data Columns (td)
+            td.style.padding = '1px 8px'; // ⭐ REDUCED TO 1px
 
+            if (column.dataType == 'text') {
+                td.innerText = element[column.propertyName];
+            }
+            if (column.dataType == 'function') {
+                td.innerHTML = column.propertyName(element);
+            }
+            tr.appendChild(td);
+        });
 
+        const tdButton = document.createElement('td');
+        tdButton.className = 'text-center'
+        // 3. Styling the Button Column (tdButton)
+        tdButton.style.padding = '1px 8px'; // ⭐ REDUCED TO 1px
+
+        const inputRadio = document.createElement('input');
+        inputRadio.className = 'form-check-input mt-3';
+        inputRadio.name = 'modify';
+        inputRadio.type = 'radio';
+
+        inputRadio.onchange = function () {
+            window['editOb'] = element;
+            window['editRow'] = index;
+
+            divModifyElementName.classList.remove('d-none')
+        }
+        tdButton.appendChild(inputRadio);
+
+        if (buttonVisibility) {
+            tr.appendChild(tdButton);
+        }
+
+        tableBody.appendChild(tr);
+    });
+}

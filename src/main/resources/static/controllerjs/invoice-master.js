@@ -975,66 +975,70 @@ const printInvoiceForBill = async (ob)=>{
 <div class="billDiv">
 
     <div class="text-center">
-        <img src="/images/Viru_Logo.jpg" alt="viru" width="150" height="70">
+        <img src="/images/Viru_Logo.jpg" alt="viru" width="150" height="60">
         <hr>
     </div>
 
 
     <div type="button" class="rounded-2 text-center" style="background-color: black; color: white; height: 30px">
-        Sales Receipt
+        Sales Invoice
     </div>
 
 
-    <div>
+<div>
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Invoice No</span>
+    <span>${ob.invoice_header_key}</span>
+</p>
 
-    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
-        <span>Invoice No</span>
-        <span>${ob.invoice_header_key}</span>
-    </p>
+
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Date</span>
+    <span>${new Date(ob.invoice_header_date).toLocaleString('en-GB', {year: "numeric",month: "2-digit",day: "2-digit"})}</span>
+</p>
 
 
-    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
-        <span>Date</span>
-        <span>${new Date(ob.invoice_header_date).toLocaleString('en-GB', {year: "numeric",month: "2-digit",day: "2-digit"})}</span>
-    </p>
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Po No</span>
+    <span>${ob.invoice_header_po_number == null ? " " : ob.invoice_header_po_number}</span>
+</p>
+
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Dispatch No</span>
+    <span>${ob.invoice_header_dispatch_number == null ? " " : ob.invoice_header_dispatch_number}</span>
+</p>
+
+</div>
     
     
-    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
-        <span>Po No</span>
-        <span>${ob.invoice_header_po_number == null ? " " : ob.invoice_header_po_number}</span>
-    </p>
     
-        <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
-        <span>Dispatch No</span>
-        <span>${ob.invoice_header_dispatch_number == null ? " " : ob.invoice_header_dispatch_number}</span>
-    </p>
-
-    </div>
+    
+    
     
     <div>
     ${billTable.outerHTML}
     </div>
 
 <div>
-    <p class="text-center mb-0">${getItemCountFromServer}X Items Sold</p>
+    <p class="text-center mb-0" style="margin-bottom: 2px !important;">${getItemCountFromServer}X Items Sold</p>
     
     <hr style="border-top: 1px solid black; margin: 4px 0;">
 
-    <p style="font-size: 12px; display: flex; justify-content: space-between;">
+    <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
         <span>Gross Value</span>
         <span>${Number(getGrossFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</span>
     </p>
-    <p style="font-size: 12px; display: flex; justify-content: space-between;">
+    <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
         <span>Total Discount</span>
         <span>${Number(getDiscountFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</span>
     </p>
-    <p style="font-size: 12px; display: flex; justify-content: space-between;">
+    <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
         <span>Net Value</span>
         <span>${Number(getTotalFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
@@ -1044,7 +1048,7 @@ const printInvoiceForBill = async (ob)=>{
 
     <hr style="border-top: 1px solid black; margin: 4px 0;">
 
-    <p style="font-size: 12px; display: flex; justify-content: space-between;">
+    <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
         <span>Add. Disc</span>
         <span>${Number(getAdditionalDiscountFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
@@ -1054,7 +1058,7 @@ const printInvoiceForBill = async (ob)=>{
 
     <hr style="border-top: 1px solid black; margin: 4px 0;">
 
-    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold;">
+    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0;">
         <span>Total</span>
         <span>${Number(Number(getNetValueFromServer) - Number(getAdditionalDiscountFromServer)).toLocaleString('en-US', {
         minimumFractionDigits: 2,
@@ -1100,7 +1104,7 @@ const refreshBillTable = (headerKey)=>{
         {dataType: 'function', propertyName: getItemRateForBillPrint},
     ];
 
-    fillDataIntoTable2(billTable, invoiceDetailsList, displayProperty, false)
+    fillDataIntoBillTable(billTable, invoiceDetailsList, displayProperty, false)
 
 
 }
