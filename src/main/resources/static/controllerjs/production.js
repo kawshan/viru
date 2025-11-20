@@ -89,7 +89,7 @@ const saveOrUpdateProductionHeader = async ()=>{
             if (userConfirm){
                 const postServerResponse = ajaxPostRequest("/production-header",productionHeader);
                 if (postServerResponse){
-                    alert(`Save Successful ${postServerResponse.production_header_key}`);
+                    alert(`Save Successful`);
                     textProHeaderKey.value=postServerResponse.production_header_key;
                     productionHeaderColorsReset();
                     refreshProductionHeaderTable()

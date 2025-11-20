@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "vps_header")
@@ -18,11 +19,11 @@ public class VpsHeader {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_vps_header")
-    private Integer id_vps_header;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column(name = "vps_header_invoice_no")
-    private String vps_header_invoice_no;
+    @Column(name = "vps_header_invoice_number")
+    private String vps_header_invoice_number;
 
     @Column(name = "vps_header_total_invoice_value")
     private BigDecimal vps_header_total_invoice_value;
@@ -31,10 +32,11 @@ public class VpsHeader {
     private String vps_header_key;
 
     @Column(name = "vps_header_number")
-    private String vps_header_number;
+    private Integer vps_header_number;
 
 
-
+    @Column(name = "vps_header_saved_date")
+    private LocalDate vps_header_saved_date;
 
 
 

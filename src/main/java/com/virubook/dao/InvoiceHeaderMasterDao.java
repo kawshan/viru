@@ -35,4 +35,8 @@ public interface InvoiceHeaderMasterDao extends JpaRepository<InvoiceHeaderMaste
     public void deleteInvoiceDetailByInvoiceHeaderKey(String invoiceHeaderKey);
 
 
+    @Query(value = "select ihm.invoice_header_key from InvoiceHeaderMaster ihm where ihm.invoice_header_number=?1")
+    public String getKeyByHeaderNumber(Integer headerNumber);
+
+
 }

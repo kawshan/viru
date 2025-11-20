@@ -117,4 +117,12 @@ public class InvoiceHeaderMasterController {
     }
 
 
+
+    @GetMapping(value = "/getHeaderKeyByHeaderNumber/{number}")
+    public String getHeaderKeyByHeaderNumber(@PathVariable Integer number){
+        return invoiceHeaderMasterDao.getKeyByHeaderNumber(number);
+
+    }
+
+
 }
