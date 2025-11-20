@@ -971,7 +971,7 @@ const printInvoiceForBill = async (ob)=>{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
-<body class="me-5">
+<body class="me-4">
 <div class="billDiv">
 
     <div class="text-center">
@@ -1068,13 +1068,7 @@ const printInvoiceForBill = async (ob)=>{
 </div>
 
 
-    <div>
-        <ul>
-            <li>Address :No 489, Waragoda, Kelaniya</li>
-            <li>Email &nbsp; &nbsp; :viru@gmail.com</li>
-            <li>Contact :072 769 4200</li>
-        </ul>
-    </div>
+
 
 </div>
 </body>
@@ -1102,6 +1096,8 @@ const refreshBillTable = (headerKey)=>{
         {dataType: 'function', propertyName: getItemNameForBillPrint},
         {dataType: 'function', propertyName: getItemQuantityForBillPrint},
         {dataType: 'function', propertyName: getItemRateForBillPrint},
+        {dataType: 'function', propertyName: getItemDiscountForBillPrint},
+        {dataType: 'function', propertyName: getItemAmountForBillPrint},
     ];
 
     fillDataIntoBillTable(billTable, invoiceDetailsList, displayProperty, false)
@@ -1128,8 +1124,20 @@ const getItemRateForBillPrint = (ob) => {
     })}</p>`;
 }
 
+const getItemDiscountForBillPrint = (ob) => {
+    return `<p>${Number(ob.invoice_detail_discount).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</p>`;
+}
 
 
+const getItemAmountForBillPrint = (ob) => {
+    return `<p>${Number(ob.invoice_detail_value).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</p>`;
+}
 
 
 
