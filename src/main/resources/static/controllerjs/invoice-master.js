@@ -937,7 +937,6 @@ const fillDataIntoInvoicePrintForA5 = (headerKey) => {
         {dataType: 'function', propertyName: getItemNameForPrint},
         {dataType: 'function', propertyName: getItemQuantity},
         {dataType: 'function', propertyName: getItemRate},
-        {dataType: 'function', propertyName: getItemDiscount},
         {dataType: 'function', propertyName: getItemValue},
     ];
 
@@ -971,16 +970,20 @@ const printInvoiceForBill = async (ob)=>{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
-<body class="me-4">
+<body style="margin-right: 30px">
 <div class="billDiv">
 
-    <div class="text-center">
-        <img src="/images/Viru_Logo.jpg" alt="viru" width="150" height="60">
-        <hr>
+<div class="text-center" style="display: flex; align-items: center; justify-content: start;">
+    <img src="/images/Viru_Logo.jpg" alt="viru" width="100" height="40">
+    <div style="margin-left: 15px; text-align: left; font-size: 10px; font-family: Verdana">
+        <div>619/1/2 Waragoda Rd, Kelaniya</div>
+        <div>viruworld621@gmail.com.</div>
     </div>
+    <hr>
+</div>
 
 
-    <div type="button" class="rounded-2 text-center" style="background-color: black; color: white; height: 30px">
+    <div type="button" class="rounded-2 text-center" style="background-color: black; color: white; height: 30px; margin-top: 3px">
         Sales Invoice
     </div>
 
@@ -1020,7 +1023,6 @@ const printInvoiceForBill = async (ob)=>{
     </div>
 
 <div>
-    <p class="text-center mb-0" style="margin-bottom: 2px !important;">${getItemCountFromServer}X Items Sold</p>
     
     <hr style="border-top: 1px solid black; margin: 4px 0;">
 
@@ -1032,7 +1034,7 @@ const printInvoiceForBill = async (ob)=>{
     })}</span>
     </p>
     <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
-        <span>Total Discount</span>
+        <span>Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0" }%</span>
         <span>${Number(getDiscountFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -1049,7 +1051,7 @@ const printInvoiceForBill = async (ob)=>{
     <hr style="border-top: 1px solid black; margin: 4px 0;">
 
     <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
-        <span>Add. Disc</span>
+        <span>Add. Disc ${ob.invoice_header_master_additional_discount != null ? ob.invoice_header_master_additional_discount : "0"}%</span>
         <span>${Number(getAdditionalDiscountFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -1096,7 +1098,7 @@ const refreshBillTable = (headerKey)=>{
         {dataType: 'function', propertyName: getItemNameForBillPrint},
         {dataType: 'function', propertyName: getItemQuantityForBillPrint},
         {dataType: 'function', propertyName: getItemRateForBillPrint},
-        {dataType: 'function', propertyName: getItemDiscountForBillPrint},
+        // {dataType: 'function', propertyName: getItemDiscountForBillPrint},
         {dataType: 'function', propertyName: getItemAmountForBillPrint},
     ];
 
