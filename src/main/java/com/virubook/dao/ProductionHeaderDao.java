@@ -1,7 +1,9 @@
 package com.virubook.dao;
 
 import com.virubook.entity.ProductionHeader;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public interface ProductionHeaderDao extends JpaRepository<ProductionHeader,Inte
     @Query(value = "select ph.id from ProductionHeader ph where ph.production_header_key=?1")
     public String getIdByProductionHeaderKey(String productionHeaderKey);
 
-
+    @Transactional
+    @Modifying
+    @Query(value = "delete from production_details where production_details_header_key=?1",nativeQuery = true)
+    public void deleteProductionDetailsByProductionHeaderKey(String productionHeaderKey);
 
 }

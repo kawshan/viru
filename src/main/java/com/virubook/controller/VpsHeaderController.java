@@ -80,6 +80,7 @@ public class VpsHeaderController {
     @DeleteMapping
     public String deleteVpsHeader(@RequestBody VpsHeader vpsHeader) {
         try {
+            vpsHeaderDao.deleteVpsDetails(vpsHeader.getVps_header_key());
             vpsHeaderDao.delete(vpsHeader);
             return "ok";
         }catch (Exception e) {

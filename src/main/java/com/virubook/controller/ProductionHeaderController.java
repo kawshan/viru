@@ -66,8 +66,8 @@ public class ProductionHeaderController {
     @DeleteMapping
     public String deleteProductionHeader(@RequestBody ProductionHeader productionHeader){
         try {
+            productionHeaderDao.deleteProductionDetailsByProductionHeaderKey(productionHeader.getProduction_header_key());
             productionHeaderDao.delete(productionHeader);
-            //need to handel details delete
             return "ok";
         }catch (Exception e){
             return "Delete not complete"+e.getMessage();

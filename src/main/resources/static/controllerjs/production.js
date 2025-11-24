@@ -270,7 +270,7 @@ const refreshProductionDetailsTable = ()=>{
 
 
     fillDataIntoTable2(tableProductionDetails,productionDetailsList,displayProperty,true,divModifyButton3);
-
+    $("#tableProductionDetails").DataTable();
 }
 
 const getItemName = (ob)=>{
