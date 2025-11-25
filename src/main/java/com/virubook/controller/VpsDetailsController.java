@@ -58,4 +58,17 @@ public class VpsDetailsController {
             return "Delete VpsDetails failed"+e.getMessage();
         }
     }
+
+    @GetMapping(value = "/getBalance/{headerKey}")
+    public String getRemainingBalance(@PathVariable("headerKey")String headerKey){
+        return vpsDetailsDao.getRemainingBalance(headerKey);
+    }
+
+
+
+
+
 }
+
+
+

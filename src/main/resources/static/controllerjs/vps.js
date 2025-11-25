@@ -23,15 +23,12 @@ const refreshVpsHeaderForm = () => {
     textVpsCode.style.border = "2px solid #ced4da";
 
 
-    buttonVpsDetailsUpdate.disabled=true;
-    buttonVpsDetailsUpdate.style.cursor="not-allowed";
+    buttonVpsDetailsUpdate.disabled = true;
+    buttonVpsDetailsUpdate.style.cursor = "not-allowed";
 
 
-    buttonVpsDetailsAdd.disabled=true;
-    buttonVpsDetailsAdd.style.cursor="not-allowed";
-
-
-
+    buttonVpsDetailsAdd.disabled = true;
+    buttonVpsDetailsAdd.style.cursor = "not-allowed";
 
 
 }
@@ -156,6 +153,7 @@ const refillVpsHeader = (ob) => {
 
     refreshVpsDetailsForm();
     refreshVpsDetailsTable();
+    getBalance(textVpsCode.value);
 }
 
 const deleteVpsHeader = (ob) => {
@@ -211,12 +209,12 @@ const refreshVpsDetailsForm = () => {
     textDate.value = "";
 
 
-    buttonVpsDetailsUpdate.disabled=true;
-    buttonVpsDetailsUpdate.style.cursor="not-allowed";
+    buttonVpsDetailsUpdate.disabled = true;
+    buttonVpsDetailsUpdate.style.cursor = "not-allowed";
 
 
-    buttonVpsDetailsAdd.disabled=false;
-    buttonVpsDetailsAdd.style.cursor="default";
+    buttonVpsDetailsAdd.disabled = false;
+    buttonVpsDetailsAdd.style.cursor = "default";
 
 
 }
@@ -229,7 +227,7 @@ const refreshVpsDetailsTable = () => {
 
     const displayProperty = [
         {dataType: 'text', propertyName: 'vps_details_payment_type'},
-        {dataType: 'text', propertyName: 'vps_details_amount'},
+        {dataType: 'function', propertyName: getVpsDetailsAmount},
         {dataType: 'text', propertyName: 'vps_details_date'},
 
     ];
@@ -239,50 +237,60 @@ const refreshVpsDetailsTable = () => {
 
 }
 
-const checkErrorsVpsDetailsForm = ()=>{
+const getVpsDetailsAmount = (ob) => {
+    return `<p class="text-end">${Number(ob.vps_details_amount).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</p>`
+}
+
+
+const checkErrorsVpsDetailsForm = () => {
     let errors = "";
 
-    if (vpsDetails.vps_details_payment_type == null){
-        errors= errors+"Payment type cannot be empty \n";
+    if (vpsDetails.vps_details_payment_type == null) {
+        errors = errors + "Payment type cannot be empty \n";
     }
 
-    if (vpsDetails.vps_details_amount == null){
-        errors=errors+"Amount cannot be empty \n"
+    if (vpsDetails.vps_details_amount == null) {
+        errors = errors + "Amount cannot be empty \n"
     }
 
-    if (vpsDetails.vps_details_date == null){
-        errors=errors+"Date cannot be empty \n"
+    if (vpsDetails.vps_details_date == null) {
+        errors = errors + "Date cannot be empty \n"
     }
     return errors;
 }
 
 
-
-const saveVpsDetails = ()=>{
+const saveVpsDetails = () => {
 
     vpsDetails.vps_details_header_key = textVpsCode.value;
 
+
+
     const errors = checkErrorsVpsDetailsForm();
-    if (errors===""){
+    if (errors === "") {
         const userConfirm = confirm(`Are you sure to add following Info 
         Payment type is ${vpsDetails.vps_details_payment_type}
         Amount is ${vpsDetails.vps_details_amount}
         Date is ${vpsDetails.vps_details_date}
         `);
-        if (userConfirm){
-         const postServerResponse = ajaxPostRequest("/vpsDetails",vpsDetails);
-         if (postServerResponse==="ok"){
-             alert(`Save success`);
-            refreshVpsDetailsTable();
-            refreshVpsDetailsForm();
-         }
+        if (userConfirm) {
+            const postServerResponse = ajaxPostRequest("/vpsDetails", vpsDetails);
+            if (postServerResponse === "ok") {
+                alert(`Save success`);
+                refreshVpsDetailsTable();
+                refreshVpsDetailsForm();
+                getBalance(textVpsCode.value);
+            }
         }
-    }else {
+    } else {
         alert(`You have following errors \n ${errors}`)
     }
 }
 
-const refillVpsDetails = (ob)=>{
+const refillVpsDetails = (ob) => {
     vpsDetails = JSON.parse(JSON.stringify(ob));
     oldVpsDetails = JSON.parse(JSON.stringify(ob));
 
@@ -292,76 +300,202 @@ const refillVpsDetails = (ob)=>{
     textDate.value = vpsDetails.vps_details_date;
 
 
-    buttonVpsDetailsUpdate.disabled=false;
-    buttonVpsDetailsUpdate.style.cursor="default";
+    buttonVpsDetailsUpdate.disabled = false;
+    buttonVpsDetailsUpdate.style.cursor = "default";
 
 
-    buttonVpsDetailsAdd.disabled=true;
-    buttonVpsDetailsAdd.style.cursor="not-allowed";
-
+    buttonVpsDetailsAdd.disabled = true;
+    buttonVpsDetailsAdd.style.cursor = "not-allowed";
 
 
 }
 
 
-const checkUpdatesVpsDetails = ()=>{
+const checkUpdatesVpsDetails = () => {
     let updates = ""
 
-    if (vpsDetails.vps_details_payment_type !== oldVpsDetails.vps_details_payment_type){
-        updates = updates+"payment type Updated \n"
+    if (vpsDetails.vps_details_payment_type !== oldVpsDetails.vps_details_payment_type) {
+        updates = updates + "payment type Updated \n"
     }
 
-    if (vpsDetails.vps_details_amount !== oldVpsDetails.vps_details_amount){
+    if (vpsDetails.vps_details_amount !== oldVpsDetails.vps_details_amount) {
         updates = updates + "Amount is updated \n"
     }
 
-    if (vpsDetails.vps_details_date !== oldVpsDetails.vps_details_date){
-        updates = updates +"Date is updated \n"
+    if (vpsDetails.vps_details_date !== oldVpsDetails.vps_details_date) {
+        updates = updates + "Date is updated \n"
     }
 
     return updates;
 }
 
 
-const updateVpsDetails = ()=>{
+const updateVpsDetails = () => {
     let updates = checkUpdatesVpsDetails();
-    if (updates!==""){
+    if (updates !== "") {
         const userConfirm = confirm(`Are you sure to update following updates \n ${updates}`);
-        if (userConfirm){
-            const putServerResponse = ajaxPutRequest("/vpsDetails",vpsDetails);
-            if (putServerResponse==="ok"){
+        if (userConfirm) {
+            const putServerResponse = ajaxPutRequest("/vpsDetails", vpsDetails);
+            if (putServerResponse === "ok") {
                 alert("update Successful");
                 refreshVpsDetailsForm();
                 refreshVpsDetailsTable();
                 divModifyButton3.classList.add('d-none');
-            }else {
+                getBalance(textVpsCode.value);
+            } else {
                 alert(`Something went wrong \n ${putServerResponse}`);
             }
         }
-    }else {
+    } else {
         alert(`nothing to update`);
     }
 }
 
 
-const deleteVpsDetails = (ob)=>{
+const deleteVpsDetails = (ob) => {
     const userConfirm = confirm(`Are you sure to delete following Info 
         Payment type is ${ob.vps_details_payment_type}
         Amount is ${ob.vps_details_amount}
         Date is ${ob.vps_details_date}
         `);
-    if (userConfirm){
-        const deleteServerResponse = ajaxDeleteRequest("/vpsDetails",ob);
-        if (deleteServerResponse==="ok"){
+    if (userConfirm) {
+        const deleteServerResponse = ajaxDeleteRequest("/vpsDetails", ob);
+        if (deleteServerResponse === "ok") {
             alert("Delete successful");
             refreshVpsDetailsForm();
             refreshVpsDetailsTable();
             divModifyButton3.classList.add('d-none');
-        }else {
+        } else {
             alert(`Something went wrong \n ${deleteServerResponse}`);
         }
     }
 }
+
+const printVps = async (ob) => {
+
+    await refreshVpsDetailsTableForPrint(ob.vps_header_key)
+
+    const newWindow = window.open();
+    newWindow.document.write(`
+    
+        <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VPS</title>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid" style="position: relative">
+
+    <div class="row">
+        <div class="col-12 text-center"><h4>Vps Details</h4></div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4">
+
+        </div>
+        
+        <div class="col-4"></div>
+        <div class="col-4">
+            <table class="table table-bordered" style="border: 1px solid black; height: 50%">
+                <tbody>
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Vps No</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${ob.vps_header_number}</td>
+                </tr>
+                
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Vps Code</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${ob.vps_header_key}</td>
+                </tr>
+
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Date</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${new Date(ob.vps_header_saved_date).toLocaleString('en-GB', {
+        day: "2-digit",
+        month: "short",
+        year: "2-digit"
+    })}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    
+    <div class="row" style="margin-left: 3px; margin-right: 1px">
+    ${tableVpsDetailPrint.outerHTML}
+    </div>
+
+
+
+</div>
+
+<div style="position: absolute; bottom: 1%; width: 100%" >
+    <!--  prepared by, checked by, recieved by area start   -->
+    <div class="row">
+        <div class="col-4 text-start">
+            _____________
+            <p style="font-size: 11px">Prepared By</p>
+        </div>
+        <div class="col-4 text-center">
+            _____________
+            <p style="font-size: 11px">Received By</p>
+        </div>
+        <div class="col-4 text-end">
+            _____________
+            <p style="font-size: 11px; margin-right: 3px">Checked By</p>
+        </div>
+    </div>
+    <!--  prepared by, checked by, recieved by area end   -->
+</div>
+
+
+
+</body>
+</html>
+    `);
+    setTimeout(() => {
+        newWindow.stop();
+        newWindow.print();
+        newWindow.close();
+    }, 500)
+
+    divModifyButton2.classList.add('d-none');
+}
+
+
+const refreshVpsDetailsTableForPrint = (headerKey) => {
+
+    resultList = ajaxGetRequest(`/vpsDetails/getByHeaderKey/${headerKey}`);
+
+    const displayProperty = [
+        {dataType: 'text', propertyName: 'vps_details_payment_type'},
+        {dataType: 'function', propertyName: getVpsDetailsAmount},
+        {dataType: 'text', propertyName: 'vps_details_date'},
+    ];
+
+    fillDataIntoTable2(tableVpsDetailPrint, resultList, displayProperty, false);
+
+}
+
+
+const getBalance = (headerKey) => {
+    const result = ajaxGetRequest(`/vpsDetails/getBalance/${headerKey}`);
+    lblRemainingBalance.innerText="";
+    lblRemainingBalance.innerText=`Remaining Balance is ${result}`;
+}
+
 
 
 

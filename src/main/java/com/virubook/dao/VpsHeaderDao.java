@@ -24,4 +24,9 @@ public interface VpsHeaderDao extends JpaRepository<VpsHeader, Integer> {
     @Query(value = "delete from vps_details where vps_details_header_key =?1",nativeQuery = true)
     public void deleteVpsDetails(String vps_details_key);
 
+
+
+
+
+
 }
