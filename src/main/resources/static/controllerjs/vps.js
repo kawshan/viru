@@ -408,6 +408,12 @@ const printVps = async (ob) => {
         <div class="col-4">
             <table class="table table-bordered" style="border: 1px solid black; height: 50%">
                 <tbody>
+                
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Invoice Value</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${Number(ob.vps_header_total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+                </tr>
+                
                 <tr>
                     <td style="font-size: 11px; width: 50%">Vps No</td>
                     <td class="text-end" style="font-size: 12px; width: 50%">${ob.vps_header_number}</td>
@@ -493,7 +499,7 @@ const refreshVpsDetailsTableForPrint = (headerKey) => {
 const getBalance = (headerKey) => {
     const result = ajaxGetRequest(`/vpsDetails/getBalance/${headerKey}`);
     lblRemainingBalance.innerText="";
-    lblRemainingBalance.innerText=`Remaining Balance is ${result}`;
+    lblRemainingBalance.innerText=`Remaining Balance is ${Number(result).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 }
 
 

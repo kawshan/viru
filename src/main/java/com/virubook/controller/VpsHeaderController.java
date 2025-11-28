@@ -3,6 +3,7 @@ package com.virubook.controller;
 import com.virubook.dao.VpsHeaderDao;
 import com.virubook.entity.VpsHeader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class VpsHeaderController {
 
     @GetMapping(value = "/findall")
     public List<VpsHeader> getAllVpsHeaders() {
-        return vpsHeaderDao.findAll();
+        return vpsHeaderDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
 

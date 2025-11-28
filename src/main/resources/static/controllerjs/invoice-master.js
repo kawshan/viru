@@ -234,6 +234,8 @@ const refillInvoiceMaster = (ob) => {
         radioPayTypeCash.checked = true;
     } else if (invoiceHeader.invoice_header_master_pay_type == "credit") {
         radioPayTypeCredit.checked = true;
+    }else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
+        radioPayTypeVps.checked = true;
     }
 
 

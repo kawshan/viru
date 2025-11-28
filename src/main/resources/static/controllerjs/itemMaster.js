@@ -73,6 +73,7 @@ const refreshItemMasterTable = ()=>{
         {dataType:'function',propertyName:getItemSize},
         {dataType:'function',propertyName:getNumberOfPages},
         {dataType:'function',propertyName:getItemPrice},
+        {dataType:'text',propertyName:'item_barcode'},
         {dataType:'function',propertyName:getItemStatus},
     ];
 

@@ -125,7 +125,7 @@
 
 
             <div class="col-md-1">
-                <label for="selectBranch" class="form-label">Branch</label>
+                <label for="selectBranch" class="form-label">Branch <i class="text-danger">*</i> </label>
                 <select id="selectBranch" class="form-control text-start fw-bold" style="color: gray; height: 15%"
                         onchange="selectDBValidator(this,'','invoiceHeader','location_master_id')"></select>
             </div>
@@ -245,7 +245,7 @@
                     <!--                forth row-->
                     <tr>
                         <td>
-                            <label class="form-label">Payment type</label>
+                            <label class="form-label">Payment type <i class="text-danger">*</i> </label>
                         </td>
                         <td>
                             <input name="paymentType" required type="radio" id="radioPayTypeCash"
@@ -253,6 +253,8 @@
                             <input name="paymentType" required type="radio" id="radioPayTypeCredit"
                                    onchange="invoiceHeader.invoice_header_master_pay_type=this.value" value="credit">
                             Credit
+                            <input name="paymentType" required type="radio" id="radioPayTypeVps"
+                                   onchange="invoiceHeader.invoice_header_master_pay_type=this.value" value="vps"> Vps
                         </td>
                     </tr>
                     <!--                forth row-->
