@@ -882,7 +882,7 @@ const printInvoiceForA5Size = async (ob) => {
                 <tr>
                     <td style="font-size: 10px;">PO No</td>
                     <td class="text-end">${ob.invoice_header_po_number == null ? " " : ob.invoice_header_po_number}</td>
-                </t
+                </tr>
                 <tr>
                     <td style="font-size: 10px;">Dispatch No</td>
                     <td class="text-end">${ob.invoice_header_dispatch_number == null ? " " : ob.invoice_header_dispatch_number}</td>
@@ -939,6 +939,7 @@ const fillDataIntoInvoicePrintForA5 = (headerKey) => {
         {dataType: 'function', propertyName: getItemNameForPrint},
         {dataType: 'function', propertyName: getItemQuantity},
         {dataType: 'function', propertyName: getItemRate},
+        {dataType: 'function', propertyName: getItemDiscount},
         {dataType: 'function', propertyName: getItemValue},
     ];
 
@@ -957,6 +958,20 @@ const printInvoiceForBill = async (ob)=>{
     const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${ob.invoice_header_key}`);
     const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${ob.invoice_header_key}`);
     const getItemCountFromServer = ajaxGetRequest(`/invoiceDetail/getItemCountFromHeaderKey/${ob.invoice_header_key}`);
+
+    const now = new Date();
+    const formatted = now.toLocaleString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+    });
+
+
+
+
 
     const newWindow = window.open();
     newWindow.document.write(`
@@ -979,7 +994,8 @@ const printInvoiceForBill = async (ob)=>{
     <img src="/images/Viru_Logo.jpg" alt="viru" width="100" height="40">
     <div style="margin-left: 15px; text-align: left; font-size: 10px; font-family: Verdana">
         <div>619/1/2 Waragoda Rd, Kelaniya</div>
-        <div>viruworld621@gmail.com.</div>
+        <div>viruworld621@gmail.com</div>
+        <div>071-488-9973</div>
     </div>
     <hr>
 </div>
@@ -1070,6 +1086,8 @@ const printInvoiceForBill = async (ob)=>{
     })}</span>
     </p>
 </div>
+
+    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0;">Printed at ${formatted}</p>
 
 
 

@@ -22,10 +22,10 @@ public class StudentController {
         return studentMasterDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
-    @GetMapping
+    @GetMapping(value = "/view")
     public ModelAndView studentView(){
         ModelAndView studentUI = new ModelAndView();
-        studentUI.setViewName("studentMaster.html");
+        studentUI.setViewName("StudentMaster.html");
         return studentUI;
     }
 

@@ -132,8 +132,8 @@ ${tableSalesReportPrint.outerHTML}
         newWindow.stop();
         newWindow.print();
         newWindow.close();
+        window.location.reload();
     },3000)
-
 
 
 }
