@@ -697,7 +697,7 @@ const printInvoice = async (ob) => {
         <div class="col-4">
             <table class="table table-bordered" style="font-size: 11px; border: 1px solid black; line-height: 6px">
                 <tr>
-                    <td>Invoice No</td>
+                    <td>Reference No</td>
                     <td class="text-end">${ob.invoice_header_key}</td>
                 </tr>
 
@@ -860,7 +860,7 @@ const printInvoiceForA5Size = async (ob) => {
         <div class="col-6">
             <table class="table table-bordered" style="font-size: 11px; border: 1px solid black; line-height: 6px">
                 <tr>
-                    <td style="font-size: 10px">Invoice No</td>
+                    <td style="font-size: 10px">Reference No</td>
                     <td class="text-end">${ob.invoice_header_key}</td>
                 </tr>
 
@@ -1000,7 +1000,7 @@ const printInvoiceForBill = async (ob) => {
 
 <div>
 <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
-    <span>Invoice No</span>
+    <span>Reference No</span>
     <span>${ob.invoice_header_key}</span>
 </p>
 
