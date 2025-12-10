@@ -40,7 +40,7 @@ const refreshInvoiceMasterHeaderForm = () => {
     fillDataIntoDataListWithTwoValues(dataListCustomer, customersList, 'customer_name', 'customer_mobile');
 
     locationList = ajaxGetRequest("/location-master/findall");
-    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name');
+    fillDataIntoSelect(selectBranch, 'Select Branch', locationList, 'location_master_name');
 
     buttonInvoiceDetailAdd.disabled = true;
     buttonInvoiceDetailAdd.style.cursor = 'not-allowed';
@@ -56,7 +56,6 @@ const changeColoursToDefault = () => {
     textPoNumber.style.border = "2px solid #ced4da";
     textDispatchKey.style.border = "2px solid #ced4da";
     selectBranch.style.border = "2px solid #ced4da";
-
 
 
 }
@@ -228,13 +227,13 @@ const refillInvoiceMaster = (ob) => {
     textAdditionalDiscount.value = invoiceHeader.invoice_header_master_additional_discount
 
     let locationList = ajaxGetRequest("/location-master/findall");
-    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name',invoiceHeader.location_master_id.location_master_name);
+    fillDataIntoSelect(selectBranch, 'Select Branch', locationList, 'location_master_name', invoiceHeader.location_master_id.location_master_name);
 
     if (invoiceHeader.invoice_header_master_pay_type == "cash") {
         radioPayTypeCash.checked = true;
     } else if (invoiceHeader.invoice_header_master_pay_type == "credit") {
         radioPayTypeCredit.checked = true;
-    }else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
+    } else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
         radioPayTypeVps.checked = true;
     }
 
@@ -592,11 +591,13 @@ const showTotalNetDiscountAndGross = () => {
         maximumFractionDigits: 2
     })}`
 
-    displayAdditionalDiscount.innerHTML=(Number(getNetValueFromServer)/100)*Number(textAdditionalDiscount.value);
+    displayAdditionalDiscount.innerHTML = (Number(getNetValueFromServer) / 100) * Number(textAdditionalDiscount.value);
 
 
-    displayTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-
+    displayTotalValue.innerHTML = Number(Number(getNetValueFromServer) - Number(getAdditionalDiscountFromServer)).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
 
 }
@@ -875,7 +876,11 @@ const printInvoiceForA5Size = async (ob) => {
 
                 <tr>
                     <td style="font-size: 10px;">Date</td>
-                    <td class="text-end">${new Date(ob.invoice_header_date).toLocaleString('en-GB', {year: "numeric",month: "2-digit",day: "2-digit"})}</td>
+                    <td class="text-end">${new Date(ob.invoice_header_date).toLocaleString('en-GB', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    })}</td>
                 </tr>
 
 
@@ -947,7 +952,7 @@ const fillDataIntoInvoicePrintForA5 = (headerKey) => {
 }
 
 
-const printInvoiceForBill = async (ob)=>{
+const printInvoiceForBill = async (ob) => {
 
     await refreshBillTable(ob.invoice_header_key);
 
@@ -968,9 +973,6 @@ const printInvoiceForBill = async (ob)=>{
         minute: "2-digit",
         second: "2-digit",
     });
-
-
-
 
 
     const newWindow = window.open();
@@ -1015,7 +1017,11 @@ const printInvoiceForBill = async (ob)=>{
 
 <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
     <span>Date</span>
-    <span>${new Date(ob.invoice_header_date).toLocaleString('en-GB', {year: "numeric",month: "2-digit",day: "2-digit"})}</span>
+    <span>${new Date(ob.invoice_header_date).toLocaleString('en-GB', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    })}</span>
 </p>
 
 
@@ -1052,7 +1058,7 @@ const printInvoiceForBill = async (ob)=>{
     })}</span>
     </p>
     <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
-        <span>Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0" }%</span>
+        <span>Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0"}%</span>
         <span>${Number(getDiscountFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -1108,8 +1114,7 @@ const printInvoiceForBill = async (ob)=>{
 }
 
 
-
-const refreshBillTable = (headerKey)=>{
+const refreshBillTable = (headerKey) => {
 
 
     invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${headerKey}`)
@@ -1162,15 +1167,12 @@ const getItemAmountForBillPrint = (ob) => {
 }
 
 
-
-
 const getGrossDiscountNetValuesForTablePrintA5 = (headerKey) => {
     const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${headerKey}`);
     const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${headerKey}`);
     const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
     const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
     const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${headerKey}`);
-
 
 
     A5tdGrossValue.innerHTML = ""
@@ -1190,9 +1192,15 @@ const getGrossDiscountNetValuesForTablePrintA5 = (headerKey) => {
         maximumFractionDigits: 2
     });
 
-    A5tdAdditionalDiscount.innerHTML=Number(getAdditionalDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2})
+    A5tdAdditionalDiscount.innerHTML = Number(getAdditionalDiscountFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })
 
-    A5tdTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    A5tdTotalValue.innerHTML = Number(Number(getNetValueFromServer) - Number(getAdditionalDiscountFromServer)).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
 
 }
@@ -1245,9 +1253,15 @@ const getGrossDiscountNetValuesForTablePrint = (headerKey) => {
         maximumFractionDigits: 2
     })
 
-    tdAdditionalDiscount.innerHTML=Number(getAdditionalDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2})
+    tdAdditionalDiscount.innerHTML = Number(getAdditionalDiscountFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })
 
-    tdTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    tdTotalValue.innerHTML = Number(Number(getNetValueFromServer) - Number(getAdditionalDiscountFromServer)).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
 }
 
@@ -1270,7 +1284,23 @@ const readBarcode = (fieldId) => {
 
 
     } else {
-        //no logic here
+        const parts = fieldId.value.split(' ');
+        const nameParts = parts.slice(0, -2);
+        console.log(`name parts ${nameParts}`);
+        console.log(`joined parts ${nameParts.join(' ')}`);
+
+
+
+        const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName/${nameParts.join(' ')}`);
+
+        //showing on front end
+        textRate.value = getItemObjectFromServer.item_price;
+
+        //binding on js object
+        invoiceDetail.item_master_id = getItemObjectFromServer;
+        invoiceDetail.invoice_detail_rate = getItemObjectFromServer.item_price;
+
+        selectItem.style.border = "2px solid lime";
     }
 }
 

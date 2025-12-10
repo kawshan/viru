@@ -20,4 +20,9 @@ public interface ItemMasterDao extends JpaRepository<ItemMaster,Integer> {
     @Query(value = "select im from ItemMaster im where im.item_barcode=?1")
     public ItemMaster findByBarcode(String barcode);
 
+
+    @Query(value = "select im from ItemMaster im where im.item_short_name=?1")
+    public ItemMaster findByShortName(String shortName);
+
+
 }

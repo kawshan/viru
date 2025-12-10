@@ -1265,7 +1265,23 @@ const readBarcode = (fieldId) => {
 
 
     } else {
-        //no logic here
+        const parts = fieldId.value.split(' ');
+        const nameParts = parts.slice(0, -2);
+        console.log(`name parts ${nameParts}`);
+        console.log(`joined parts ${nameParts.join(' ')}`);
+
+
+
+        const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName/${nameParts.join(' ')}`);
+
+        //showing on front end
+        textRate.value = getItemObjectFromServer.item_price;
+
+        //binding on js object
+        invoiceDetail.item_master_id = getItemObjectFromServer;
+        invoiceDetail.invoice_detail_rate = getItemObjectFromServer.item_price;
+
+        selectItem.style.border = "2px solid lime";
     }
 }
 
