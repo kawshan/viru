@@ -40,7 +40,7 @@ const refreshInvoiceMasterHeaderForm = () => {
     fillDataIntoDataListWithTwoValues(dataListCustomer, customersList, 'customer_name', 'customer_mobile');
 
     locationList = ajaxGetRequest("/location-master/findall");
-    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name');
+    fillDataIntoSelect(selectBranch, 'Select Branch', locationList, 'location_master_name');
 
     buttonInvoiceDetailAdd.disabled = true;
     buttonInvoiceDetailAdd.style.cursor = 'not-allowed';
@@ -57,15 +57,13 @@ const changeColoursToDefault = () => {
     textDispatchKey.style.border = "2px solid #ced4da";
     selectBranch.style.border = "2px solid #ced4da";
 
-
-
 }
 
 
 const refreshInvoiceMasterHeaderTable = () => {
 
 
-    invoiceHeadersList = ajaxGetRequest("/invoice-header/findall");
+    invoiceHeadersList = ajaxGetRequest("/perfoma-invoice-header/findall");
 
     displayProperty = [
         {dataType: 'function', propertyName: getBranchName},
@@ -157,7 +155,7 @@ const saveInvoiceHeader = async () => {
             Branch Is ${invoiceHeader.location_master_id.location_master_name}
             `);
             if (userConfirm) {
-                const postServerResponse = ajaxPostRequest("/invoice-header", invoiceHeader);
+                const postServerResponse = ajaxPostRequest("/perfoma-invoice-header", invoiceHeader);
                 if (postServerResponse && postServerResponse.invoice_header_key) {
                     alert(`Save Successful`);
                     console.log(postServerResponse.responseText);
@@ -182,7 +180,7 @@ const saveInvoiceHeader = async () => {
 
             //need to get id
 
-            const getIdFromHeaderKey = await ajaxGetRequest(`/invoice-header/findIdByHeaderKey/${textInvoiceHeaderKey.value}`);
+            const getIdFromHeaderKey = await ajaxGetRequest(`/perfoma-invoice-header/findIdByHeaderKey/${textInvoiceHeaderKey.value}`);
             invoiceHeader.id = Number(getIdFromHeaderKey);
             invoiceHeader.invoice_header_key = textInvoiceHeaderKey.value //key eka set karanne mokada upate ekedi key ekek set wenne na ne eka set venne save eke nisa methanath bind karanna one
             invoiceHeader.invoice_header_number = textInvoiceNO.value //uda reason eka nisama thama
@@ -196,7 +194,7 @@ const saveInvoiceHeader = async () => {
             Branch name Is ${invoiceHeader.location_master_id.location_master_name}
             `);
             if (userConfirm) {
-                const putServerResponse = await ajaxPutRequest("/invoice-header", invoiceHeader);
+                const putServerResponse = await ajaxPutRequest("/perfoma-invoice-header", invoiceHeader);
                 if (putServerResponse == "ok") {
                     alert(`Update Successful`);
                     changeColoursToDefault();
@@ -228,13 +226,13 @@ const refillInvoiceMaster = (ob) => {
     textAdditionalDiscount.value = invoiceHeader.invoice_header_master_additional_discount
 
     let locationList = ajaxGetRequest("/location-master/findall");
-    fillDataIntoSelect(selectBranch,'Select Branch',locationList,'location_master_name',invoiceHeader.location_master_id.location_master_name);
+    fillDataIntoSelect(selectBranch, 'Select Branch', locationList, 'location_master_name', invoiceHeader.location_master_id.location_master_name);
 
     if (invoiceHeader.invoice_header_master_pay_type == "cash") {
         radioPayTypeCash.checked = true;
     } else if (invoiceHeader.invoice_header_master_pay_type == "credit") {
         radioPayTypeCredit.checked = true;
-    }else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
+    } else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
         radioPayTypeVps.checked = true;
     }
 
@@ -257,7 +255,7 @@ const deleteInvoiceHeader = (ob) => {
             Invoice Date Is ${ob.invoice_header_date}
     `);
     if (userConfirm) {
-        const deleteServerResponse = ajaxDeleteRequest("/invoice-header", ob);
+        const deleteServerResponse = ajaxDeleteRequest("/perfoma-invoice-header", ob);
         if (deleteServerResponse == "ok") {
             alert(`Delete Successful`)
         } else {
@@ -334,7 +332,7 @@ const refreshInvoiceDetailsTable = () => {
 
     divInvoiceDetail.classList.remove('d-none');
 
-    invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${textInvoiceHeaderKey.value}`)
+    invoiceDetailsList = ajaxGetRequest(`/perfomainvoiceDetail/getFromHeaderKey/${textInvoiceHeaderKey.value}`)
 
     displayProperty = [
         {dataType: 'function', propertyName: getItemName},
@@ -421,7 +419,7 @@ const submitInvoiceDetails = () => {
         `);
 
         if (userConfirm) {
-            const postServerResponse = ajaxPostRequest("/invoiceDetail", invoiceDetail);
+            const postServerResponse = ajaxPostRequest("/perfomainvoiceDetail", invoiceDetail);
             if (postServerResponse == "ok") {
                 alert(`Save Successful`);
                 selectItem.focus();
@@ -486,7 +484,7 @@ const updateInvoiceDetails = () => {
     if (updates != '') {
         const userConfirm = confirm(`Are You Sure To Update Following Changes \n ${updates}`);
         if (userConfirm) {
-            const putServerResponse = ajaxPutRequest("/invoiceDetail", invoiceDetail);
+            const putServerResponse = ajaxPutRequest("/perfomainvoiceDetail", invoiceDetail);
             if (putServerResponse == "ok") {
                 alert(`Update Successful`);
                 refreshInvoiceDetailsForm();
@@ -512,7 +510,7 @@ const deleteInvoiceDetail = (ob) => {
         Value Is ${ob.invoice_detail_value}
     `);
     if (userConfirm) {
-        const deleteServerResponse = ajaxDeleteRequest("/invoiceDetail", ob);
+        const deleteServerResponse = ajaxDeleteRequest("/perfomainvoiceDetail", ob);
         if (deleteServerResponse == "ok") {
             alert(`Delete Successful`);
             refreshInvoiceDetailsForm();
@@ -566,10 +564,10 @@ const calculateValue = (fieldId) => {
 
 const showTotalNetDiscountAndGross = () => {
 
-    const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${textInvoiceHeaderKey.value}`);
-    const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${textInvoiceHeaderKey.value}`);
-    const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${textInvoiceHeaderKey.value}`);
-    const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${textInvoiceHeaderKey.value}`);
+    const getGrossFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getGrossValue/${textInvoiceHeaderKey.value}`);
+    const getDiscountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getTotalDiscount/${textInvoiceHeaderKey.value}`);
+    const getNetValueFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getNetValue/${textInvoiceHeaderKey.value}`);
+    const getAdditionalDiscountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getAdditionalDiscountValue/${textInvoiceHeaderKey.value}`);
 
     divGrossDiscountNet.classList.remove('d-none')
 
@@ -592,11 +590,13 @@ const showTotalNetDiscountAndGross = () => {
         maximumFractionDigits: 2
     })}`
 
-    displayAdditionalDiscount.innerHTML=(Number(getNetValueFromServer)/100)*Number(textAdditionalDiscount.value);
+    displayAdditionalDiscount.innerHTML = (Number(getNetValueFromServer) / 100) * Number(textAdditionalDiscount.value);
 
 
-    displayTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-
+    displayTotalValue.innerHTML = Number(Number(getNetValueFromServer) - Number(getAdditionalDiscountFromServer)).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
 
 }
@@ -614,7 +614,7 @@ const printInvoice = async (ob) => {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoice Print</title>
+    <title>Proforma Invoice Print</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -682,7 +682,7 @@ const printInvoice = async (ob) => {
     <div class="row" style="margin-bottom: 0; padding-bottom: 0">
         <div class="col-6"></div>
         <div class="col-4 text-end">
-            <p style="font-size: 14px; font-weight: bold;">Invoice</p>
+            <p style="font-size: 14px; font-weight: bold;">Proforma Invoice</p>
         </div>
     </div>
 
@@ -775,7 +775,7 @@ const printInvoiceForA5Size = async (ob) => {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoice Print</title>
+    <title>Proforma Invoice Print</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -834,15 +834,6 @@ const printInvoiceForA5Size = async (ob) => {
         text-align: right;
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
     </style>
 </head>
 <body style="font-family: Verdana">
@@ -854,7 +845,7 @@ const printInvoiceForA5Size = async (ob) => {
     <div class="row" style="margin-bottom: 0; padding-bottom: 0">
         <div class="col-6"></div>
         <div class="col-4 text-end">
-            <p style="font-size: 14px; font-weight: bold;">Invoice</p>
+            <p style="font-size: 14px; font-weight: bold;">Proforma Invoice</p>
         </div>
     </div>
 
@@ -875,7 +866,11 @@ const printInvoiceForA5Size = async (ob) => {
 
                 <tr>
                     <td style="font-size: 10px;">Date</td>
-                    <td class="text-end">${new Date(ob.invoice_header_date).toLocaleString('en-GB', {year: "numeric",month: "2-digit",day: "2-digit"})}</td>
+                    <td class="text-end">${new Date(ob.invoice_header_date).toLocaleString('en-GB', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    })}</td>
                 </tr>
 
 
@@ -933,7 +928,7 @@ ${tableInvoiceDetailPrintA5.outerHTML}
 
 const fillDataIntoInvoicePrintForA5 = (headerKey) => {
 
-    invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${headerKey}`)
+    invoiceDetailsList = ajaxGetRequest(`/perfomainvoiceDetail/getFromHeaderKey/${headerKey}`)
 
     const displayProperty = [
         {dataType: 'function', propertyName: getItemNameForPrint},
@@ -947,17 +942,17 @@ const fillDataIntoInvoicePrintForA5 = (headerKey) => {
 }
 
 
-const printInvoiceForBill = async (ob)=>{
+const printInvoiceForBill = async (ob) => {
 
     await refreshBillTable(ob.invoice_header_key);
 
 
-    const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${ob.invoice_header_key}`);
-    const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${ob.invoice_header_key}`);
-    const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${ob.invoice_header_key}`);
-    const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${ob.invoice_header_key}`);
-    const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${ob.invoice_header_key}`);
-    const getItemCountFromServer = ajaxGetRequest(`/invoiceDetail/getItemCountFromHeaderKey/${ob.invoice_header_key}`);
+    const getGrossFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getGrossValue/${ob.invoice_header_key}`);
+    const getDiscountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getTotalDiscount/${ob.invoice_header_key}`);
+    const getTotalFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getNetValue/${ob.invoice_header_key}`);
+    const getNetValueFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getNetValue/${ob.invoice_header_key}`);
+    const getAdditionalDiscountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getAdditionalDiscountValue/${ob.invoice_header_key}`);
+    const getItemCountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getItemCountFromHeaderKey/${ob.invoice_header_key}`);
 
     const now = new Date();
     const formatted = now.toLocaleString("en-GB", {
@@ -968,9 +963,6 @@ const printInvoiceForBill = async (ob)=>{
         minute: "2-digit",
         second: "2-digit",
     });
-
-
-
 
 
     const newWindow = window.open();
@@ -1002,7 +994,7 @@ const printInvoiceForBill = async (ob)=>{
 
 
     <div type="button" class="rounded-2 text-center" style="background-color: black; color: white; height: 30px; margin-top: 3px">
-        Sales Invoice
+        Proforma Invoice
     </div>
 
 
@@ -1015,7 +1007,11 @@ const printInvoiceForBill = async (ob)=>{
 
 <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
     <span>Date</span>
-    <span>${new Date(ob.invoice_header_date).toLocaleString('en-GB', {year: "numeric",month: "2-digit",day: "2-digit"})}</span>
+    <span>${new Date(ob.invoice_header_date).toLocaleString('en-GB', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    })}</span>
 </p>
 
 
@@ -1052,7 +1048,7 @@ const printInvoiceForBill = async (ob)=>{
     })}</span>
     </p>
     <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
-        <span>Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0" }%</span>
+        <span>Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0"}%</span>
         <span>${Number(getDiscountFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -1108,17 +1104,15 @@ const printInvoiceForBill = async (ob)=>{
 }
 
 
+const refreshBillTable = (headerKey) => {
 
-const refreshBillTable = (headerKey)=>{
 
-
-    invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${headerKey}`)
+    invoiceDetailsList = ajaxGetRequest(`/perfomainvoiceDetail/getFromHeaderKey/${headerKey}`)
 
     const displayProperty = [
         {dataType: 'function', propertyName: getItemNameForBillPrint},
         {dataType: 'function', propertyName: getItemQuantityForBillPrint},
         {dataType: 'function', propertyName: getItemRateForBillPrint},
-        // {dataType: 'function', propertyName: getItemDiscountForBillPrint},
         {dataType: 'function', propertyName: getItemAmountForBillPrint},
     ];
 
@@ -1146,13 +1140,6 @@ const getItemRateForBillPrint = (ob) => {
     })}</p>`;
 }
 
-const getItemDiscountForBillPrint = (ob) => {
-    return `<p>${Number(ob.invoice_detail_discount).toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    })}</p>`;
-}
-
 
 const getItemAmountForBillPrint = (ob) => {
     return `<p>${Number(ob.invoice_detail_value).toLocaleString('en-US', {
@@ -1162,15 +1149,12 @@ const getItemAmountForBillPrint = (ob) => {
 }
 
 
-
-
 const getGrossDiscountNetValuesForTablePrintA5 = (headerKey) => {
-    const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${headerKey}`);
-    const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${headerKey}`);
-    const getTotalFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
-    const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
-    const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${headerKey}`);
-
+    const getGrossFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getGrossValue/${headerKey}`);
+    const getDiscountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getTotalDiscount/${headerKey}`);
+    const getTotalFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getNetValue/${headerKey}`);
+    const getNetValueFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getNetValue/${headerKey}`);
+    const getAdditionalDiscountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getAdditionalDiscountValue/${headerKey}`);
 
 
     A5tdGrossValue.innerHTML = ""
@@ -1190,17 +1174,22 @@ const getGrossDiscountNetValuesForTablePrintA5 = (headerKey) => {
         maximumFractionDigits: 2
     });
 
-    A5tdAdditionalDiscount.innerHTML=Number(getAdditionalDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2})
+    A5tdAdditionalDiscount.innerHTML = Number(getAdditionalDiscountFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })
 
-    A5tdTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    A5tdTotalValue.innerHTML = Number(Number(getNetValueFromServer) - Number(getAdditionalDiscountFromServer)).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
 
 }
 
 
 const fillDataIntoInvoicePrint = (headerKey) => {
-
-    invoiceDetailsList = ajaxGetRequest(`/invoiceDetail/getFromHeaderKey/${headerKey}`)
+    invoiceDetailsList = ajaxGetRequest(`/perfomainvoiceDetail/getFromHeaderKey/${headerKey}`)
 
     const displayProperty = [
         {dataType: 'function', propertyName: getItemNameForPrint},
@@ -1222,10 +1211,10 @@ const getItemNameForPrint = (ob) => {
 
 
 const getGrossDiscountNetValuesForTablePrint = (headerKey) => {
-    const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${headerKey}`);
-    const getDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getTotalDiscount/${headerKey}`);
-    const getNetValueFromServer = ajaxGetRequest(`/invoiceDetail/getNetValue/${headerKey}`);
-    const getAdditionalDiscountFromServer = ajaxGetRequest(`/invoiceDetail/getAdditionalDiscountValue/${headerKey}`);
+    const getGrossFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getGrossValue/${headerKey}`);
+    const getDiscountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getTotalDiscount/${headerKey}`);
+    const getNetValueFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getNetValue/${headerKey}`);
+    const getAdditionalDiscountFromServer = ajaxGetRequest(`/perfomainvoiceDetail/getAdditionalDiscountValue/${headerKey}`);
 
 
     tdGrossValue.innerHTML = ""
@@ -1245,9 +1234,15 @@ const getGrossDiscountNetValuesForTablePrint = (headerKey) => {
         maximumFractionDigits: 2
     })
 
-    tdAdditionalDiscount.innerHTML=Number(getAdditionalDiscountFromServer).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2})
+    tdAdditionalDiscount.innerHTML = Number(getAdditionalDiscountFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })
 
-    tdTotalValue.innerHTML=Number(Number(getNetValueFromServer)-Number(getAdditionalDiscountFromServer)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    tdTotalValue.innerHTML = Number(Number(getNetValueFromServer) - Number(getAdditionalDiscountFromServer)).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
 }
 
