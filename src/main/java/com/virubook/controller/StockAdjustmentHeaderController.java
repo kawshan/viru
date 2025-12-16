@@ -77,7 +77,6 @@ public class StockAdjustmentHeaderController {
     @DeleteMapping
     public String deleteStockAdjustmentHeader(@RequestBody StockAdjustmentHeader stockAdjustmentHeader){
         try {
-            //need to take care of stock adjustment details also
             stockAdjustmentHeaderDao.deleteStockAdjustmentDetailsByHeaderKey(stockAdjustmentHeader.getStock_adjustment_header_key());
             stockAdjustmentHeaderDao.delete(stockAdjustmentHeader);
             return "ok";

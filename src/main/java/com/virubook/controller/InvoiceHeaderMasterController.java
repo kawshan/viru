@@ -87,7 +87,6 @@ public class InvoiceHeaderMasterController {
     @DeleteMapping
     public String deleteInvoiceHeaderMaster(@RequestBody InvoiceHeaderMaster invoiceHeaderMaster){
         try {
-            //need to do details delete thing........
             invoiceHeaderMasterDao.deleteInvoiceDetailByInvoiceHeaderKey(invoiceHeaderMaster.getInvoice_header_key());
             invoiceHeaderMasterDao.delete(invoiceHeaderMaster);
             return "ok";
