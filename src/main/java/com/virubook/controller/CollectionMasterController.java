@@ -1,6 +1,7 @@
 package com.virubook.controller;
 
 import com.virubook.dao.CollectionMasterDao;
+import com.virubook.dao.CollectionMasterDetailsDao;
 import com.virubook.entity.CollectionMasterHeader;
 import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class CollectionMasterController {
 
     @Autowired
     private CollectionMasterDao collectionMasterDao;
+    @Autowired
+    private CollectionMasterDetailsDao collectionMasterDetailsDao;
 
     @GetMapping
     public ModelAndView collectionMasterView() {
@@ -72,7 +75,7 @@ public class CollectionMasterController {
     @DeleteMapping
     public String deleteCollectionMaster(@RequestBody CollectionMasterHeader collectionMasterHeader) {
         try {
-            //need to handel details delete part
+            collectionMasterDao.deleteCollectionDetailsByCollectionHeaderKey(collectionMasterHeader.getCollection_master_header_key());
             collectionMasterDao.delete(collectionMasterHeader);
             return "ok";
         }catch (Exception e) {
