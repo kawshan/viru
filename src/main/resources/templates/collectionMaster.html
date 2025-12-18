@@ -62,7 +62,7 @@
                             onclick="deleteCollectionHeader(window['editOb'],window['editRow'])">
                         <i class="fa-solid fa-trash fa-beat"></i> Delete
                     </button>
-                    <button onclick="printProductionHeader(window['editOb'],window['editRow'])" type="button"
+                    <button onclick="printInvoiceForBill(window['editOb'],window['editRow'])" type="button"
                             class="btn btn-primary fw-bold"
                             style=" width: 15%; color: whitesmoke;border: 1px solid black">
                         <i class="fa-solid fa-eye fa-beat"></i> Print
@@ -323,23 +323,24 @@
     <!--search model area end-->
 
 
-    <!--details print table area start-->
-    <div id="divProductionDetailsTableAreaPrint" class="d-none">
-        <table class="table table-bordered"
-               style="border: 1px solid black; line-height: 5px; font-family: Verdana; font-size: 11px"
-               id="tableProductionDetailPrint">
-            <thead style="line-height: 10px" class="text-center">
+    <!-- collection details bill format area start -->
+    <div id="divBillTable" class="d-none">
+        <table class="table text-center" id="billTable">
+            <thead style="font-size: 10px">
             <th>#</th>
-            <th>Item Name</th>
-            <th>Description</th>
-            <th>Quantity</th>
+            <th>Invoice No</th>
+            <th>Pay Type</th>
+            <th>Amount</th>
             </thead>
-            <tbody>
+
+            <tbody style="font-size: 10px">
 
             </tbody>
+
+
         </table>
     </div>
-    <!--details print table area end-->
+    <!-- collection details bill format area end -->
 
 
     <!--pending collections model area start-->

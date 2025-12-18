@@ -469,23 +469,138 @@ const refreshCustomerPendingCollections = (fieldId)=>{
     const selectedValue = fieldId.value;
     const parts = selectedValue.split(" ");
     const namePart = parts.slice(0,-1);
-    console.log(namePart.join(" "))
+    const joinedPart = namePart.join(" ");
 
+    console.log(joinedPart);
 
+    divCollectionsTableForCustomer.classList.remove('d-none');
+
+    const resultList = ajaxGetRequest(`/collection-report/customerVise/${joinedPart}`)
+
+    displayProperty = [
+        {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
+        {dataType: 'function', propertyName: getInvoiceNumber},
+        {dataType: 'function', propertyName: getInvoiceValue},
+        {dataType: 'function', propertyName: getCollectionValue},
+        {dataType: 'function', propertyName: getRemainingAmount},
+    ];
+
+    fillDataIntoTable2(collectionsTableForCustomer, resultList, displayProperty, false);
 }
 
 
 
 
+const printInvoiceForBill = async (ob) => {
+
+    await refreshCollectionMasterDetailsTableForBill(ob.collection_master_header_key);
+
+    const now = new Date();
+    const formatted = now.toLocaleString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+    });
+
+
+    const newWindow = window.open();
+    newWindow.document.write(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collection Bill</title>
+    <link rel="stylesheet" href="css/bill.css">
+
+    <!--    bootstrap cdn links-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body style="margin-right: 30px">
+<div class="billDiv">
+
+<div class="text-center" style="display: flex; align-items: center; justify-content: start;">
+    <img src="/images/Viru_Logo.jpg" alt="viru" width="100" height="40">
+    <div style="margin-left: 15px; text-align: left; font-size: 10px; font-family: Verdana">
+        <div>619/1/2 Waragoda Rd, Kelaniya</div>
+        <div>viruworld621@gmail.com</div>
+        <div>071-488-9973</div>
+    </div>
+    <hr>
+</div>
+
+
+    <div type="button" class="rounded-2 text-center" style="background-color: black; color: white; height: 30px; margin-top: 3px">
+        Collection Bill
+    </div>
+
+
+<div>
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Collection No</span>
+    <span>${ob.collection_master_header_number}</span>
+</p>
+
+
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Date</span>
+    <span>${new Date(ob.collection_master_header_date).toLocaleString('en-GB', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    })}</span>
+</p>
+
+</div>
+
+    <div>
+    ${billTable.outerHTML}
+    </div>
+
+    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0;">Printed at ${formatted}</p>
 
 
 
 
+</div>
+</body>
+</html>
+
+    `)
+
+    setTimeout(function () {
+        newWindow.stop();
+        newWindow.print();
+        newWindow.close();
+        divModifyButton2.classList.add('d-none');
+    }, 3000)
+
+}
+
+// refresh bill table
+const refreshCollectionMasterDetailsTableForBill = (headerKey) => {
+
+    const detailsList = ajaxGetRequest(`/collection-details/findByHeaderKey/${headerKey}`);
+
+    const displayProperty = [
+        {dataType: "text", propertyName: 'collection_master_details_invoice_number'},
+        {dataType: "text", propertyName: 'collection_master_details_type'},
+        {dataType: "function", propertyName: getCollectionDetailsAmount},
+    ];
 
 
+    fillDataIntoTable2(billTable, detailsList, displayProperty, false);
 
 
+}
 
+const getCollectionDetailsAmount = (ob)=>{
+    return `<P class="text-end">${Number(ob.collection_master_details_amount).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</P>`
+}
 
 
 
