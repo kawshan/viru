@@ -26,6 +26,13 @@ public class ProductionDetailsReportController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/view/new")
+    public ModelAndView newProductionDetailsReport() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("productionReportTwo.html");
+        return modelAndView;
+    }
+
 
     @GetMapping(value = "/{fromDate}/{toDate}")
     public List<ProductionReportsDto> getProductionReports(@PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate) {

@@ -536,7 +536,7 @@ const printInvoiceForBill = async (ob) => {
 
 
     <div type="button" class="rounded-2 text-center" style="background-color: black; color: white; height: 30px; margin-top: 3px">
-        Collection Bill
+        Collection Recipt
     </div>
 
 
