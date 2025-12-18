@@ -235,13 +235,9 @@ const refillInvoiceMaster = (ob) => {
         radioPayTypeCredit.checked = true;
     } else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
         radioPayTypeVps.checked = true;
+    }else if (invoiceHeader.invoice_header_master_pay_type == "online-transfer") {
+        radioPayTypeOnlineTransfer.checked = true;
     }
-
-
-    refreshInvoiceDetailsForm();
-    refreshInvoiceDetailsTable();
-
-    showTotalNetDiscountAndGross();
 
 }
 

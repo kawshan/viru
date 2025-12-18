@@ -318,6 +318,8 @@ const refillCollectionDetails = (ob) => {
         radioPayTypeCash.checked = true;
     } else if (collectionMasterDetails.collection_master_details_type == "cheque") {
         radioPayTypeCheque.checked = true;
+    }else if (collectionMasterDetails.collection_master_details_type == "online-transfer") {
+        radioPayTypeOnlineTransfer.checked = true;
     }
 
 
@@ -541,6 +543,12 @@ const printInvoiceForBill = async (ob) => {
 
 
 <div>
+
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Customer Name</span>
+    <span>${ob.customer_master_id.customer_name}</span>
+</p>
+
 <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
     <span>Collection No</span>
     <span>${ob.collection_master_header_number}</span>
@@ -563,7 +571,7 @@ const printInvoiceForBill = async (ob) => {
     </div>
 
         <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
-        <span>Gross Value</span>
+        <span>Total Value</span>
         <span>${Number(getTotalFromServer).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
