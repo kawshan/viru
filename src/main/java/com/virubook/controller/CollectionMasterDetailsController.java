@@ -53,5 +53,10 @@ public class CollectionMasterDetailsController {
     }
 
 
+    @GetMapping(value = "/getTotalAmountByHeaderkey/{headerkey}")
+    public String gettotalAmountByHeaderkey(@PathVariable("headerkey")String headerkey) {
+        return collectionMasterDetailsDao.getTotalValue(headerkey);
+    }
+
 
 }

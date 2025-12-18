@@ -11,4 +11,9 @@ public interface CollectionMasterDetailsDao extends JpaRepository<CollectionMast
     @Query(value = "select cmd from CollectionMasterDetails cmd where cmd.collection_master_details_header_key=?1")
     public List<CollectionMasterDetails> getAllByHeaderKey(String headerKey);
 
+
+
+    @Query(value = "select sum(collection_master_details_amount) from collection_master_details where collection_master_details_header_key=?1",nativeQuery = true)
+    public String getTotalValue(String headerKey);
+
 }

@@ -23,4 +23,8 @@ public interface CollectionMasterDao extends JpaRepository<CollectionMasterHeade
     public void deleteCollectionDetailsByCollectionHeaderKey(String productionHeaderKey);
 
 
+
+
+
+
 }

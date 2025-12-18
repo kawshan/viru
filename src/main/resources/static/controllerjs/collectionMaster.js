@@ -494,6 +494,7 @@ const refreshCustomerPendingCollections = (fieldId)=>{
 const printInvoiceForBill = async (ob) => {
 
     await refreshCollectionMasterDetailsTableForBill(ob.collection_master_header_key);
+    getTotalFromServer = await ajaxGetRequest(`/collection-details/getTotalAmountByHeaderkey/${ob.collection_master_header_key}`)
 
     const now = new Date();
     const formatted = now.toLocaleString("en-GB", {
@@ -560,6 +561,14 @@ const printInvoiceForBill = async (ob) => {
     <div>
     ${billTable.outerHTML}
     </div>
+
+        <p style="font-size: 12px; display: flex; justify-content: space-between; margin: 0; margin-bottom: 2px;">
+        <span>Gross Value</span>
+        <span>${Number(getTotalFromServer).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</span>
+    </p>
 
     <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0;">Printed at ${formatted}</p>
 
