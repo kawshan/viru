@@ -5,6 +5,8 @@ window.addEventListener('load', function () {
     refreshCollectionMasterForm();
 
     refreshCollectionHeaderTable();
+
+    refreshPendingCollections();
 })
 
 
@@ -411,19 +413,52 @@ const deleteCollectionMasterDetails = (ob) => {
 
 
 
+//pending collection refresh function
+const refreshPendingCollections = () => {
+
+    headersList = ajaxGetRequest("/collection-report");
+
+    displayProperty = [
+        {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
+        {dataType: 'function', propertyName: getInvoiceNumber},
+        {dataType: 'function', propertyName: getInvoiceValue},
+        {dataType: 'function', propertyName: getCollectionValue},
+        {dataType: 'function', propertyName: getRemainingAmount},
+    ];
+
+    // Check if DataTable is already initialized and destroy it
+    if ($.fn.DataTable.isDataTable("#collectionsTable")) {
+        $("#collectionsTable").DataTable().destroy();
+    }
+
+
+    fillDataIntoTable2(collectionsTable, headersList, displayProperty, false);
+    $("#collectionsTable").dataTable();
+
+}
+
+const getCustomerNameForPendingCollection = (ob) => {
+    return ob.customer_name;
+}
+
+const getInvoiceNumber = (ob) => {
+    return `<p class="text-end">${ob.invoice_number}</p>`;
+}
+
+
+const getInvoiceValue = (ob) => {
+    return `<p class="text-end">${Number(ob.invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+}
+
+const getCollectionValue = (ob) => {
+    return `<p class="text-end">${Number(ob.collection_amount).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
+const getRemainingAmount = (ob) => {
+    return `<p class="text-end">${Number(ob.remaining_amount).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+}
 
 
 
