@@ -464,7 +464,15 @@ const getRemainingAmount = (ob) => {
 
 
 
+const refreshCustomerPendingCollections = (fieldId)=>{
 
+    const selectedValue = fieldId.value;
+    const parts = selectedValue.split(" ");
+    const namePart = parts.slice(0,-1);
+    console.log(namePart.join(" "))
+
+
+}
 
 
 

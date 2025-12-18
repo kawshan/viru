@@ -31,4 +31,19 @@ public class CollectionReportService {
 
 
 
+    public List<CollectionReportDto> generateCollectionReportCustomerVise(String customerName) {
+        List<Object[]> resultList = collectionReportDao.getCollectionReportCustomerVise(customerName);
+        return resultList.stream().map(obj->
+                new CollectionReportDto(
+                        (String) obj[0],
+                        (Integer) obj[1],
+                        (BigDecimal) obj[2],
+                        (BigDecimal) obj[3],
+                        (BigDecimal) obj[4]
+                )
+        ).collect(Collectors.toList());
+    }
+
+
+
 }

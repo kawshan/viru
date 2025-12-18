@@ -103,7 +103,7 @@
             <input type="text" id="selectCustomer" list="dataListCustomer" class="form-control text-start fw-bold"
                    style="height: 60px" placeholder="Type & Search Customer"
                    onkeyup="dataListValidatorWithTwoValues(this,'customersList','collectionHeader','customer_master_id','customer_name','customer_mobile');"
-                   onchange="//showCustomerName(this)">
+                   onchange="refreshCustomerPendingCollections(this)">
             <datalist id="dataListCustomer"></datalist>
             <p id="displayCustomerName"></p>
             <p id="displayCustomerAddress"></p>
@@ -128,6 +128,28 @@
 
     </div>
     <!--collection header area end-->
+
+    <!--    customer vise collection table start-->
+    <div class="row p-4">
+        <div class="col-md-5">
+            <!--table pending collections start-->
+            <div class="d-none" id="divCollectionsTableForCustomer">
+                <table class="table" id="collectionsTableForCustomer">
+                    <thead>
+                    <th>#</th>
+                    <th>Customer name</th>
+                    <th class="text-end">Invoice Number</th>
+                    <th class="text-end">Invoice Value</th>
+                    <th class="text-end">Collection Amount</th>
+                    <th class="text-end">Remaining Amount</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <!--table pending collections end-->
+        </div>
+    </div>
+    <!--    customer vise collection table end-->
 
 
     <!--collection detail area start-->
@@ -154,8 +176,12 @@
 
                     <td>
                         <label class="form-label">Payment type <i class="text-danger">*</i> </label> <br><br>
-                        <input name="paymentType" required type="radio" id="radioPayTypeCash" onchange="collectionMasterDetails.collection_master_details_type=this.value" value="cash"> Cash
-                        <input name="paymentType" required type="radio" id="radioPayTypeCheque" onchange="collectionMasterDetails.collection_master_details_type=this.value" value="cheque"> Cheque
+                        <input name="paymentType" required type="radio" id="radioPayTypeCash"
+                               onchange="collectionMasterDetails.collection_master_details_type=this.value"
+                               value="cash"> Cash
+                        <input name="paymentType" required type="radio" id="radioPayTypeCheque"
+                               onchange="collectionMasterDetails.collection_master_details_type=this.value"
+                               value="cheque"> Cheque
                     </td>
 
                     <td>
@@ -316,7 +342,6 @@
     <!--details print table area end-->
 
 
-
     <!--pending collections model area start-->
     <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
@@ -326,7 +351,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <!--table invoice header start-->
+                    <!--table pending collections start-->
                     <div class="card m-4" id="divCollectionsTable">
                         <table class="table table-hover table-striped" id="collectionsTable">
                             <thead>
@@ -340,7 +365,7 @@
                             <tbody></tbody>
                         </table>
                     </div>
-                    <!--table invoice header end-->
+                    <!--table pending collections end-->
 
 
                 </div>

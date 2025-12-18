@@ -4,6 +4,7 @@ import com.virubook.dto.CollectionReportDto;
 import com.virubook.service.CollectionReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,10 @@ public class CollectionReportController {
         return collectionReportService.generateCollectionReport();
     }
 
+    @GetMapping(value = "/customerVise/{customerName}")
+    public List<CollectionReportDto> getCollectionReportCustomerVise(@PathVariable("customerName")String customerName) {
+        return collectionReportService.generateCollectionReportCustomerVise(customerName);
+    }
 
 
 }

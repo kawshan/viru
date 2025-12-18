@@ -1286,8 +1286,9 @@ const readBarcode = (fieldId) => {
     } else {
         const parts = fieldId.value.split(' ');
         const nameParts = parts.slice(0, -2);
+        const joinParts = nameParts.join(" ");
         console.log(`name parts ${nameParts}`);
-        console.log(`joined parts ${nameParts.join(' ')}`);
+        console.log(`joined parts ${joinParts}`);
 
 
 
