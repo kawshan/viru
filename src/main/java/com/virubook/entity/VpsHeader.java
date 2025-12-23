@@ -38,6 +38,8 @@ public class VpsHeader {
     @Column(name = "vps_header_saved_date")
     private LocalDate vps_header_saved_date;
 
+    @Column(name = "vps_header_added_user")
+    private String vps_header_added_user;
 
 
 

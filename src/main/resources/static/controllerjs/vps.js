@@ -81,6 +81,10 @@ const checkErrorsVpsHeader = () => {
 }
 
 const saveOrUpdateVpsHeader = () => {
+
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    vpsHeader.vps_header_added_user = user.username;
+
     if (textVpsCode.value == "") {
         console.log('save part');
         let errors = checkErrorsVpsHeader();
@@ -88,6 +92,8 @@ const saveOrUpdateVpsHeader = () => {
             const userConfirm = confirm(`Are you sure to add following VPS  \n
             Invoice number is ${vpsHeader.vps_header_invoice_number}
             Total invoice value is ${vpsHeader.vps_header_total_invoice_value}
+            Added user is ${vpsHeader.vps_header_added_user}
+
             `);
             if (userConfirm) {
                 console.log(vpsHeader);

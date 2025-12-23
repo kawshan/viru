@@ -44,6 +44,9 @@ public class PerfomaInvoiceHeaderMaster {
     @Column(name = "invoice_header_master_additional_discount")
     private BigDecimal invoice_header_master_additional_discount;
 
+    @Column(name = "perfoma_invoice_header_master_added_user")
+    private String perfoma_invoice_header_master_added_user;
+
 
     @ManyToOne
     @JoinColumn(name = "customer_master_id",referencedColumnName = "id")

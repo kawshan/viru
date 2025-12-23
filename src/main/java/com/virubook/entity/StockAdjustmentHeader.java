@@ -29,6 +29,9 @@ public class StockAdjustmentHeader {
     @Column(name = "stock_adjustment_header_date")
     private LocalDate stock_adjustment_header_date;
 
+    @Column(name = "stock_adjustment_header_added_user")
+    private String stock_adjustment_header_added_user;
+
     @ManyToOne
     @JoinColumn(name = "location_master_id",referencedColumnName = "id")
     private LocationMaster location_master_id;

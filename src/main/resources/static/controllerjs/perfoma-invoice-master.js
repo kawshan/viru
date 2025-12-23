@@ -141,6 +141,9 @@ const checkErrorsInvoiceMasterHeader = () => {
 
 const saveInvoiceHeader = async () => {
 
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    invoiceHeader.perfoma_invoice_header_master_added_user = user.username;
+
     if (textInvoiceHeaderKey.value == "") {
         console.log(`save part`);
 
@@ -153,6 +156,8 @@ const saveInvoiceHeader = async () => {
             Customer Mobile Is ${invoiceHeader.customer_master_id.customer_mobile}
             Invoice Date Is ${invoiceHeader.invoice_header_date}
             Branch Is ${invoiceHeader.location_master_id.location_master_name}
+            Added user is ${invoiceHeader.perfoma_invoice_header_master_added_user}
+
             `);
             if (userConfirm) {
                 const postServerResponse = ajaxPostRequest("/perfoma-invoice-header", invoiceHeader);

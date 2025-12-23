@@ -1,4 +1,4 @@
-window.addEventListener('load',function (){
+window.addEventListener('load', function () {
     refreshProductionDetailsForm();
 
     refreshProductionHeaderTable()
@@ -8,27 +8,27 @@ window.addEventListener('load',function (){
     getNextProductionNumber();
 })
 
-const refreshProductionHeaderForm = ()=>{
+const refreshProductionHeaderForm = () => {
 
     productionHeader = new Object();
 
-    textProHeaderDate.style.border="2px solid #ced4da";
-    textProHeaderNumber.style.border="2px solid #ced4da";
-    textProHeaderKey.style.border="2px solid #ced4da";
+    textProHeaderDate.style.border = "2px solid #ced4da";
+    textProHeaderNumber.style.border = "2px solid #ced4da";
+    textProHeaderKey.style.border = "2px solid #ced4da";
 
-    textProHeaderDate.value="";
-    textProHeaderNumber.value="";
-    textProHeaderKey.value="";
+    textProHeaderDate.value = "";
+    textProHeaderNumber.value = "";
+    textProHeaderKey.value = "";
 
 
-    buttonProductionDetailsUpdate.disabled=true;
-    buttonProductionDetailsUpdate.style.cursor="not-allowed";
+    buttonProductionDetailsUpdate.disabled = true;
+    buttonProductionDetailsUpdate.style.cursor = "not-allowed";
 
-    buttonProductionDetailsAdd.disabled=true;
-    buttonProductionDetailsAdd.style.cursor="not-allowed";
+    buttonProductionDetailsAdd.disabled = true;
+    buttonProductionDetailsAdd.style.cursor = "not-allowed";
 }
 
-const refreshProductionHeaderTable = ()=>{
+const refreshProductionHeaderTable = () => {
 
     divProductionHeaderTable.classList.remove('d-none');
     divProductionFullHeader.classList.add('d-none');
@@ -36,10 +36,10 @@ const refreshProductionHeaderTable = ()=>{
     prductionHeadersList = ajaxGetRequest("/production-header/getLastHundredRows");
 
 
-    displayProperty=[
-        {dataType:'text',propertyName:'production_header_date'},
-        {dataType:'text',propertyName:'production_header_number'},
-        {dataType:'text',propertyName:'production_header_key'},
+    displayProperty = [
+        {dataType: 'text', propertyName: 'production_header_date'},
+        {dataType: 'text', propertyName: 'production_header_number'},
+        {dataType: 'text', propertyName: 'production_header_key'},
     ];
 
     // Check if DataTable is initialized before trying to destroy it
@@ -48,62 +48,65 @@ const refreshProductionHeaderTable = ()=>{
         $("#tableProductionHeader").DataTable().destroy();
     }
 
-    fillDataIntoTable2(tableProductionHeader,prductionHeadersList,displayProperty,true,divModifyButton2)
+    fillDataIntoTable2(tableProductionHeader, prductionHeadersList, displayProperty, true, divModifyButton2)
     $("#tableProductionHeader").DataTable();
 
 }
 
-const productionHeaderColorsReset = ()=>{
-    textProHeaderDate.style.border="2px solid #ced4da";
-    textProHeaderNumber.style.border="2px solid #ced4da";
-    textProHeaderKey.style.border="2px solid #ced4da";
+const productionHeaderColorsReset = () => {
+    textProHeaderDate.style.border = "2px solid #ced4da";
+    textProHeaderNumber.style.border = "2px solid #ced4da";
+    textProHeaderKey.style.border = "2px solid #ced4da";
 }
 
 
-
-
-const checkErrorProductionHeaderForm = ()=>{
+const checkErrorProductionHeaderForm = () => {
 
     let errors = '';
 
-    if (productionHeader.production_header_date == null){
-        errors=errors+"Date Cannot Be Empty \n"
+    if (productionHeader.production_header_date == null) {
+        errors = errors + "Date Cannot Be Empty \n"
     }
 
-    if (productionHeader.production_header_number == null){
-        errors=errors+"Number Cannot Be Empty \n"
+    if (productionHeader.production_header_number == null) {
+        errors = errors + "Number Cannot Be Empty \n"
     }
     return errors;
 }
 
 
-const saveOrUpdateProductionHeader = async ()=>{
-    if (textProHeaderKey.value==''){
+const saveOrUpdateProductionHeader = async () => {
+
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    productionHeader.production_header_added_user = user.username;
+
+    if (textProHeaderKey.value == '') {
         console.log('save part');
         let errors = checkErrorProductionHeaderForm();
-        if (errors==''){
+        if (errors == '') {
             const userConfirm = confirm(`Are You Sure To Update Following Production header
             Date Is ${productionHeader.production_header_date}
             Number Is ${productionHeader.production_header_number}
+            Added user is ${productionHeader.production_header_added_user}
             `)
-            if (userConfirm){
-                const postServerResponse = ajaxPostRequest("/production-header",productionHeader);
-                if (postServerResponse){
+            if (userConfirm) {
+                const postServerResponse = ajaxPostRequest("/production-header", productionHeader);
+                if (postServerResponse) {
                     alert(`Save Successful`);
-                    textProHeaderKey.value=postServerResponse.production_header_key;
+                    textProHeaderKey.value = postServerResponse.production_header_key;
                     productionHeaderColorsReset();
                     refreshProductionHeaderTable()
                     refreshProductionDetailsForm()
-                }else {
+                } else {
                     alert(`Save Unsuccessful`);
                 }
             }
 
 
-        }else {
+        } else {
             alert(`You Have Following Errors \n ${errors}`);
         }
-    }else {
+    } else {
         console.log('update part');
 
         const getIdFromServer = ajaxGetRequest(`/production-header/getIdFromHeaderKey/${textProHeaderKey.value}`)
@@ -111,44 +114,44 @@ const saveOrUpdateProductionHeader = async ()=>{
         productionHeader.production_header_key = textProHeaderKey.value;
 
         let errors = checkErrorProductionHeaderForm();
-        if (errors==""){
+        if (errors == "") {
 
             const userConfirm = confirm(`Are You Sure To Update Following Production header
             Date Is ${productionHeader.production_header_date}
             Number Is ${productionHeader.production_header_number}
             `);
-            if (userConfirm){
-                let putServerResponse = ajaxPutRequest("/production-header",productionHeader);
-                if (putServerResponse=="ok"){
+            if (userConfirm) {
+                let putServerResponse = ajaxPutRequest("/production-header", productionHeader);
+                if (putServerResponse == "ok") {
                     alert(`Update Successful`);
                     productionHeaderColorsReset();
                     refreshProductionHeaderTable();
                     divModifyButton2.classList.add('d-none');
-                    buttonProductionDetailsUpdate.disabled=true;
-                    buttonProductionDetailsUpdate.style.cursor="not-allowed";
+                    buttonProductionDetailsUpdate.disabled = true;
+                    buttonProductionDetailsUpdate.style.cursor = "not-allowed";
 
-                    buttonProductionDetailsAdd.disabled=true;
-                    buttonProductionDetailsAdd.style.cursor="not-allowed";
-                }else {
+                    buttonProductionDetailsAdd.disabled = true;
+                    buttonProductionDetailsAdd.style.cursor = "not-allowed";
+                } else {
                     alert(`update unsuccessful \n ${putServerResponse}`)
                 }
             }
-        }else {
+        } else {
             alert(`You Have Following Errors \n`)
         }
     }
 }
 
 
-const refillProductHeader = (ob)=>{
+const refillProductHeader = (ob) => {
 
     productionHeader = JSON.parse(JSON.stringify(ob));
     oldproductionHeader = JSON.parse(JSON.stringify(ob));
 
 
-    textProHeaderDate.value=ob.production_header_date;
-    textProHeaderNumber.value=ob.production_header_number;
-    textProHeaderKey.value=ob.production_header_key;
+    textProHeaderDate.value = ob.production_header_date;
+    textProHeaderNumber.value = ob.production_header_number;
+    textProHeaderKey.value = ob.production_header_key;
 
     refreshProductionDetailsTable();
 
@@ -156,18 +159,18 @@ const refillProductHeader = (ob)=>{
 }
 
 
-const deleteProductHeader = (ob)=>{
+const deleteProductHeader = (ob) => {
     const userConfirm = confirm(`Are You Sure to delete following product 
             Date Is ${ob.production_header_date}
             Number Is ${ob.production_header_number}
     `);
-    if (userConfirm){
-        const deleteServerResponse = ajaxDeleteRequest("/production-header",ob);
-        if (deleteServerResponse=="ok"){
+    if (userConfirm) {
+        const deleteServerResponse = ajaxDeleteRequest("/production-header", ob);
+        if (deleteServerResponse == "ok") {
             alert("delete successful \n");
             refreshProductionHeaderTable();
             divModifyButton2.classList.add('d-none');
-        }else {
+        } else {
             alert(`delete unsuccessful`);
             refreshProductionHeaderTable();
         }
@@ -175,19 +178,16 @@ const deleteProductHeader = (ob)=>{
 }
 
 
-
-const getNextProductionNumber = ()=>{
+const getNextProductionNumber = () => {
     const nextProductionNumberFromServer = ajaxGetRequest("/production-header/getNextProductionNumber");
-    textProHeaderNumber.value=Number(nextProductionNumberFromServer);
-    textProHeaderNumber.style.border="2px solid green";
+    textProHeaderNumber.value = Number(nextProductionNumberFromServer);
+    textProHeaderNumber.style.border = "2px solid green";
     productionHeader.production_header_number = Number(nextProductionNumberFromServer);
 
 }
 
 
-
-
-const handelResetProductionHeader = ()=>{
+const handelResetProductionHeader = () => {
 
     divModifyButton2.classList.add('d-none');
     divModifyButton3.classList.add('d-none');
@@ -201,7 +201,7 @@ const handelResetProductionHeader = ()=>{
 
 }
 
-const loadFullProductionTable = ()=>{
+const loadFullProductionTable = () => {
 
 
     divProductionHeaderTable.classList.add('d-none');
@@ -209,19 +209,18 @@ const loadFullProductionTable = ()=>{
 
     prductionHeadersList = ajaxGetRequest("/production-header/findall");
 
-    displayProperty=[
-        {dataType:'text',propertyName:'production_header_date'},
-        {dataType:'text',propertyName:'production_header_number'},
-        {dataType:'text',propertyName:'production_header_key'},
+    displayProperty = [
+        {dataType: 'text', propertyName: 'production_header_date'},
+        {dataType: 'text', propertyName: 'production_header_number'},
+        {dataType: 'text', propertyName: 'production_header_key'},
     ];
 
-    if ($.fn.DataTable.isDataTable("#tableFullProductionHeader")){
+    if ($.fn.DataTable.isDataTable("#tableFullProductionHeader")) {
         $("#tableFullProductionHeader").DataTable.destroy();
     }
 
-    fillDataIntoTable2(tableFullProductionHeader,prductionHeadersList,displayProperty,true,divModifyButton2)
+    fillDataIntoTable2(tableFullProductionHeader, prductionHeadersList, displayProperty, true, divModifyButton2)
     $("#tableFullProductionHeader").DataTable();
-
 
 
 }
@@ -230,181 +229,180 @@ const loadFullProductionTable = ()=>{
 // finished header section from here we have production details section
 
 
-const refreshProductionDetailsForm = ()=>{
+const refreshProductionDetailsForm = () => {
 
 
     productionDetails = new Object();
 
-    textProDetailsItem.style.border="2px solid #ced4da";
-    textProDetailsQuantity.style.border="2px solid #ced4da";
-    textProDetailsDescription.style.border="2px solid #ced4da";
+    textProDetailsItem.style.border = "2px solid #ced4da";
+    textProDetailsQuantity.style.border = "2px solid #ced4da";
+    textProDetailsDescription.style.border = "2px solid #ced4da";
 
-    textProDetailsItem.value="";
-    textProDetailsQuantity.value="";
-    textProDetailsDescription.value="";
+    textProDetailsItem.value = "";
+    textProDetailsQuantity.value = "";
+    textProDetailsDescription.value = "";
 
     itemsList = ajaxGetRequest("/item-master/findall")
-    fillDataIntoDataList(dataListItem,itemsList,'item_short_name')
+    fillDataIntoDataList(dataListItem, itemsList, 'item_short_name')
 
-    buttonProductionDetailsUpdate.disabled=true;
-    buttonProductionDetailsUpdate.style.cursor="not-allowed";
+    buttonProductionDetailsUpdate.disabled = true;
+    buttonProductionDetailsUpdate.style.cursor = "not-allowed";
 
-    buttonProductionDetailsAdd.disabled=false;
-    buttonProductionDetailsAdd.style.cursor="default";
+    buttonProductionDetailsAdd.disabled = false;
+    buttonProductionDetailsAdd.style.cursor = "default";
 
 
 }
 
-const refreshProductionDetailsTable = ()=>{
+const refreshProductionDetailsTable = () => {
 
     divProductionDetails.classList.remove('d-none');
 
     const productionDetailsList = ajaxGetRequest(`/production-details/findByHeaderKey/${textProHeaderKey.value}`);
 
     const displayProperty = [
-        {dataType:'function',propertyName:getItemName},
-        {dataType:'text',propertyName:'production_details_description'},
-        {dataType:'function',propertyName:getItemQuantity},
+        {dataType: 'function', propertyName: getItemName},
+        {dataType: 'text', propertyName: 'production_details_description'},
+        {dataType: 'function', propertyName: getItemQuantity},
     ];
 
 
-
-    fillDataIntoTable2(tableProductionDetails,productionDetailsList,displayProperty,true,divModifyButton3);
+    fillDataIntoTable2(tableProductionDetails, productionDetailsList, displayProperty, true, divModifyButton3);
     $("#tableProductionDetails").DataTable();
 }
 
-const getItemName = (ob)=>{
+const getItemName = (ob) => {
     return ob.item_master_id.item_name
 }
 
-const getItemQuantity = (ob)=>{
-    return `<p class="text-end">${Number(ob.production_details_quantity).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+const getItemQuantity = (ob) => {
+    return `<p class="text-end">${Number(ob.production_details_quantity).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}</p>`;
 }
 
 
-const checkErrorsInProductionDetailsForm = ()=>{
+const checkErrorsInProductionDetailsForm = () => {
     let errors = '';
 
-    if (productionDetails.item_master_id == null){
-        errors=errors+"Item Cannot Be Empty \n"
+    if (productionDetails.item_master_id == null) {
+        errors = errors + "Item Cannot Be Empty \n"
     }
-    if (productionDetails.production_details_quantity == null){
-        errors=errors+"Quantity Cannot Be Empty \n"
+    if (productionDetails.production_details_quantity == null) {
+        errors = errors + "Quantity Cannot Be Empty \n"
     }
-    if (productionDetails.production_details_header_key == null){
-        errors=errors+"Header Cannot Be Empty \n"
+    if (productionDetails.production_details_header_key == null) {
+        errors = errors + "Header Cannot Be Empty \n"
     }
     return errors;
 }
 
-const saveProductionDetails = ()=>{
+const saveProductionDetails = () => {
 
     productionDetails.production_details_header_key = textProHeaderKey.value;
 
     let errors = checkErrorsInProductionDetailsForm();
-    if (errors==''){
+    if (errors == '') {
         const userConfirm = confirm(`Are You Sure To Add Following Production Details \n
         Item Is ${productionDetails.item_master_id.item_short_name}
         Quantity Is ${productionDetails.production_details_quantity}
         `);
-        if (userConfirm){
-            const postServerResponse = ajaxPostRequest("/production-details",productionDetails)
-            if (postServerResponse=="ok"){
+        if (userConfirm) {
+            const postServerResponse = ajaxPostRequest("/production-details", productionDetails)
+            if (postServerResponse == "ok") {
                 alert(`Save Successful`);
                 refreshProductionDetailsForm();
                 refreshProductionDetailsTable();
-            }else {
+            } else {
                 alert(`Save unsuccessful \n ${postServerResponse}`);
             }
         }
-    }else {
+    } else {
         alert(`You Have Following Errors \n ${errors}`)
     }
 }
 
 
-const refillProductionDetails = (ob)=>{
+const refillProductionDetails = (ob) => {
     productionDetails = JSON.parse(JSON.stringify(ob));
     oldproductionDetails = JSON.parse(JSON.stringify(ob));
 
-    textProDetailsItem.value=productionDetails.item_master_id.item_short_name
-    textProDetailsQuantity.value=productionDetails.production_details_quantity
-    textProDetailsDescription.value=productionDetails.production_details_description
+    textProDetailsItem.value = productionDetails.item_master_id.item_short_name
+    textProDetailsQuantity.value = productionDetails.production_details_quantity
+    textProDetailsDescription.value = productionDetails.production_details_description
 
-    buttonProductionDetailsUpdate.disabled=false;
-    buttonProductionDetailsUpdate.style.cursor="default";
+    buttonProductionDetailsUpdate.disabled = false;
+    buttonProductionDetailsUpdate.style.cursor = "default";
 
-    buttonProductionDetailsAdd.disabled=true;
-    buttonProductionDetailsAdd.style.cursor="not-allowed";
+    buttonProductionDetailsAdd.disabled = true;
+    buttonProductionDetailsAdd.style.cursor = "not-allowed";
 }
 
 
-const checkUpdateProductionDetails = ()=>{
+const checkUpdateProductionDetails = () => {
 
     let updates = ''
 
-    if (productionDetails.item_master_id.item_short_name != oldproductionDetails.item_master_id.item_short_name){
-        updates=updates+"Item Is Updated \n"
+    if (productionDetails.item_master_id.item_short_name != oldproductionDetails.item_master_id.item_short_name) {
+        updates = updates + "Item Is Updated \n"
     }
 
-    if (productionDetails.production_details_quantity != oldproductionDetails.production_details_quantity){
-        updates=updates+"Quantity Is Updated \n"
+    if (productionDetails.production_details_quantity != oldproductionDetails.production_details_quantity) {
+        updates = updates + "Quantity Is Updated \n"
     }
 
-    if (productionDetails.production_details_description != oldproductionDetails.production_details_description){
-        updates=updates+"Description Is Updated \n"
+    if (productionDetails.production_details_description != oldproductionDetails.production_details_description) {
+        updates = updates + "Description Is Updated \n"
     }
     return updates;
 }
 
 
-
-const updateProductionDetails = ()=>{
+const updateProductionDetails = () => {
 
     let updates = checkUpdateProductionDetails();
 
-    if (updates!=''){
+    if (updates != '') {
         const userConfirm = confirm(`Are You Sure to Update Following Changes \n ${updates}`);
-        if (userConfirm){
-            const putServerResponse = ajaxPutRequest("/production-details",productionDetails);
-            if (putServerResponse=="ok"){
+        if (userConfirm) {
+            const putServerResponse = ajaxPutRequest("/production-details", productionDetails);
+            if (putServerResponse == "ok") {
                 alert(`Update Successful`);
                 refreshProductionDetailsForm();
                 refreshProductionDetailsTable();
                 divModifyButton3.classList.add('d-none');
-            }else {
+            } else {
                 alert(`Update unsuccessful ${putServerResponse}`)
             }
         }
-    }else {
+    } else {
         alert(`nothing to update`)
     }
 }
 
 
-
-const deleteProductionDetails = (ob)=>{
+const deleteProductionDetails = (ob) => {
     const userConfirm = confirm(`Are You Sure To Delete Following Production Details 
         Item Is ${ob.item_master_id.item_short_name}
         Quantity Is ${ob.production_details_quantity}
     `);
 
-    if (userConfirm){
-        const deleteServerResponse = ajaxDeleteRequest("/production-details",ob);
-        if (deleteServerResponse=="ok"){
+    if (userConfirm) {
+        const deleteServerResponse = ajaxDeleteRequest("/production-details", ob);
+        if (deleteServerResponse == "ok") {
             alert(`Delete Success`);
             refreshProductionDetailsTable();
             refreshProductionDetailsForm();
             divModifyButton3.classList.add('d-none');
-        }else {
+        } else {
             alert(`Delete Unsuccessful \n ${deleteServerResponse}`);
         }
     }
 }
 
 
-
-const printProductionHeader = async (ob)=>{
+const printProductionHeader = async (ob) => {
 
     await refreshProductionDetailsTableForPrint(ob.production_header_key);
 
@@ -454,7 +452,11 @@ const printProductionHeader = async (ob)=>{
 
                 <tr>
                     <td style="font-size: 11px; width: 50%">Production Date</td>
-                    <td class="text-end" style="font-size: 12px; width: 50%">${new Date(ob.production_header_date).toLocaleString('en-GB', { day: "2-digit", month: "short", year: "2-digit" })}</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${new Date(ob.production_header_date).toLocaleString('en-GB', {
+        day: "2-digit",
+        month: "short",
+        year: "2-digit"
+    })}</td>
                 </tr>
 
                 </tbody>
@@ -504,19 +506,18 @@ const printProductionHeader = async (ob)=>{
 }
 
 
-const refreshProductionDetailsTableForPrint = (headerKey)=>{
+const refreshProductionDetailsTableForPrint = (headerKey) => {
 
     const productionDetailsList = ajaxGetRequest(`/production-details/findByHeaderKey/${headerKey}`);
 
     const displayProperty = [
-        {dataType:'function',propertyName:getItemName},
-        {dataType:'text',propertyName:'production_details_description'},
-        {dataType:'function',propertyName:getItemQuantity},
+        {dataType: 'function', propertyName: getItemName},
+        {dataType: 'text', propertyName: 'production_details_description'},
+        {dataType: 'function', propertyName: getItemQuantity},
     ];
 
 
-
-    fillDataIntoTable2(tableProductionDetailPrint,productionDetailsList,displayProperty,false);
+    fillDataIntoTable2(tableProductionDetailPrint, productionDetailsList, displayProperty, false);
 
 }
 

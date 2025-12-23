@@ -71,12 +71,17 @@ const checkErrorsStockTransferHeader = () => {
 
 const saveOrUpdateStockTransferHeader = async () => {
 
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    stockTransfer.stock_transfer_header_added_user = user.username;
+
     if (textStockTransferCode.value === "") {
         //     save part
         let errors = checkErrorsStockTransferHeader();
         if (errors === "") {
             const userConfirm = confirm(`Are you sure to add following information
             \n date is ${stockTransfer.stock_transfer_header_date}
+            \n Added user is ${stockTransfer.stock_transfer_header_added_user}
+
             `);
 
             if (userConfirm) {

@@ -90,6 +90,9 @@ const checkErrorsInStockAdjustmentHeaderForm = () => {
 
 const saveOrUpdateStockAdjustmentHeader = async () => {
 
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    stockAdjustmentHeader.stock_adjustment_header_added_user = user.username;
+
     if (textStockAdjustmentKey.value == "") {
         console.log("save part");
         let errors = checkErrorsInStockAdjustmentHeaderForm();
@@ -97,6 +100,8 @@ const saveOrUpdateStockAdjustmentHeader = async () => {
             const userConfirm = confirm(`Are You sure to Add Following Stock Adjustment Details 
              Date Is ${stockAdjustmentHeader.stock_adjustment_header_date}
              Branch Is ${stockAdjustmentHeader.location_master_id.location_master_name}
+             Added user is ${stockAdjustmentHeader.stock_adjustment_header_added_user}
+
              `);
             if (userConfirm) {
                 const postServerResponse = ajaxPostRequest("/stockAdjustmentHeader", stockAdjustmentHeader);

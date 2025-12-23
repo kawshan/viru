@@ -30,6 +30,9 @@ public class StockTransferHeader {
     @Column(name = "stock_transfer_header_date")
     private LocalDate stock_transfer_header_date;
 
+    @Column(name = "stock_transfer_header_added_user")
+    private String stock_transfer_header_added_user;
+
 
 
 

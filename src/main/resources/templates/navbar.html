@@ -3,9 +3,9 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: black">
         <div class="container-fluid">
 
-            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-                <span class="material-symbols-outlined" style="color: white">menu</span>
-            </button>
+<!--            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">-->
+<!--                <span class="material-symbols-outlined" style="color: white">menu</span>-->
+<!--            </button>-->
 
             <a class="navbar-brand text-white"><b>Viru Books</b></a>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -28,12 +28,12 @@
                             Item
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/item-category">Item Category Master</a></li>
-                            <li><a class="dropdown-item" href="/item-master">Item Master</a></li>
-                            <li><a class="dropdown-item" href="/production-header">Production Master</a></li>
-                            <li><a class="dropdown-item" href="/stockAdjustmentHeader">Stock Adjustment Master</a></li>
-                            <li><a class="dropdown-item" href="/location-master">Location Master</a></li>
-                            <li><a class="dropdown-item" href="/stock-transfer">Stock Transfer Master</a></li>
+                            <li><a class="dropdown-item" id="itemCategoryButton" href="/item-category">Item Category Master</a></li>
+                            <li><a class="dropdown-item" id="itemButton" href="/item-master">Item Master</a></li>
+                            <li><a class="dropdown-item" id="productionButton" href="/production-header">Production Master</a></li>
+                            <li><a class="dropdown-item" id="stockAdjustmentButton" href="/stockAdjustmentHeader">Stock Adjustment Master</a></li>
+                            <li><a class="dropdown-item" id="locationButton" href="/location-master">Location Master</a></li>
+                            <li><a class="dropdown-item" id="stockTransferButton" href="/stock-transfer">Stock Transfer Master</a></li>
                         </ul>
                     </li>
 
@@ -44,17 +44,17 @@
                             Customer
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/customer-master">Customer Master</a></li>
-                            <li><a class="dropdown-item" href="/school-master">School Master</a></li>
-                            <li><a class="dropdown-item" href="/student/view">Student Master</a></li>
-                            <li><a class="dropdown-item" href="/vps">Vps Master</a></li>
+                            <li><a class="dropdown-item" id="customerButton" href="/customer-master">Customer Master</a></li>
+                            <li><a class="dropdown-item" id="schoolButton" href="/school-master">School Master</a></li>
+                            <li><a class="dropdown-item" id="studentButton" href="/student/view">Student Master</a></li>
+                            <li><a class="dropdown-item" id="vpsButton" href="/vps">Vps Master</a></li>
                         </ul>
                     </li>
 
 
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link text-white dropdown-toggle" id="invoiceButton" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Invoice
                         </a>
                         <ul class="dropdown-menu">
@@ -67,7 +67,7 @@
                             Collection Master
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/collection-master">Collection master</a></li>
+                            <li><a class="dropdown-item" id="collectionButton" href="/collection-master">Collection master</a></li>
                         </ul>
                     </li>
 
@@ -77,12 +77,12 @@
                             Report
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/stock-report/view">Stock Report</a></li>
-                            <li><a class="dropdown-item" href="/sales-report/view">Sales Report</a></li>
-                            <li><a class="dropdown-item" href="/production-report/view">Production Report</a></li>
-                            <li><a class="dropdown-item" href="/production-report/view/new">New Production Report</a></li>
-                            <li><a class="dropdown-item" href="/stock-transfer-report">Stock Transfer Report</a></li>
-                            <li><a class="dropdown-item" href="/vpsReport">Vps report</a></li>
+                            <li><a class="dropdown-item" id="stockReportButton" href="/stock-report/view">Stock Report</a></li>
+                            <li><a class="dropdown-item" id="salesReportButton" href="/sales-report/view">Sales Report</a></li>
+                            <li><a class="dropdown-item" id="productionReportButton" href="/production-report/view">Production Report</a></li>
+                            <li><a class="dropdown-item" id="newProductionReportButton" href="/production-report/view/new">New Production Report</a></li>
+                            <li><a class="dropdown-item" id="stockTransferReportButton" href="/stock-transfer-report">Stock Transfer Report</a></li>
+                            <li><a class="dropdown-item" id="vpsReportButton" href="/vpsReport">Vps report</a></li>
                         </ul>
                     </li>
 
@@ -92,7 +92,7 @@
                            Proforma Invoice
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/perfoma-invoice-header">Proforma Invoice master</a></li>
+                            <li><a class="dropdown-item" id="performaButton" href="/perfoma-invoice-header">Proforma Invoice master</a></li>
                         </ul>
                     </li>
 
@@ -108,13 +108,6 @@
 
 
             </div>
-
-
-
-
-
-
-
         </div>
 
         <div class="text-end me-2">
@@ -124,3 +117,5 @@
     </nav>
     <!--nav bar ends-->
 </div>
+
+

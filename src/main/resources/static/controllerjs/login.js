@@ -1,10 +1,10 @@
 const users = [
-    {username: 'admin', password: '1234', role: 'admin'},
-    {username: 'mihika', password: 'mihika1234', role: 'employee'},
-    {username: 'umesh', password: 'umesh1234', role: 'employee'},
-    {username: 'pravindi', password: 'pravindi1234', role: 'employee'},
-    {username: 'vihaga', password: 'vihaga4893', role: 'employee'},
-    {username: 'prasad', password: 'prasad1454', role: 'employee'}
+    {username: 'admin', password: 'xnjfuna4200', role: 'admin'},
+    {username: 'packleaf', password: 'packleaf689@@', role: 'admin'},
+    {username: 'umesh', password: 'umesh1234', role: 'production'},
+    {username: 'pravindi', password: 'pravindi1234', role: 'invoice'},
+    {username: 'vihaga', password: 'vihaga4893', role: 'invoice'},
+    {username: 'prasad', password: 'prasad1454', role: 'manager'}
 ];
 
 

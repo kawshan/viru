@@ -28,6 +28,9 @@ public class ProductionHeader {
     @Column(name = "production_header_key")
     private String production_header_key;
 
+    @Column(name = "production_header_added_user")
+    private String production_header_added_user;
+
 
 
 

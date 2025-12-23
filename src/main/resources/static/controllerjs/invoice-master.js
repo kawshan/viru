@@ -142,6 +142,9 @@ const checkErrorsInvoiceMasterHeader = () => {
 
 const saveInvoiceHeader = async () => {
 
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    invoiceHeader.invoice_header_master_added_user = user.username;
+
     if (textInvoiceHeaderKey.value == "") {
         console.log(`save part`);
 
@@ -154,6 +157,7 @@ const saveInvoiceHeader = async () => {
             Customer Mobile Is ${invoiceHeader.customer_master_id.customer_mobile}
             Invoice Date Is ${invoiceHeader.invoice_header_date}
             Branch Is ${invoiceHeader.location_master_id.location_master_name}
+            Added user is ${invoiceHeader.invoice_header_master_added_user}
             `);
             if (userConfirm) {
                 const postServerResponse = ajaxPostRequest("/invoice-header", invoiceHeader);
@@ -236,7 +240,7 @@ const refillInvoiceMaster = (ob) => {
         radioPayTypeCredit.checked = true;
     } else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
         radioPayTypeVps.checked = true;
-    }else if (invoiceHeader.invoice_header_master_pay_type == "online-transfer") {
+    } else if (invoiceHeader.invoice_header_master_pay_type == "online-transfer") {
         radioPayTypeOnlineTransfer.checked = true;
     }
 
@@ -1289,7 +1293,6 @@ const readBarcode = (fieldId) => {
         const nameParts = parts.slice(0, -2);
         console.log(`name parts ${nameParts}`);
         console.log(`joined parts ${nameParts.join(' ')}`);
-
 
 
         const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName/${nameParts.join(' ')}`);
