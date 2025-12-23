@@ -71,6 +71,7 @@ const refreshInvoiceMasterHeaderTable = () => {
         {dataType: 'text', propertyName: 'invoice_header_master_pay_type'},
         {dataType: 'text', propertyName: 'invoice_header_number'},
         {dataType: 'text', propertyName: 'invoice_header_date'},
+        {dataType: 'text', propertyName: 'perfoma_invoice_header_master_added_user'},
         {dataType: 'text', propertyName: 'invoice_header_po_number'},
         {dataType: 'text', propertyName: 'invoice_header_dispatch_number'},
     ];

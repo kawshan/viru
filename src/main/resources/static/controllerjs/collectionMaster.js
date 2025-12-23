@@ -52,6 +52,7 @@ const refreshCollectionHeaderTable = () => {
     displayProperty = [
         {dataType: 'function', propertyName: getCustomerName},
         {dataType: 'text', propertyName: 'collection_master_header_date'},
+        {dataType: 'text', propertyName: 'collection_master_header_added_user'},
         {dataType: 'text', propertyName: 'collection_master_header_key'},
         {dataType: 'text', propertyName: 'collection_master_header_number'},
     ];
@@ -88,6 +89,11 @@ const checkErrorsInCollectionHeaderForm = () => {
 
 
 const saveOrUpdateCollectionHeader = async () => {
+
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    collectionHeader.collection_master_header_added_user = user.username;
+
+
     if (textProHeaderKey.value == "") {
         console.log(`save part`);
         let errors = checkErrorsInCollectionHeaderForm();
@@ -95,6 +101,8 @@ const saveOrUpdateCollectionHeader = async () => {
             const userConfirm = confirm(`Are you sure to add following Collection Information?
             Customer name is ${collectionHeader.customer_master_id.customer_name}
             Date is ${collectionHeader.collection_master_header_date}
+            Added user is ${collectionHeader.collection_master_header_added_user}
+
             `);
             if (userConfirm) {
                 const postServerResponse = ajaxPostRequest("/collection-master", collectionHeader);

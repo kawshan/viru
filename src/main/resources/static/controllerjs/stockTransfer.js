@@ -47,6 +47,7 @@ const refreshStockTransferTable = () => {
 
     const displayProperties = [
         {dataType: 'text', propertyName: 'stock_transfer_header_date'},
+        {dataType: 'text', propertyName: 'stock_transfer_header_added_user'},
         {dataType: 'text', propertyName: 'stock_transfer_header_number'},
         {dataType: 'text', propertyName: 'stock_transfer_header_key'},
     ];

@@ -38,6 +38,7 @@ const refreshProductionHeaderTable = () => {
 
     displayProperty = [
         {dataType: 'text', propertyName: 'production_header_date'},
+        {dataType: 'text', propertyName: 'production_header_added_user'},
         {dataType: 'text', propertyName: 'production_header_number'},
         {dataType: 'text', propertyName: 'production_header_key'},
     ];

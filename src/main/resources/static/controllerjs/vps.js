@@ -51,6 +51,7 @@ const refreshVpsHeaderTable = () => {
         {dataType: 'text', propertyName: 'vps_header_invoice_number'},
         {dataType: 'text', propertyName: 'vps_header_total_invoice_value'},
         {dataType: 'text', propertyName: 'vps_header_saved_date'},
+        {dataType: 'text', propertyName: 'vps_header_added_user'},
         {dataType: 'text', propertyName: 'vps_header_number'},
     ];
 

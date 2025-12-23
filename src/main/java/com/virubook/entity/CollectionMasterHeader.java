@@ -32,4 +32,7 @@ public class CollectionMasterHeader {
     @JoinColumn(name = "customer_master_id", referencedColumnName = "id")
     private CustomerMaster customer_master_id;
 
+    @Column(name = "collection_master_header_added_user")
+    private String collection_master_header_added_user;
+
 }

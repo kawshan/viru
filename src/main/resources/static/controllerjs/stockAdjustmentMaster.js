@@ -53,6 +53,7 @@ const refreshStockAdjustmentHeaderTable = () => {
         {dataType: 'text', propertyName: 'stock_adjustment_header_no'},
         {dataType: 'text', propertyName: 'stock_adjustment_header_key'},
         {dataType: 'text', propertyName: 'stock_adjustment_header_date'},
+        {dataType: 'text', propertyName: 'stock_adjustment_header_added_user'},
     ];
 
     // Check if DataTable is already initialized and destroy it
