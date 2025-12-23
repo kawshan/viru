@@ -165,6 +165,7 @@ const saveInvoiceHeader = async () => {
                     changeColoursToDefault();
                     refreshInvoiceMasterHeaderTable();
                     refreshInvoiceDetailsForm();
+                    selectItem.focus();
                 } else {
                     alert(`Save Unsuccessful \n ${postServerResponse.responseText}`)
                 }
@@ -238,6 +239,10 @@ const refillInvoiceMaster = (ob) => {
     }else if (invoiceHeader.invoice_header_master_pay_type == "online-transfer") {
         radioPayTypeOnlineTransfer.checked = true;
     }
+
+    refreshInvoiceDetailsTable();
+    showTotalNetDiscountAndGross();
+
 
 }
 

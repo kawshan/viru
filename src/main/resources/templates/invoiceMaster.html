@@ -113,7 +113,7 @@
 
         <div class="row">
             <div class="col-md-1">
-                <label for="selectCustomer" class="form-label"> Customer <i class="text-danger">*</i></label>
+                <label for="selectCustomer" class="form-label text-danger fw-bold"> Customer <i class="text-danger">*</i></label>
                 <input type="text" id="selectCustomer" list="dataListCustomer" class="form-control text-start fw-bold"
                        style="height: 60px" placeholder="Type & Search Customer"
                        onkeyup="dataListValidatorWithTwoValues(this,'customersList','invoiceHeader','customer_master_id','customer_name','customer_mobile');"
@@ -125,7 +125,7 @@
 
 
             <div class="col-md-1">
-                <label for="selectBranch" class="form-label">Branch <i class="text-danger">*</i> </label>
+                <label for="selectBranch" class="form-label text-danger fw-bold">Branch <i class="text-danger">*</i> </label>
                 <select id="selectBranch" class="form-control text-start fw-bold" style="color: gray; height: 15%"
                         onchange="selectDBValidator(this,'','invoiceHeader','location_master_id')"></select>
             </div>
@@ -201,7 +201,7 @@
                     <!--                second row-->
                     <tr>
                         <td>
-                            <label for="textInvoiceDate" class="form-label">Invoice Date <i class="text-danger">*</i>
+                            <label for="textInvoiceDate" class="form-label text-danger fw-bold">Invoice Date <i class="text-danger">*</i>
                             </label>
 
                         </td>
@@ -245,7 +245,7 @@
                     <!--                forth row-->
                     <tr>
                         <td>
-                            <label class="form-label">Payment type <i class="text-danger">*</i> </label>
+                            <label class="form-label text-danger fw-bold">Payment type <i class="text-danger">*</i> </label>
                         </td>
                         <td>
                             <input name="paymentType" required type="radio" id="radioPayTypeCash"

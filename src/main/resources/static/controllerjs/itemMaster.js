@@ -73,6 +73,7 @@ const refreshItemMasterTable = ()=>{
         {dataType:'function',propertyName:getItemSize},
         {dataType:'function',propertyName:getNumberOfPages},
         {dataType:'function',propertyName:getItemPrice},
+        {dataType:'function',propertyName:getItemPriceFor35},
         {dataType:'text',propertyName:'item_barcode'},
         {dataType:'function',propertyName:getItemStatus},
     ];
@@ -106,6 +107,21 @@ const getItemSize = (ob)=>{
 
 const getItemPrice = (ob)=>{
     return `<p class="text-end" ">${Number(ob.item_price).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`
+}
+
+const getItemPriceFor35 = (ob)=>{
+    // return `<p class="text-end" ">${Number(ob.item_price).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`
+    let itemName = ob.item_name.split(" ");
+    let firstName = itemName.slice(0,1);
+    console.log(firstName);
+    if (firstName == "Atlas"){
+        return ""
+    }else {
+        let itemPrice = Number(ob.item_price);
+        let finalPrice = (itemPrice/100) * 35;
+        return finalPrice;
+    }
+
 }
 
 
