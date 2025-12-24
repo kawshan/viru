@@ -1,6 +1,7 @@
 const users = [
-    {username: 'admin', password: 'xnjfuna4200', role: 'admin'},
+    {username: 'admin', password: 'xnjfuna9654', role: 'admin'},
     {username: 'packleaf', password: 'packleaf689@@', role: 'admin'},
+    {username: 'kawshan', password: 'kawshan6358@@AA', role: 'admin'},
     {username: 'umesh', password: 'umesh1234', role: 'production'},
     {username: 'pravindi', password: 'pravindi1234', role: 'invoice'},
     {username: 'vihaga', password: 'vihaga4893', role: 'invoice'},

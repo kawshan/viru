@@ -1,7 +1,9 @@
 package com.virubook.controller;
 
+import com.virubook.dao.DeletedInvoiceHeaderMasterDao;
 import com.virubook.dao.InvoiceHeaderMasterDao;
 import com.virubook.entity.InvoiceHeaderMaster;
+import com.virubook.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,10 @@ public class InvoiceHeaderMasterController {
 
     @Autowired
     private InvoiceHeaderMasterDao invoiceHeaderMasterDao;
+
+
+    @Autowired
+    private InvoiceService invoiceService;
 
     @GetMapping
     public ModelAndView invoiceHeaderMasterView(){
@@ -87,8 +93,7 @@ public class InvoiceHeaderMasterController {
     @DeleteMapping
     public String deleteInvoiceHeaderMaster(@RequestBody InvoiceHeaderMaster invoiceHeaderMaster){
         try {
-            invoiceHeaderMasterDao.deleteInvoiceDetailByInvoiceHeaderKey(invoiceHeaderMaster.getInvoice_header_key());
-            invoiceHeaderMasterDao.delete(invoiceHeaderMaster);
+            invoiceService.deleteInvoice(invoiceHeaderMaster.getInvoice_header_key());
             return "ok";
         }catch (Exception e){
             return "Delete Unsuccessful"+e.getMessage();
@@ -122,6 +127,29 @@ public class InvoiceHeaderMasterController {
         return invoiceHeaderMasterDao.getKeyByHeaderNumber(number);
 
     }
+
+
+    @GetMapping(value = "/makelock/{headerKey}")
+    public String makeLockInvoice(@PathVariable("headerKey") String headerKey){
+        try {
+            invoiceHeaderMasterDao.makeInvoiceLock(headerKey);
+            return "ok";
+        }catch (Exception e){
+            return "error"+e.getMessage();
+        }
+    }
+
+
+
+    @GetMapping(value = "/checkLockStatus/{headerKey}")
+    public String checkLockStatus(@PathVariable("headerKey") String headerKey){
+        try {
+            return invoiceHeaderMasterDao.checkLockedStatus(headerKey);
+        }catch (Exception e){
+            return "error"+e.getMessage();
+        }
+    }
+
 
 
 }

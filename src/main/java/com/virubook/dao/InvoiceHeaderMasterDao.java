@@ -8,35 +8,69 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface InvoiceHeaderMasterDao extends JpaRepository<InvoiceHeaderMaster,Integer> {
+public interface InvoiceHeaderMasterDao extends JpaRepository<InvoiceHeaderMaster, Integer> {
 
     @Query(value = "select ihm from InvoiceHeaderMaster ihm order by ihm.id limit 100")
     public List<InvoiceHeaderMaster> findAllInvoiceHeaderMasterLimit100();
 
 
-    @Query(value = "select concat('IN',lpad(max(substring(invoice_header_key,3))+1,4,'0')) as max_invoice_code from invoice_header_master;",nativeQuery = true)
+    @Query(value = "select concat('IN',lpad(max(substring(invoice_header_key,3))+1,4,'0')) as max_invoice_code from invoice_header_master;", nativeQuery = true)
     public String findMaxInvoiceCode();
 
     @Query(value = "select ihm from InvoiceHeaderMaster ihm where ihm.invoice_header_number=?1")
     public InvoiceHeaderMaster findByInvoiceHeaderNumber(Integer invoiceHeaderNumber);
 
 
-    @Query(value = "select id from invoice_header_master where invoice_header_key=?1",nativeQuery = true)
+    @Query(value = "select id from invoice_header_master where invoice_header_key=?1", nativeQuery = true)
     public String findIdByInvoiceHeaderKey(String invoiceHeaderKey);
 
 
-    @Query(value = "select max(invoice_header_number)+1 from invoice_header_master as next_invoice_Number;",nativeQuery = true)
+    @Query(value = "select max(invoice_header_number)+1 from invoice_header_master as next_invoice_Number;", nativeQuery = true)
     public Integer getNextInvoiceNumber();
 
 
     @Transactional
     @Modifying
-    @Query(value = "delete from invoice_detail where invoice_detail_header_key=?1;",nativeQuery = true)
+    @Query(value = "delete from invoice_detail where invoice_detail_header_key=?1;", nativeQuery = true)
     public void deleteInvoiceDetailByInvoiceHeaderKey(String invoiceHeaderKey);
 
 
     @Query(value = "select ihm.invoice_header_key from InvoiceHeaderMaster ihm where ihm.invoice_header_number=?1")
     public String getKeyByHeaderNumber(Integer headerNumber);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update invoice_header_master set locked_or_not='locked' where invoice_header_key=?1", nativeQuery = true)
+    public void makeInvoiceLock(String invoiceHeaderKey);
+
+
+    @Query(value = "select locked_or_not from invoice_header_master where invoice_header_key=?1", nativeQuery = true)
+    public String checkLockedStatus(String invoiceHeaderKey);
+
+
+    @Modifying
+    @Query(
+            value = "INSERT INTO deleted_invoice_header_master " +
+                    "SELECT * FROM invoice_header_master WHERE invoice_header_key = ?1",
+            nativeQuery = true
+    )
+    void insertIntoDeletedTable(String invoiceHeaderKey);
+
+
+    @Modifying
+    @Query(
+            value = "DELETE FROM invoice_header_master WHERE invoice_header_key = ?1",
+            nativeQuery = true
+    )
+    void deleteInvoiceHeader(String invoiceHeaderKey);
+
+
+    @Modifying
+    @Query(value = "insert into deleted_invoice_detail select * from invoice_detail where invoice_detail_header_key=?1",nativeQuery = true)
+    public void insertIntoDeleteDetailsTable(String headerKey);
+
+    @Modifying
+    @Query(value = "delete from invoice_detail where invoice_detail_header_key=?1",nativeQuery = true)
+    public void deleteFromDetailsTable(String headerKey);
 
 }

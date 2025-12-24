@@ -9,11 +9,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "invoice_header_master")
+@Table(name = "deleted_invoice_header_master")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvoiceHeaderMaster {
+public class DeletedInvoiceHeaderMaster {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

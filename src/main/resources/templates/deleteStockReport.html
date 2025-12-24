@@ -13,7 +13,7 @@
     <script src="/commonjs/validation.js"></script>
     <script src="/commonjs/ajaxcommonfunction.js"></script>
     <script src="/commonjs/tablecommonfuntion.js"></script>
-    <script src="/controllerjs/SalesReport.js"></script>
+    <script src="/controllerjs/deleteStockReport.js"></script>
 
 
     <!--    jquery cdn start-->
@@ -35,7 +35,7 @@
 
 <!--header area start-->
 <div class="row p-4" style="background-color: #3C3D37;">
-    <h1 class="text-center" style="color: whitesmoke">Sales Report</h1>
+    <h1 class="text-center" style="color: whitesmoke">Delete Sales Report</h1>
 </div>
 <!--header area start-->
 
@@ -48,12 +48,13 @@
     <div class="col-md-4"></div>
 </div>
 
+
 <!--   Stock report modal area start-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Sales Report</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Stock Report</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -61,19 +62,13 @@
                 <form onsubmit="return false">
 
                     <div class="row mt-5">
-                        <label for="selectBranch" class="form-label">Branch</label>
-                        <select id="selectBranch" class="form-control text-start fw-bold" style="color: gray; height: 15%" onchange="selectDBValidator(this,'','salesReport','location_master_id')"></select>
-                    </div>
-
-
-                    <div class="row mt-5">
                         <div class="col-md-6">
                             <label for="selectFromDate" class="form-label">From Date</label>
-                            <input type="date" class="form-control" id="selectFromDate" required onchange="textValidator(this,'','salesReport','fromdate')">
+                            <input type="date" class="form-control" id="selectFromDate" required onchange="textValidator(this,'','deleteStockReport','fromdate')">
                         </div>
                         <div class="col-md-6">
                             <label for="selectToDate" class="form-label">To Date</label>
-                            <input type="date" class="form-control" id="selectToDate" required onchange="textValidator(this,'','salesReport','todate')">
+                            <input type="date" class="form-control" id="selectToDate" required onchange="textValidator(this,'','deleteStockReport','todate')">
                         </div>
                     </div>
 
@@ -87,7 +82,7 @@
 
             <div class="modal-footer" id="ExampleModelFooterDiv">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="buttonPrint" style="pointer-events: all;" onclick="printSalesReport()">Print</button>
+                <button type="button" class="btn btn-primary" id="buttonPrint" style="pointer-events: all;" onclick="printProductionReport()">Print</button>
             </div>
 
 
@@ -100,27 +95,16 @@
 
 
 <div id="divTableSalesReportPrint" class="d-none">
-    <table class="table table-bordered" style="font-family: Verdana; font-size: 11px; border: 1px solid black" id="tableSalesReportPrint">
+    <table class="table table-bordered" style="font-family: Verdana; font-size: 11px; border: 1px solid black" id="tableDeletedSalesReportPrint">
         <thead>
             <th class="text-center">#</th>
+            <th class="text-center">Customer</th>
             <th class="text-center">Date</th>
             <th class="text-center">Invoice Number</th>
-            <th class="text-center">Customer Name</th>
-            <th class="text-center">Cash</th>
-            <th class="text-center">Credit</th>
-            <th class="text-center">Online Transfer</th>
-            <th class="text-center">VPS</th>
+            <th class="text-center">Short Name</th>
+            <th class="text-center">Amount</th>
         </thead>
         <tbody></tbody>
-<!--        <tfoot>-->
-            <tr>
-                <td colspan="4"></td>
-                <td class="text-end" id="tfootCash"></td>
-                <td class="text-end" id="tfootCredit"></td>
-                <td class="text-end" id="tfootOnlineTransfer"></td>
-                <td class="text-end" id="tfootVps"></td>
-            </tr>
-<!--        </tfoot>-->
     </table>
 </div>
 

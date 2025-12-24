@@ -40,6 +40,7 @@ window.addEventListener('load',function (){
             document.getElementById('newProductionReportButton').style.display = 'block';
             document.getElementById('stockTransferReportButton').style.display = 'block';
             document.getElementById('vpsReportButton').style.display = 'block';
+            document.getElementById('deleteStockReport').style.display = 'block';
 
             //per forma button
             document.getElementById('performaButton').style.display = 'block';
@@ -74,6 +75,8 @@ window.addEventListener('load',function (){
             document.getElementById('newProductionReportButton').style.display = 'none';
             document.getElementById('stockTransferReportButton').style.display = 'none';
             document.getElementById('vpsReportButton').style.display = 'none';
+            document.getElementById('deleteStockReport').style.display = 'none';
+
 
             //per forma button
             document.getElementById('performaButton').style.display = 'none';
@@ -81,24 +84,24 @@ window.addEventListener('load',function (){
         }
         else if (user.role === 'invoice'){
             // item section eka
-            document.getElementById('itemCategoryButton').style.display = 'none';
-            document.getElementById('itemButton').style.display = 'none';
+            document.getElementById('itemCategoryButton').style.display = 'block';
+            document.getElementById('itemButton').style.display = 'block';
             document.getElementById('productionButton').style.display = 'none';
             document.getElementById('stockAdjustmentButton').style.display = 'none';
             document.getElementById('locationButton').style.display = 'none';
             document.getElementById('stockTransferButton').style.display = 'none';
 
             // customer section
-            document.getElementById('customerButton').style.display = 'none';
-            document.getElementById('schoolButton').style.display = 'none';
-            document.getElementById('studentButton').style.display = 'none';
-            document.getElementById('vpsButton').style.display = 'none';
+            document.getElementById('customerButton').style.display = 'block';
+            document.getElementById('schoolButton').style.display = 'block';
+            document.getElementById('studentButton').style.display = 'block';
+            document.getElementById('vpsButton').style.display = 'block';
 
             // invoice section
             document.getElementById('invoiceButton').style.display = 'block';
 
             // collection button
-            document.getElementById('collectionButton').style.display = 'none';
+            document.getElementById('collectionButton').style.display = 'block';
 
             //stock report button
             document.getElementById('stockReportButton').style.display = 'none';
@@ -107,9 +110,11 @@ window.addEventListener('load',function (){
             document.getElementById('newProductionReportButton').style.display = 'none';
             document.getElementById('stockTransferReportButton').style.display = 'none';
             document.getElementById('vpsReportButton').style.display = 'none';
+            document.getElementById('deleteStockReport').style.display = 'none';
+
 
             //per forma button
-            document.getElementById('performaButton').style.display = 'none';
+            document.getElementById('performaButton').style.display = 'block';
         }
         else if (user.role === 'manager'){
             // item section eka
@@ -139,6 +144,7 @@ window.addEventListener('load',function (){
             document.getElementById('newProductionReportButton').style.display = 'block';
             document.getElementById('stockTransferReportButton').style.display = 'block';
             document.getElementById('vpsReportButton').style.display = 'block';
+            document.getElementById('deleteStockReport').style.display = 'block';
 
             //per forma button
             document.getElementById('performaButton').style.display = 'block';

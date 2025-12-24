@@ -220,33 +220,50 @@ const saveInvoiceHeader = async () => {
 
 const refillInvoiceMaster = (ob) => {
 
-    invoiceHeader = JSON.parse(JSON.stringify(ob));
-    oldinvoiceHeader = JSON.parse(JSON.stringify(ob));
 
-    selectCustomer.value = invoiceHeader.customer_master_id.customer_name
-    textInvoiceHeaderKey.value = invoiceHeader.invoice_header_key
-    textInvoiceNO.value = invoiceHeader.invoice_header_number
-    textInvoiceDate.value = invoiceHeader.invoice_header_date
-    textPoNumber.value = invoiceHeader.invoice_header_po_number
-    textDispatchKey.value = invoiceHeader.invoice_header_dispatch_number;
-    selectDiscount.value = invoiceHeader.invoice_header_discount;
-    textAdditionalDiscount.value = invoiceHeader.invoice_header_master_additional_discount
+    const lockedStatus = checkLockStatus(ob.invoice_header_key);
+    if (lockedStatus==="locked"){
 
-    let locationList = ajaxGetRequest("/location-master/findall");
-    fillDataIntoSelect(selectBranch, 'Select Branch', locationList, 'location_master_name', invoiceHeader.location_master_id.location_master_name);
+        alert(`This Invoice is locked. you cannot change it further`);
 
-    if (invoiceHeader.invoice_header_master_pay_type == "cash") {
-        radioPayTypeCash.checked = true;
-    } else if (invoiceHeader.invoice_header_master_pay_type == "credit") {
-        radioPayTypeCredit.checked = true;
-    } else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
-        radioPayTypeVps.checked = true;
-    } else if (invoiceHeader.invoice_header_master_pay_type == "online-transfer") {
-        radioPayTypeOnlineTransfer.checked = true;
+    }else{
+        invoiceHeader = JSON.parse(JSON.stringify(ob));
+        oldinvoiceHeader = JSON.parse(JSON.stringify(ob));
+
+        selectCustomer.value = invoiceHeader.customer_master_id.customer_name
+        textInvoiceHeaderKey.value = invoiceHeader.invoice_header_key
+        textInvoiceNO.value = invoiceHeader.invoice_header_number
+        textInvoiceDate.value = invoiceHeader.invoice_header_date
+        textPoNumber.value = invoiceHeader.invoice_header_po_number
+        textDispatchKey.value = invoiceHeader.invoice_header_dispatch_number;
+        selectDiscount.value = invoiceHeader.invoice_header_discount;
+        textAdditionalDiscount.value = invoiceHeader.invoice_header_master_additional_discount
+
+        let locationList = ajaxGetRequest("/location-master/findall");
+        fillDataIntoSelect(selectBranch, 'Select Branch', locationList, 'location_master_name', invoiceHeader.location_master_id.location_master_name);
+
+        if (invoiceHeader.invoice_header_master_pay_type == "cash") {
+            radioPayTypeCash.checked = true;
+        } else if (invoiceHeader.invoice_header_master_pay_type == "credit") {
+            radioPayTypeCredit.checked = true;
+        } else if (invoiceHeader.invoice_header_master_pay_type == "vps") {
+            radioPayTypeVps.checked = true;
+        } else if (invoiceHeader.invoice_header_master_pay_type == "online-transfer") {
+            radioPayTypeOnlineTransfer.checked = true;
+        }
+
+        refreshInvoiceDetailsTable();
+        showTotalNetDiscountAndGross();
+
+        refreshInvoiceDetailsForm();
+
     }
 
-    refreshInvoiceDetailsTable();
-    showTotalNetDiscountAndGross();
+
+
+
+
+
 
 
 }
@@ -254,12 +271,16 @@ const refillInvoiceMaster = (ob) => {
 
 const deleteInvoiceHeader = (ob) => {
 
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    ob.invoice_header_master_deleted_user = user.username;
+
     const userConfirm = confirm(`Are You Sure To Delete Following Invoice \n
             Customer Is ${ob.customer_master_id.customer_name}
             Customer Mobile Is ${ob.customer_master_id.customer_mobile}
             Payment Type Is ${ob.invoice_header_master_pay_type}
             Invoice Number Is ${ob.invoice_header_number}
             Invoice Date Is ${ob.invoice_header_date}
+            Deleted User Is ${ob.invoice_header_master_deleted_user}
     `);
     if (userConfirm) {
         const deleteServerResponse = ajaxDeleteRequest("/invoice-header", ob);
@@ -610,6 +631,8 @@ const showTotalNetDiscountAndGross = () => {
 
 const printInvoice = async (ob) => {
 
+    await makeLock(ob.invoice_header_key);
+
     await fillDataIntoInvoicePrint(ob.invoice_header_key);
 
     await getGrossDiscountNetValuesForTablePrint(ob.invoice_header_key);
@@ -770,6 +793,8 @@ ${tableInvoiceDetailPrint.outerHTML}
 
 
 const printInvoiceForA5Size = async (ob) => {
+
+    await makeLock(ob.invoice_header_key);
 
     await fillDataIntoInvoicePrintForA5(ob.invoice_header_key);
 
@@ -961,6 +986,8 @@ const fillDataIntoInvoicePrintForA5 = (headerKey) => {
 const printInvoiceForBill = async (ob) => {
 
     await refreshBillTable(ob.invoice_header_key);
+
+    await makeLock(ob.invoice_header_key);
 
 
     const getGrossFromServer = ajaxGetRequest(`/invoiceDetail/getGrossValue/${ob.invoice_header_key}`);
@@ -1310,14 +1337,18 @@ const readBarcode = (fieldId) => {
 }
 
 
+function makeLock(headerKey){
+    const serverResponse = ajaxGetRequest(`/invoice-header/makelock/${headerKey}`);
+    if (serverResponse=="ok"){
+        alert(`Invoice Is Locked, Future Editing is not allowed`)
+    }
+}
 
 
-
-
-
-
-
-
+function checkLockStatus(headerKey){
+    const serverResponse = ajaxGetRequest(`/invoice-header/checkLockStatus/${headerKey}`);
+    return serverResponse;
+}
 
 
 

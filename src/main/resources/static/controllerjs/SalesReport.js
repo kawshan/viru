@@ -39,6 +39,8 @@ const refreshSalesReportTable = ()=>{
         {dataType:'text',propertyName:'customer_name'},
         {dataType:'function',propertyName:getCash},
         {dataType:'function',propertyName:getCredit},
+        {dataType:'function',propertyName:getOnlineTransfer},
+        {dataType:'function',propertyName:getVpsAmount},
     ]
 
 
@@ -49,6 +51,8 @@ const refreshSalesReportTable = ()=>{
 
 let totalCashAmount = 0;
 let totalCreditAmount = 0;
+let totalOnlineTransfer = 0;
+let totalVpsAMount = 0;
 
 
 const getDate = (ob)=>{
@@ -62,6 +66,10 @@ const getCash = (ob)=>{
         return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
     }else if (ob.payment_type==="credit"){
         return " "
+    }else if (ob.payment_type==="online-transfer"){
+        return " "
+    }else if (ob.payment_type==="vps"){
+        return " "
     }
 }
 
@@ -71,6 +79,39 @@ const getCredit = (ob)=>{
         totalCreditAmount=totalCreditAmount+Number(ob.total_invoice_value);
         return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
     }else if (ob.payment_type==="cash"){
+        return " "
+    }else if (ob.payment_type==="online-transfer"){
+        return " "
+    }else if (ob.payment_type==="vps"){
+        return " "
+    }
+}
+
+
+
+const getVpsAmount= (ob)=>{
+    if (ob.payment_type==="vps"){
+        totalVpsAMount=totalVpsAMount+Number(ob.total_invoice_value);
+        return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+    }else if (ob.payment_type==="cash"){
+        return " "
+    }else if (ob.payment_type==="credit"){
+        return " "
+    }else if (ob.payment_type==="online-transfer"){
+        return " "
+    }
+}
+
+
+const getOnlineTransfer = (ob)=>{
+    if (ob.payment_type==="online-transfer"){
+        totalOnlineTransfer=totalOnlineTransfer+Number(ob.total_invoice_value);
+        return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+    }else if (ob.payment_type==="cash"){
+        return " "
+    }else if (ob.payment_type==="credit"){
+        return " "
+    }else if (ob.payment_type==="vps"){
         return " "
     }
 }
@@ -88,6 +129,8 @@ const printSalesReport = async ()=>{
 
     tfootCash.innerText=totalCashAmount.toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2});
     tfootCredit.innerText=totalCreditAmount.toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2});
+    tfootOnlineTransfer.innerText=totalOnlineTransfer.toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2});
+    tfootVps.innerText=totalVpsAMount.toLocaleString('en-us',{minimumFractionDigits:2,maximumFractionDigits:2});
 
     const newWindow = window.open();
     newWindow.document.write(`
