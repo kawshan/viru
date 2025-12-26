@@ -283,15 +283,21 @@ const deleteInvoiceHeader = (ob) => {
             Deleted User Is ${ob.invoice_header_master_deleted_user}
     `);
     if (userConfirm) {
-        const deleteServerResponse = ajaxDeleteRequest("/invoice-header", ob);
-        if (deleteServerResponse == "ok") {
-            alert(`Delete Successful`)
-        } else {
-            alert(`Delete Unsuccessful \n ${deleteServerResponse}`);
+
+        const serverResponseForSetDeleteUser = ajaxGetRequest(`/invoice-header/set-delete-user/${user.username}/${ob.invoice_header_key}`);
+        if (serverResponseForSetDeleteUser=="ok"){
+            const deleteServerResponse = ajaxDeleteRequest("/invoice-header", ob);
+            if (deleteServerResponse == "ok") {
+                alert(`Delete Successful`)
+            } else {
+                alert(`Delete Unsuccessful \n ${deleteServerResponse}`);
+            }
+            refreshInvoiceMasterHeaderForm();
+            refreshInvoiceMasterHeaderTable();
+            divModifyButton2.classList.add('d-none');
+        }else {
+            alert(`Error code 1 user ${serverResponseForSetDeleteUser}`)
         }
-        refreshInvoiceMasterHeaderForm();
-        refreshInvoiceMasterHeaderTable();
-        divModifyButton2.classList.add('d-none');
     }
 }
 

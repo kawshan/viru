@@ -9,7 +9,8 @@ import java.util.List;
 public interface DeleteStockreportDao extends JpaRepository<StockAdjustmentDetails,Integer> {
 
     @Query(value = "select cm.customer_name, dihm.invoice_header_date, dihm.invoice_header_number, im.item_short_name,\n" +
-            "(didm.invoice_detail_value) * (1- ifnull(dihm.invoice_header_master_additional_discount,0)/100) as net_invoice_value\n" +
+            "(didm.invoice_detail_value) * (1- ifnull(dihm.invoice_header_master_additional_discount,0)/100) as net_invoice_value,\n" +
+            "dihm.invoice_header_master_deleted_user\n" +
             "from deleted_invoice_header_master as dihm\n" +
             "inner join deleted_invoice_detail didm on dihm.invoice_header_key = didm.invoice_detail_header_key\n" +
             "inner join customer_master cm on dihm.customer_master_id = cm.id\n" +

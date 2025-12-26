@@ -5,6 +5,8 @@ const users = [
     {username: 'umesh', password: 'umesh1234', role: 'production'},
     {username: 'pravindi', password: 'pravindi1234', role: 'invoice'},
     {username: 'vihaga', password: 'vihaga4893', role: 'invoice'},
+    {username: 'samadhi', password: 'samadhi8720', role: 'invoice'},
+    {username: 'renuka', password: 'renuka0843', role: 'invoice'},
     {username: 'prasad', password: 'prasad1454', role: 'manager'}
 ];
 

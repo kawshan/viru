@@ -25,7 +25,8 @@ public class DeleteStockReportService {
                         (Date) obj[1],
                         (Integer) obj[2],
                         (String) obj[3],
-                        (BigDecimal) obj[4]
+                        (BigDecimal) obj[4],
+                        (String) obj[5]
                 )
                 ).collect(Collectors.toList());
     }

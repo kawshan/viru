@@ -41,6 +41,7 @@ window.addEventListener('load',function (){
             document.getElementById('stockTransferReportButton').style.display = 'block';
             document.getElementById('vpsReportButton').style.display = 'block';
             document.getElementById('deleteStockReport').style.display = 'block';
+            document.getElementById('ItemWiseReport').style.display = 'block';
 
             //per forma button
             document.getElementById('performaButton').style.display = 'block';
@@ -76,6 +77,7 @@ window.addEventListener('load',function (){
             document.getElementById('stockTransferReportButton').style.display = 'none';
             document.getElementById('vpsReportButton').style.display = 'none';
             document.getElementById('deleteStockReport').style.display = 'none';
+            document.getElementById('ItemWiseReport').style.display = 'none';
 
 
             //per forma button
@@ -104,13 +106,14 @@ window.addEventListener('load',function (){
             document.getElementById('collectionButton').style.display = 'block';
 
             //stock report button
-            document.getElementById('stockReportButton').style.display = 'none';
-            document.getElementById('salesReportButton').style.display = 'none';
-            document.getElementById('productionReportButton').style.display = 'none';
-            document.getElementById('newProductionReportButton').style.display = 'none';
-            document.getElementById('stockTransferReportButton').style.display = 'none';
-            document.getElementById('vpsReportButton').style.display = 'none';
-            document.getElementById('deleteStockReport').style.display = 'none';
+            document.getElementById('stockReportButton').style.display = 'block';
+            document.getElementById('salesReportButton').style.display = 'block';
+            document.getElementById('productionReportButton').style.display = 'block';
+            document.getElementById('newProductionReportButton').style.display = 'block';
+            document.getElementById('stockTransferReportButton').style.display = 'block';
+            document.getElementById('vpsReportButton').style.display = 'block';
+            document.getElementById('deleteStockReport').style.display = 'block';
+            document.getElementById('ItemWiseReport').style.display = 'block';
 
 
             //per forma button
@@ -145,6 +148,7 @@ window.addEventListener('load',function (){
             document.getElementById('stockTransferReportButton').style.display = 'block';
             document.getElementById('vpsReportButton').style.display = 'block';
             document.getElementById('deleteStockReport').style.display = 'block';
+            document.getElementById('ItemWiseReport').style.display = 'block';
 
             //per forma button
             document.getElementById('performaButton').style.display = 'block';

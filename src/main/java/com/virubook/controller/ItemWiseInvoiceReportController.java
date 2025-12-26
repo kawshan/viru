@@ -23,7 +23,7 @@ public class ItemWiseInvoiceReportController {
     @GetMapping(value = "/view")
     public ModelAndView itemWiseInvoiceReportView(){
         ModelAndView reportUI = new ModelAndView();
-        reportUI.setViewName(""); //need to put html page name here
+        reportUI.setViewName("itemWiseInvoiceReport.html");
         return reportUI;
     }
 

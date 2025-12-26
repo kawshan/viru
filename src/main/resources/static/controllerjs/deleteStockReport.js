@@ -29,6 +29,7 @@ const refreshProductionReportTable = ()=>{
         {dataType:'function',propertyName:getDate},
         {dataType:'function',propertyName:getInvoiceNumber},
         {dataType:'text',propertyName:'item_short_name'},
+        {dataType:'text',propertyName:'deleted_user_name'},
         {dataType:'function',propertyName:getNetInvoiceValue},
     ]
 

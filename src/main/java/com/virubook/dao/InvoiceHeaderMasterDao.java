@@ -73,4 +73,11 @@ public interface InvoiceHeaderMasterDao extends JpaRepository<InvoiceHeaderMaste
     @Query(value = "delete from invoice_detail where invoice_detail_header_key=?1",nativeQuery = true)
     public void deleteFromDetailsTable(String headerKey);
 
+
+    @Transactional
+    @Modifying
+    @Query(value = "update invoice_header_master set invoice_header_master_deleted_user = ?1 where invoice_header_key=?2",nativeQuery = true)
+    public void setDeletedUser(String userName, String headerKey);
+
+
 }

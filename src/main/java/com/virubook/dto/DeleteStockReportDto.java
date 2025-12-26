@@ -17,5 +17,6 @@ public class DeleteStockReportDto {
     private Integer invoice_header_number;
     private String item_short_name;
     private BigDecimal net_invoice_value;
+    private String deleted_user_name;
 
 }

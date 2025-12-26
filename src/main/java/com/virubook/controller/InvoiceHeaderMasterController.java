@@ -151,5 +151,16 @@ public class InvoiceHeaderMasterController {
     }
 
 
+    @GetMapping(value = "/set-delete-user/{userName}/{headerKey}")
+    public String setDeletedUser(@PathVariable("userName") String userName,@PathVariable("headerKey") String headerKey){
+        try {
+            invoiceHeaderMasterDao.setDeletedUser(userName,headerKey);
+            return "ok";
+        }catch (Exception e){
+            return "error"+e.getMessage();
+        }
+    }
+
+
 
 }

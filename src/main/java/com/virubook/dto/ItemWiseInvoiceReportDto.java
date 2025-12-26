@@ -17,6 +17,8 @@ public class ItemWiseInvoiceReportDto {
     private Date invoice_date;
     private Integer invoice_number;
     private String item_short_name;
+    private BigDecimal rate;
+    private BigDecimal invoice_detail_quantity;
     private BigDecimal invoice_value_final;
     private String location_name;
 
