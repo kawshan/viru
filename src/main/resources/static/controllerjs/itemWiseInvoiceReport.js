@@ -30,8 +30,8 @@ const refreshItemWiseReportTable = ()=>{
         {dataType:'text',propertyName:'invoice_date'},
         {dataType:'function',propertyName:getInvoiceNumber},
         {dataType:'function',propertyName:getItemShortName},
-        {dataType:'function',propertyName:getItemRate},
-        {dataType:'function',propertyName:getQuantity},
+        // {dataType:'function',propertyName:getItemRate},
+        // {dataType:'function',propertyName:getQuantity},
         {dataType:'function',propertyName:getAmount},
     ]
 

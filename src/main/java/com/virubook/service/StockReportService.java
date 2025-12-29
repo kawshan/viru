@@ -3,6 +3,7 @@ package com.virubook.service;
 import com.virubook.dao.StockReportDao;
 import com.virubook.dto.StockReportDto;
 import com.virubook.dto.StockReportDtoForAllItems;
+import com.virubook.dto.WaragodaStockDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,20 @@ public class StockReportService {
                         (BigDecimal) obj[4]
                 )
                 ).collect(Collectors.toList());
+    }
+
+
+    public List<WaragodaStockDto> generateStockReportForShopWaragoda(String fromDate, String toDate) {
+        List<Object[]> results = stockReportDao.getStockReportForAllItems(fromDate,toDate);
+        return results.stream().map(obj ->
+                new WaragodaStockDto(
+                        (Integer) obj[0],
+                        (String) obj[1],
+                        (String) obj[2],
+                        (String) obj[3],
+                        (BigDecimal) obj[4]
+                )
+        ).collect(Collectors.toList());
     }
 
 
