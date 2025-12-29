@@ -33,6 +33,14 @@ public class StockReportController {
     }
 
 
+    @GetMapping(value = "/view/waragoda")
+    public ModelAndView StockReportViewWaragoda(){
+        ModelAndView stockReportUi = new ModelAndView();
+        stockReportUi.setViewName("waragodaStock.html");
+        return stockReportUi;
+    }
+
+
     @GetMapping("/{itemId}/{fromDate}/{toDate}")
     public List<StockReportDto> getStockReport(@PathVariable("itemId") Integer itemId, @PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate ){
         return stockReportService.generateStockReport(itemId, fromDate, toDate);

@@ -34,7 +34,7 @@ public interface StockReportDao extends JpaRepository<CustomerMaster,Integer> {
             "        ON ph.production_header_key = pd.production_details_header_key\n" +
             "    INNER JOIN location_master lm_prod\n" +
             "        ON lm_prod.location_master_name = 'Production'\n" +
-            "    WHERE ph.production_header_date BETWEEN '2025-01-01' AND '2025-12-03'\n" +
+            "    WHERE ph.production_header_date BETWEEN ?1 AND ?2 \n" +
             "\n" +
             "    UNION ALL\n" +
             "\n" +
@@ -44,7 +44,7 @@ public interface StockReportDao extends JpaRepository<CustomerMaster,Integer> {
             "    FROM invoice_header_master ihm\n" +
             "    INNER JOIN invoice_detail idm\n" +
             "        ON ihm.invoice_header_key = idm.invoice_detail_header_key\n" +
-            "    WHERE ihm.invoice_header_date BETWEEN '2025-01-01' AND '2025-12-03'\n" +
+            "    WHERE ihm.invoice_header_date BETWEEN ?1 AND ?2 \n" +
             "\n" +
             "    UNION ALL\n" +
             "\n" +
@@ -54,7 +54,7 @@ public interface StockReportDao extends JpaRepository<CustomerMaster,Integer> {
             "    FROM stock_adjustment_header sah\n" +
             "    INNER JOIN stock_adjustment_details sad\n" +
             "        ON sah.stock_adjustment_header_key = sad.stock_adjustment_details_header_key\n" +
-            "    WHERE sah.stock_adjustment_header_date BETWEEN '2025-01-01' AND '2025-12-03'\n" +
+            "    WHERE sah.stock_adjustment_header_date BETWEEN ?1 AND ?2 \n" +
             "\n" +
             "    UNION ALL\n" +
             "\n" +
@@ -64,7 +64,7 @@ public interface StockReportDao extends JpaRepository<CustomerMaster,Integer> {
             "    FROM stock_transfer_header sth\n" +
             "    INNER JOIN stock_transfer_details std\n" +
             "        ON sth.stock_transfer_header_key = std.stock_transfer_details_header_key\n" +
-            "    WHERE sth.stock_transfer_header_date BETWEEN '2025-01-01' AND '2025-12-03'\n" +
+            "    WHERE sth.stock_transfer_header_date BETWEEN ?1 AND ?2 \n" +
             "\n" +
             "    UNION ALL\n" +
             "\n" +
@@ -74,7 +74,7 @@ public interface StockReportDao extends JpaRepository<CustomerMaster,Integer> {
             "    FROM stock_transfer_header sth\n" +
             "    INNER JOIN stock_transfer_details std\n" +
             "        ON sth.stock_transfer_header_key = std.stock_transfer_details_header_key\n" +
-            "    WHERE sth.stock_transfer_header_date BETWEEN '2025-01-01' AND '2025-12-03'\n" +
+            "    WHERE sth.stock_transfer_header_date BETWEEN ?1 AND ?2 \n" +
             ") AS combined\n" +
             "LEFT JOIN location_master lm\n" +
             "    ON combined.location_master_id = lm.id\n" +

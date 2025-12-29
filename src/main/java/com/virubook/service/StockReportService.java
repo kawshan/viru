@@ -46,7 +46,7 @@ public class StockReportService {
 
 
     public List<WaragodaStockDto> generateStockReportForShopWaragoda(String fromDate, String toDate) {
-        List<Object[]> results = stockReportDao.getStockReportForAllItems(fromDate,toDate);
+        List<Object[]> results = stockReportDao.getStockReportForShopWaragoda(fromDate,toDate);
         return results.stream().map(obj ->
                 new WaragodaStockDto(
                         (Integer) obj[0],
