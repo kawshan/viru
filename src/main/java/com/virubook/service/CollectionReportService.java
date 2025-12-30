@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +23,10 @@ public class CollectionReportService {
                 new CollectionReportDto(
                         (String) obj[0],
                         (Integer) obj[1],
-                        (BigDecimal) obj[2],
+                        (Date) obj[2],
                         (BigDecimal) obj[3],
-                        (BigDecimal) obj[4]
+                        (BigDecimal) obj[4],
+                        (BigDecimal) obj[5]
                 )
                 ).collect(Collectors.toList());
     }
@@ -37,9 +39,10 @@ public class CollectionReportService {
                 new CollectionReportDto(
                         (String) obj[0],
                         (Integer) obj[1],
-                        (BigDecimal) obj[2],
+                        (Date) obj[2],
                         (BigDecimal) obj[3],
-                        (BigDecimal) obj[4]
+                        (BigDecimal) obj[4],
+                        (BigDecimal) obj[5]
                 )
         ).collect(Collectors.toList());
     }

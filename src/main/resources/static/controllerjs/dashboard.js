@@ -42,6 +42,7 @@ window.addEventListener('load',function (){
             document.getElementById('vpsReportButton').style.display = 'block';
             document.getElementById('deleteStockReport').style.display = 'block';
             document.getElementById('ItemWiseReport').style.display = 'block';
+            document.getElementById('StockReportWaragoda').style.display = 'block';
 
             //per forma button
             document.getElementById('performaButton').style.display = 'block';
@@ -78,6 +79,7 @@ window.addEventListener('load',function (){
             document.getElementById('vpsReportButton').style.display = 'none';
             document.getElementById('deleteStockReport').style.display = 'none';
             document.getElementById('ItemWiseReport').style.display = 'none';
+            document.getElementById('StockReportWaragoda').style.display = 'none';
 
 
             //per forma button
@@ -114,6 +116,7 @@ window.addEventListener('load',function (){
             document.getElementById('vpsReportButton').style.display = 'block';
             document.getElementById('deleteStockReport').style.display = 'block';
             document.getElementById('ItemWiseReport').style.display = 'block';
+            document.getElementById('StockReportWaragoda').style.display = 'block';
 
 
             //per forma button
@@ -149,6 +152,7 @@ window.addEventListener('load',function (){
             document.getElementById('vpsReportButton').style.display = 'block';
             document.getElementById('deleteStockReport').style.display = 'block';
             document.getElementById('ItemWiseReport').style.display = 'block';
+            document.getElementById('StockReportWaragoda').style.display = 'block';
 
             //per forma button
             document.getElementById('performaButton').style.display = 'block';

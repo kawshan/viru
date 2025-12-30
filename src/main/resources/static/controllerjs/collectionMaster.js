@@ -431,6 +431,7 @@ const refreshPendingCollections = () => {
     displayProperty = [
         {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
         {dataType: 'function', propertyName: getInvoiceNumber},
+        {dataType: 'text', propertyName: 'invoice_date'},
         {dataType: 'function', propertyName: getInvoiceValue},
         {dataType: 'function', propertyName: getCollectionValue},
         {dataType: 'function', propertyName: getRemainingAmount},
@@ -490,6 +491,7 @@ const refreshCustomerPendingCollections = (fieldId)=>{
     displayProperty = [
         {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
         {dataType: 'function', propertyName: getInvoiceNumber},
+        {dataType: 'text', propertyName: 'invoice_date'},
         {dataType: 'function', propertyName: getInvoiceValue},
         {dataType: 'function', propertyName: getCollectionValue},
         {dataType: 'function', propertyName: getRemainingAmount},
