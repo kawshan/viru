@@ -83,6 +83,10 @@ public class CustomerMasterController {
     }
 
 
+    @GetMapping(value = "/getCashCustomer")
+    public CustomerMaster getCashCustomer() {
+        return customerMasterDao.getCashCustomer();
+    }
 
 
 }

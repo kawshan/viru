@@ -155,37 +155,54 @@ const saveOrUpdateCollectionHeader = async () => {
 
 const refillCollectionHeader = (ob) => {
 
-    collectionHeader = JSON.parse(JSON.stringify(ob));
-    oldCollectionHeader = JSON.parse(JSON.stringify(ob));
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
 
-    selectCustomer.value = collectionHeader.customer_master_id.customer_name
-    textHeaderDate.value = collectionHeader.collection_master_header_date
-    textHeaderNumber.value = collectionHeader.collection_master_header_number
-    textProHeaderKey.value = collectionHeader.collection_master_header_key
+    if (user.role == "admin"){
+        collectionHeader = JSON.parse(JSON.stringify(ob));
+        oldCollectionHeader = JSON.parse(JSON.stringify(ob));
 
-    refreshCollectionMasterDetailsTable();
-    refreshCollectionMasterDetailsForm();
+        selectCustomer.value = collectionHeader.customer_master_id.customer_name
+        textHeaderDate.value = collectionHeader.collection_master_header_date
+        textHeaderNumber.value = collectionHeader.collection_master_header_number
+        textProHeaderKey.value = collectionHeader.collection_master_header_key
+
+        refreshCollectionMasterDetailsTable();
+        refreshCollectionMasterDetailsForm();
+    }else {
+        alert(`You have no privileges to perform this task`);
+    }
+
 }
 
 
 const deleteCollectionHeader = (ob) => {
-    const userConfirm = confirm(`Are you sure to delete following information
+
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+
+    if (user.role == "admin"){
+        const userConfirm = confirm(`Are you sure to delete following information
             Customer name is ${ob.customer_master_id.customer_name}
             Date is ${ob.collection_master_header_date}
             Code is ${ob.collection_master_header_key}
             Number is ${ob.collection_master_header_number}
             `);
-    if (userConfirm) {
-        const deleteServerResponse = ajaxDeleteRequest("/collection-master", ob);
-        if (deleteServerResponse == "ok") {
-            alert('Delete successful');
-        } else {
-            alert(`Delete unsuccessful \n ${deleteServerResponse}`);
+        if (userConfirm) {
+            const deleteServerResponse = ajaxDeleteRequest("/collection-master", ob);
+            if (deleteServerResponse == "ok") {
+                alert('Delete successful');
+            } else {
+                alert(`Delete unsuccessful \n ${deleteServerResponse}`);
+            }
+            refreshCollectionMasterForm();
+            refreshCollectionHeaderTable();
+            divModifyButton2.classList.add('d-none');
         }
-        refreshCollectionMasterForm();
-        refreshCollectionHeaderTable();
-        divModifyButton2.classList.add('d-none');
+    }else {
+        alert(`You have no privileges to perform this task`);
     }
+
+
+
 }
 
 
@@ -431,7 +448,7 @@ const refreshPendingCollections = () => {
     displayProperty = [
         {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
         {dataType: 'function', propertyName: getInvoiceNumber},
-        {dataType: 'text', propertyName: 'invoice_date'},
+        {dataType: 'function', propertyName: getInvoiceDate},
         {dataType: 'function', propertyName: getInvoiceValue},
         {dataType: 'function', propertyName: getCollectionValue},
         {dataType: 'function', propertyName: getRemainingAmount},
@@ -456,6 +473,10 @@ const getInvoiceNumber = (ob) => {
     return `<p class="text-end">${ob.invoice_number}</p>`;
 }
 
+
+const getInvoiceDate = (ob) => {
+    return `<p class="text-center">${ob.invoice_date}</p>`;
+}
 
 const getInvoiceValue = (ob) => {
     return `<p class="text-end">${Number(ob.invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
@@ -491,7 +512,7 @@ const refreshCustomerPendingCollections = (fieldId)=>{
     displayProperty = [
         {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
         {dataType: 'function', propertyName: getInvoiceNumber},
-        {dataType: 'text', propertyName: 'invoice_date'},
+        {dataType: 'function', propertyName: getInvoiceDate},
         {dataType: 'function', propertyName: getInvoiceValue},
         {dataType: 'function', propertyName: getCollectionValue},
         {dataType: 'function', propertyName: getRemainingAmount},

@@ -1359,7 +1359,42 @@ function checkLockStatus(headerKey){
 
 
 
+const automateWaragodaCashCustomer = ()=>{
 
+
+    const today = new Date();
+
+    // Adjust for local timezone
+    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+        .toISOString()
+        .split('T')[0];
+    textInvoiceDate.value = localDate;
+    textInvoiceDate.style.border="2px solid green";
+    invoiceHeader.invoice_header_date = localDate;
+    //date thing is done
+
+
+    locationList = ajaxGetRequest("/location-master/findall");
+    fillDataIntoSelect(selectBranch, 'Select Branch', locationList, 'location_master_name','Shop Waragoda');
+    invoiceHeader.location_master_id = JSON.parse(selectBranch.value);
+    selectBranch.style.border="2px solid green";
+    //branch thing is done
+
+
+    const cashCustomerFromServer = ajaxGetRequest("/customer-master/getCashCustomer");
+    selectCustomer.value = "cash";
+    invoiceHeader.customer_master_id = cashCustomerFromServer;
+    selectCustomer.style.border="2px solid green";
+    //cash customer thing is done
+
+
+    radioPayTypeCash.checked=true;
+    invoiceHeader.invoice_header_master_pay_type="cash";
+
+
+
+
+}
 
 
 
