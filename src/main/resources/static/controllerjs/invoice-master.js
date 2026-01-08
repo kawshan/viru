@@ -643,6 +643,8 @@ const printInvoice = async (ob) => {
 
     await getGrossDiscountNetValuesForTablePrint(ob.invoice_header_key);
 
+    labelTotalDiscount.innerText=`Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0"}%`
+
 
     const newWindow = window.open();
     newWindow.document.write(`
@@ -808,6 +810,9 @@ const printInvoiceForA5Size = async (ob) => {
 
 
     const newWindow = window.open();
+
+    A5labelTotal.innerText=`Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0"}%`
+
     newWindow.document.write(`
     <!DOCTYPE html>
 <html lang="en">
@@ -1055,6 +1060,12 @@ const printInvoiceForBill = async (ob) => {
 
 
 <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Customer Name</span>
+    <span>${ob.customer_master_id.customer_name}</span>
+</p>
+
+
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
     <span>Date</span>
     <span>${new Date(ob.invoice_header_date).toLocaleString('en-GB', {
         year: "numeric",
@@ -1133,6 +1144,8 @@ const printInvoiceForBill = async (ob) => {
 </div>
 
     <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0;">Printed at ${formatted}</p>
+    
+    <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0;">Payment Type ${ob.invoice_header_master_pay_type}</p>
 
 
 
@@ -1148,7 +1161,7 @@ const printInvoiceForBill = async (ob) => {
         newWindow.print();
         newWindow.close();
         divModifyButton2.classList.add('d-none');
-    }, 3000)
+    }, 1500)
 
 }
 

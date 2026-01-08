@@ -98,7 +98,7 @@ ${tableProductionReportPrint.outerHTML}
         newWindow.stop();
         newWindow.print();
         newWindow.close();
-    },3000)
+    },3000);
 
 
 

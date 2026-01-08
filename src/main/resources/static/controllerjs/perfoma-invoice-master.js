@@ -613,6 +613,8 @@ const printInvoice = async (ob) => {
 
     await getGrossDiscountNetValuesForTablePrint(ob.invoice_header_key);
 
+    labelTotalDiscount.innerText=`Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0"}%`
+
 
     const newWindow = window.open();
     newWindow.document.write(`
@@ -773,6 +775,8 @@ const printInvoiceForA5Size = async (ob) => {
     await fillDataIntoInvoicePrintForA5(ob.invoice_header_key);
 
     await getGrossDiscountNetValuesForTablePrintA5(ob.invoice_header_key);
+
+    A5labelTotal.innerText=`Total Discount ${ob.invoice_header_discount != null ? ob.invoice_header_discount : "0"}%`
 
 
     const newWindow = window.open();

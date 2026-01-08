@@ -121,17 +121,17 @@ const refillCustomerMaster = (ob)=>{
     textCustomerAddress.value=customerMaster.customer_master_address;
     textIndexNumber.value=customerMaster.customer_master_school_index_no;
 
-    fillDataIntoSelect(selectSchool,'Select School',schoolList,'school_master_name',customerMaster.school_master_id.school_master_name);
-
-
-
+    if (customerMaster.school_master_id != null){
+        schoolList= ajaxGetRequest("/school-master/findAll");
+        fillDataIntoSelect(selectSchool,'Select School',schoolList,'school_master_name',customerMaster.school_master_id.school_master_name);
+    }
 
 
     buttonCustomerMasterUpdate.disabled=false;
     buttonCustomerMasterUpdate.style.cursor="default"
 
 
-    buttonCustomerMasterSave.disabled=true
+    buttonCustomerMasterSave.disabled=true;
     buttonCustomerMasterSave.style.cursor="not-allowed";
 
 }
@@ -157,8 +157,10 @@ const checkUpdatesCustomerMaster = ()=>{
         updates=updates+"Address Is Updated \n"
     }
 
-    if (customerMaster.school_master_id.school_master_name != oldcustomerMaster.school_master_id.school_master_name){
-        updates=updates+"School Is Updated \n"
+    if (customerMaster.school_master_id != null){
+        if (customerMaster.school_master_id.school_master_name != oldcustomerMaster.school_master_id.school_master_name){
+            updates=updates+"School Is Updated \n"
+        }
     }
 
     if (customerMaster.customer_master_school_index_no != oldcustomerMaster.customer_master_school_index_no){

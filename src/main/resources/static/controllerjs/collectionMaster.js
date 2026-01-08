@@ -7,6 +7,9 @@ window.addEventListener('load', function () {
     refreshCollectionHeaderTable();
 
     refreshPendingCollections();
+
+
+    refreshPendingCollectionsForPrint();
 })
 
 
@@ -651,11 +654,78 @@ const getCollectionDetailsAmount = (ob)=>{
 }
 
 
+const refreshPendingCollectionsForPrint = () => {
+
+    const headersList = ajaxGetRequest("/collection-report");
+
+    const displayProperty = [
+        {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
+        {dataType: 'function', propertyName: getInvoiceNumber},
+        {dataType: 'function', propertyName: getInvoiceDate},
+        {dataType: 'function', propertyName: getInvoiceValueForCollectionPrint},
+        {dataType: 'function', propertyName: getCollectionValue},
+        {dataType: 'function', propertyName: getRemainingAmount},
+    ];
+
+    fillDataIntoTable2(printCollectionsTable, headersList, displayProperty, false);
+
+}
+
+let runningInvoiceValue = 0
+const getInvoiceValueForCollectionPrint = (ob) => {
+    runningInvoiceValue+=Number(ob.invoice_value);
+    return `<p class="text-end">${Number(ob.invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
+}
+
+const printPendingReport = ()=>{
+
+    tfootTotalInvoiceValue.innerText = runningInvoiceValue.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+    const newWindow = window.open();
+    newWindow.document.write(`
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Outstanding Report</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+    #printCollectionsTable{
+    line-height: 5px !important;
+    height: 5px !important;
+    }
+</style>
+    
+</head>
+<body style="font-family: Verdana">
 
 
+<div style=" top: 1cm">
+
+    <div class="row" style="margin-bottom: 0; padding-bottom: 0">
+            <p class="text-center" style="font-size: 14px; font-weight: bold;">Outstanding report</p>
+    </div>
+</div>
+
+<div class="row" style="margin: 5px">
+${printCollectionsTable.outerHTML}
+</div>
+
+</body>
+</html>
+    `);
 
 
+    setTimeout(()=>{
+        newWindow.stop();
+        newWindow.print();
+        newWindow.close();
+    },3000);
 
+
+}
 
 
 

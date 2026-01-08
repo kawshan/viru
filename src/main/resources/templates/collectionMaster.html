@@ -82,6 +82,11 @@
 
 
         <div class="col-md-4 text-end">
+
+            <button type="button" class="btn" style="background-color: #16a34a; color: white" onclick="printPendingReport()">
+                Print Pending Report
+            </button>
+
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                 Search
             </button>
@@ -381,6 +386,30 @@
         </div>
     </div>
     <!--pending collections model area end-->
+
+
+
+    <div class="d-none">
+        <table class="table table-bordered" style="font-family: Verdana; font-size: 11px; border: 1px solid black" id="printCollectionsTable">
+            <thead>
+            <th>#</th>
+            <th>Customer name</th>
+            <th class="text-end">Invoice Number</th>
+            <th class="text-end">Invoice Date</th>
+            <th class="text-end">Invoice Value</th>
+            <th class="text-end">Collection Amount</th>
+            <th class="text-end">Remaining Amount</th>
+            </thead>
+            <tbody></tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-end" id="tfootTotalInvoiceValue"></td>
+            </tr>
+        </table>
+    </div>
 
 
 </div>
