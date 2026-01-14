@@ -162,5 +162,11 @@ public class InvoiceHeaderMasterController {
     }
 
 
+    @GetMapping(value = "/getInvoiceHeaderFromHeaderKey/{headerKey}")
+    public InvoiceHeaderMaster getInvoiceHeaderFromHeaderKey(@PathVariable("headerKey")String headerKey){
+        return invoiceHeaderMasterDao.getInvoiceHeaderMasterByHeaderKey(headerKey);
+    }
+
+
 
 }

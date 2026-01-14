@@ -80,4 +80,8 @@ public interface InvoiceHeaderMasterDao extends JpaRepository<InvoiceHeaderMaste
     public void setDeletedUser(String userName, String headerKey);
 
 
+
+    @Query(value = "select ihm from InvoiceHeaderMaster ihm where ihm.invoice_header_key=?1")
+    public InvoiceHeaderMaster getInvoiceHeaderMasterByHeaderKey(String headerKey);
+
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeleteStockReportDto {
+public class DeleteInvoiceReportDto {
 
     private String customer_name;
     private Date invoice_header_date;

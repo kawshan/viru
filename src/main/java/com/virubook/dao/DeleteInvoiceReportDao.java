@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface DeleteStockreportDao extends JpaRepository<StockAdjustmentDetails,Integer> {
+public interface DeleteInvoiceReportDao extends JpaRepository<StockAdjustmentDetails,Integer> {
 
     @Query(value = "select cm.customer_name, dihm.invoice_header_date, dihm.invoice_header_number, im.item_short_name,\n" +
             "(didm.invoice_detail_value) * (1- ifnull(dihm.invoice_header_master_additional_discount,0)/100) as net_invoice_value,\n" +

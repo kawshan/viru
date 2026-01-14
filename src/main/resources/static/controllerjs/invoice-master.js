@@ -1414,7 +1414,21 @@ const automateWaragodaCashCustomer = ()=>{
 
 
 
+const printQuickBill =async ()=>{
 
+    var invKey = document.getElementById("textInvoiceHeaderKey");
+
+
+    if (invKey.value == ""){
+        alert(`You Need To Create An Invoice To Do The Quick Bill Print`);
+    }else {
+        const serverResponse = ajaxGetRequest(`/invoice-header/getInvoiceHeaderFromHeaderKey/${invKey.value}`);
+        await printInvoiceForBill(serverResponse);
+    }
+
+
+
+}
 
 
 

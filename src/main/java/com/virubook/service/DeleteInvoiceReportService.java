@@ -1,8 +1,7 @@
 package com.virubook.service;
 
-import com.virubook.dao.DeleteStockreportDao;
-import com.virubook.dto.DeleteStockReportDto;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
+import com.virubook.dao.DeleteInvoiceReportDao;
+import com.virubook.dto.DeleteInvoiceReportDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +11,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class DeleteStockReportService {
+public class DeleteInvoiceReportService {
 
     @Autowired
-    private DeleteStockreportDao deleteStockreportDao;
+    private DeleteInvoiceReportDao deleteInvoiceReportDao;
 
-    public List<DeleteStockReportDto> getStockReport(String fromDate, String toDate) {
-        List<Object[]> results = deleteStockreportDao.getDeleteStockReport(fromDate, toDate);
+    public List<DeleteInvoiceReportDto> getStockReport(String fromDate, String toDate) {
+        List<Object[]> results = deleteInvoiceReportDao.getDeleteStockReport(fromDate, toDate);
         return results.stream().map(obj->
-                new DeleteStockReportDto(
+                new DeleteInvoiceReportDto(
                         (String) obj[0],
                         (Date) obj[1],
                         (Integer) obj[2],

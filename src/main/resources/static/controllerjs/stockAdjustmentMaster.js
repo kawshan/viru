@@ -396,7 +396,7 @@ const deleteStockAdjustmentDetails = (ob)=>{
     `);
 
     if (userConfirm){
-        const deleteServerResponse = ajaxDeleteRequest("/stockAdjustmentHeader",ob);
+        const deleteServerResponse = ajaxDeleteRequest("/stockAdjustmentDetails",ob);
         if (deleteServerResponse=="ok"){
             alert("Delete Successful");
             refreshStockAdjustmentDetailsForm();
