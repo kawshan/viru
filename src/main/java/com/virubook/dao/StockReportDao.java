@@ -20,74 +20,86 @@ public interface StockReportDao extends JpaRepository<CustomerMaster,Integer> {
     public List<Object[]> getStockReportForAllItems(String fromDate, String toDate);
 
 
-    @Query(value = "SELECT combined.item_master_id,\n" +
-            "       im.item_short_name,\n" +
-            "       icm.item_category_name,\n" +
-            "       COALESCE(lm.location_master_name, 'Production') AS location_master_name,\n" +
-            "       SUM(combined.quantity_change) AS stock_quantity\n" +
+    @Query(value = "SELECT\n" +
+            "    combined.item_master_id,\n" +
+            "    im.item_short_name,\n" +
+            "    icm.item_category_name,\n" +
+            "    lm.location_master_name,\n" +
+            "    SUM(combined.quantity_change) AS stock_quantity\n" +
             "FROM (\n" +
-            "    SELECT pd.item_master_id,\n" +
-            "           pd.production_details_quantity AS quantity_change,\n" +
-            "           lm_prod.id AS location_master_id\n" +
+            "    -- Production stock (goes to Production location)\n" +
+            "    SELECT\n" +
+            "        pd.item_master_id,\n" +
+            "        pd.production_details_quantity AS quantity_change,\n" +
+            "        lm_prod.id AS location_master_id\n" +
             "    FROM production_header ph\n" +
             "    INNER JOIN production_details pd\n" +
             "        ON ph.production_header_key = pd.production_details_header_key\n" +
             "    INNER JOIN location_master lm_prod\n" +
             "        ON lm_prod.location_master_name = 'Production'\n" +
-            "    WHERE ph.production_header_date BETWEEN ?1 AND ?2 \n" +
+            "    WHERE ph.production_header_date BETWEEN ?1 AND ?2\n" +
             "\n" +
             "    UNION ALL\n" +
             "\n" +
-            "    SELECT idm.item_master_id,\n" +
-            "           -idm.invoice_detail_quantity AS quantity_change,\n" +
-            "           ihm.location_master_id\n" +
+            "    -- Sales (reduce stock at selling location)\n" +
+            "    SELECT\n" +
+            "        idm.item_master_id,\n" +
+            "        -idm.invoice_detail_quantity AS quantity_change,\n" +
+            "        ihm.location_master_id\n" +
             "    FROM invoice_header_master ihm\n" +
             "    INNER JOIN invoice_detail idm\n" +
             "        ON ihm.invoice_header_key = idm.invoice_detail_header_key\n" +
-            "    WHERE ihm.invoice_header_date BETWEEN ?1 AND ?2 \n" +
+            "    WHERE ihm.invoice_header_date BETWEEN ?1 AND ?2\n" +
             "\n" +
             "    UNION ALL\n" +
             "\n" +
-            "    SELECT sad.item_master_id,\n" +
-            "           sad.stock_adjustment_details_quantity AS quantity_change,\n" +
-            "           sah.location_master_id\n" +
+            "    -- Stock adjustments\n" +
+            "    SELECT\n" +
+            "        sad.item_master_id,\n" +
+            "        sad.stock_adjustment_details_quantity AS quantity_change,\n" +
+            "        sah.location_master_id\n" +
             "    FROM stock_adjustment_header sah\n" +
             "    INNER JOIN stock_adjustment_details sad\n" +
             "        ON sah.stock_adjustment_header_key = sad.stock_adjustment_details_header_key\n" +
-            "    WHERE sah.stock_adjustment_header_date BETWEEN ?1 AND ?2 \n" +
+            "    WHERE sah.stock_adjustment_header_date BETWEEN ?1 AND ?2\n" +
             "\n" +
             "    UNION ALL\n" +
             "\n" +
-            "    SELECT std.item_master_id,\n" +
-            "           -std.stock_transfer_details_quantity AS quantity_change,\n" +
-            "           std.from_location AS location_master_id\n" +
+            "    -- Stock transfer OUT (negative)\n" +
+            "    SELECT\n" +
+            "        std.item_master_id,\n" +
+            "        -std.stock_transfer_details_quantity AS quantity_change,\n" +
+            "        std.from_location AS location_master_id\n" +
             "    FROM stock_transfer_header sth\n" +
             "    INNER JOIN stock_transfer_details std\n" +
             "        ON sth.stock_transfer_header_key = std.stock_transfer_details_header_key\n" +
-            "    WHERE sth.stock_transfer_header_date BETWEEN ?1 AND ?2 \n" +
+            "    WHERE sth.stock_transfer_header_date BETWEEN ?1 AND ?2\n" +
             "\n" +
             "    UNION ALL\n" +
             "\n" +
-            "    SELECT std.item_master_id,\n" +
-            "           std.stock_transfer_details_quantity AS quantity_change,\n" +
-            "           std.to_location AS location_master_id\n" +
+            "    -- Stock transfer IN (positive)\n" +
+            "    SELECT\n" +
+            "        std.item_master_id,\n" +
+            "        std.stock_transfer_details_quantity AS quantity_change,\n" +
+            "        std.to_location AS location_master_id\n" +
             "    FROM stock_transfer_header sth\n" +
             "    INNER JOIN stock_transfer_details std\n" +
             "        ON sth.stock_transfer_header_key = std.stock_transfer_details_header_key\n" +
-            "    WHERE sth.stock_transfer_header_date BETWEEN ?1 AND ?2 \n" +
+            "    WHERE sth.stock_transfer_header_date BETWEEN ?1 AND ?2\n" +
             ") AS combined\n" +
-            "LEFT JOIN location_master lm\n" +
+            "INNER JOIN location_master lm\n" +
             "    ON combined.location_master_id = lm.id\n" +
-            "LEFT JOIN item_master im\n" +
+            "INNER JOIN item_master im\n" +
             "    ON combined.item_master_id = im.id\n" +
-            "LEFT JOIN item_category_master icm\n" +
+            "INNER JOIN item_category_master icm\n" +
             "    ON im.item_category_master_id = icm.id\n" +
-            "GROUP BY combined.item_master_id,\n" +
-            "         im.item_short_name,\n" +
-            "         icm.item_category_name,\n" +
-            "         location_master_name\n" +
-            "HAVING location_master_name = 'Shop Waragoda'\n" +
-            "ORDER BY im.item_short_name;",nativeQuery = true)
+            "WHERE lm.location_master_name = 'Shop Waragoda'\n" +
+            "GROUP BY\n" +
+            "    combined.item_master_id,\n" +
+            "    im.item_short_name,\n" +
+            "    icm.item_category_name,\n" +
+            "    lm.location_master_name\n" +
+            "ORDER BY im.item_short_name;\n",nativeQuery = true)
     public List<Object[]> getStockReportForShopWaragoda(String fromDate,String toDate);
 
 

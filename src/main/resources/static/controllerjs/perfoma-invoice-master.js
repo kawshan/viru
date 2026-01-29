@@ -344,7 +344,7 @@ const refreshInvoiceDetailsTable = () => {
         {dataType: 'function', propertyName: getItemName},
         {dataType: 'function', propertyName: getItemQuantity},
         {dataType: 'function', propertyName: getItemRate},
-        {dataType: 'function', propertyName: getItemDiscount},
+        // {dataType: 'function', propertyName: getItemDiscount},
         {dataType: 'function', propertyName: getItemValue},
     ];
 
@@ -383,7 +383,8 @@ const getItemDiscount = (ob) => {
 }
 
 const getItemValue = (ob) => {
-    return `<p style="padding-top: 2px; margin-bottom: -2px" class="text-end">${Number(ob.invoice_detail_value).toLocaleString('en-US', {
+    let finalValue = ob.invoice_detail_rate * ob.invoice_detail_quantity
+    return `<p style="padding-top: 2px; margin-bottom: -2px" class="text-end">${Number(finalValue).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</p>`;
@@ -944,7 +945,7 @@ const fillDataIntoInvoicePrintForA5 = (headerKey) => {
         {dataType: 'function', propertyName: getItemNameForPrint},
         {dataType: 'function', propertyName: getItemQuantity},
         {dataType: 'function', propertyName: getItemRate},
-        {dataType: 'function', propertyName: getItemDiscount},
+        // {dataType: 'function', propertyName: getItemDiscount},
         {dataType: 'function', propertyName: getItemValue},
     ];
 
@@ -1152,7 +1153,8 @@ const getItemRateForBillPrint = (ob) => {
 
 
 const getItemAmountForBillPrint = (ob) => {
-    return `<p>${Number(ob.invoice_detail_value).toLocaleString('en-US', {
+    let finalValue = ob.invoice_detail_rate * ob.invoice_detail_quantity
+    return `<p>${Number(finalValue).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</p>`;
@@ -1205,7 +1207,7 @@ const fillDataIntoInvoicePrint = (headerKey) => {
         {dataType: 'function', propertyName: getItemNameForPrint},
         {dataType: 'function', propertyName: getItemQuantity},
         {dataType: 'function', propertyName: getItemRate},
-        {dataType: 'function', propertyName: getItemDiscount},
+        // {dataType: 'function', propertyName: getItemDiscount},
         {dataType: 'function', propertyName: getItemValue},
     ];
 

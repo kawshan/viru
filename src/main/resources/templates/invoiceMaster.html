@@ -378,9 +378,13 @@
 
 <!--quick bill print start-->
 <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4"></div>
-    <div class="col-md-4 text-end">
+    <div class="col-md-6"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-1 text-end">
+        <input type="number" class="form-control" placeholder="Enter Pay Amount" onkeyup="handelBalance(this)">
+        <h3 id="lblShowBalance"></h3>
+    </div>
+    <div class="col-md-2 text-end">
         <button type="button" class="btn btn-lg" style="background-color: #7e22ce; color: whitesmoke;" onclick="printQuickBill();">Quick Bill Print</button>
     </div>
 </div>
@@ -452,34 +456,34 @@
         <th>Item Name</th>
         <th>Quantity</th>
         <th>Rate</th>
-        <th>Discount</th>
+<!--        <th>Discount</th>-->
         <th>Amount</th>
         </thead>
         <tbody>
 
         </tbody>
-        <tfoot style="line-height: 5px;">
+        <tr style="line-height: 5px;">
         <tr>
-            <td id="labelGross" colspan="5">Gross Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="labelGross" colspan="4">Gross Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-end" id="tdGrossValue"></td>
         </tr>
         <tr>
-            <td id="labelTotalDiscount" colspan="5">Total Discount</td>
+            <td id="labelTotalDiscount" colspan="4">Total Discount</td>
             <td class="text-end" id="tdDiscountValue"></td>
         </tr>
         <tr>
-            <td id="labelNet" colspan="5">Net Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="labelNet" colspan="4">Net Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-end" id="tdNetValue"></td>
         </tr>
         <tr>
-            <td id="labelAdditionalDiscount" colspan="5">Add. Disc.&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="labelAdditionalDiscount" colspan="4">Add. Disc.&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-end" id="tdAdditionalDiscount"></td>
         </tr>
         <tr>
-            <td id="labelTotalValue" colspan="5">Total  &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="labelTotalValue" colspan="4">Total  &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-end" id="tdTotalValue"></td>
         </tr>
-        </tfoot>
+        </tr>
     </table>
 </div>
 <!--invoice details table area end-->
@@ -497,34 +501,34 @@
         <th>Item Name</th>
         <th>Quantity</th>
         <th>Rate</th>
-        <th>Discount</th>
+<!--        <th>Discount</th>-->
         <th>Amount</th>
         </thead>
         <tbody>
 
         </tbody>
-        <tfoot style="line-height: 5px;">
+        <tr style="line-height: 5px;">
         <tr>
-            <td id="A5labelGross" colspan="5">Gross Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="A5labelGross" colspan="4">Gross Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-end" id="A5tdGrossValue"></td>
         </tr>
         <tr>
-            <td id="A5labelTotal" colspan="5"></td>
+            <td id="A5labelTotal" colspan="4"></td>
             <td class="text-end" id="A5tdDiscountValue"></td>
         </tr>
         <tr>
-            <td id="A5labelNet" colspan="5">Net Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="A5labelNet" colspan="4">Net Value &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-end" id="A5tdNetValue"></td>
         </tr>
         <tr>
-            <td id="A5AdditionalDiscount" colspan="5">Add. Disc. &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="A5AdditionalDiscount" colspan="4">Add. Disc. &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-end" id="A5tdAdditionalDiscount"></td>
         </tr>
         <tr>
-            <td id="A5TotalValue" colspan="5">Total &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td id="A5TotalValue" colspan="4">Total &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-end" id="A5tdTotalValue"></td>
         </tr>
-        </tfoot>
+        </tr>
     </table>
 </div>
 <!--invoice details table area A5 size end-->

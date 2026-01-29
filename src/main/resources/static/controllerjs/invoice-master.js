@@ -411,7 +411,8 @@ const getItemDiscount = (ob) => {
 }
 
 const getItemValue = (ob) => {
-    return `<p style="padding-top: 2px; margin-bottom: -2px" class="text-end">${Number(ob.invoice_detail_value).toLocaleString('en-US', {
+    let finalValue = ob.invoice_detail_rate * ob.invoice_detail_quantity;
+    return `<p style="padding-top: 2px; margin-bottom: -2px" class="text-end">${Number(finalValue).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</p>`;
@@ -986,7 +987,7 @@ const fillDataIntoInvoicePrintForA5 = (headerKey) => {
         {dataType: 'function', propertyName: getItemNameForPrint},
         {dataType: 'function', propertyName: getItemQuantity},
         {dataType: 'function', propertyName: getItemRate},
-        {dataType: 'function', propertyName: getItemDiscount},
+        // {dataType: 'function', propertyName: getItemDiscount},
         {dataType: 'function', propertyName: getItemValue},
     ];
 
@@ -1212,7 +1213,8 @@ const getItemDiscountForBillPrint = (ob) => {
 
 
 const getItemAmountForBillPrint = (ob) => {
-    return `<p>${Number(ob.invoice_detail_value).toLocaleString('en-US', {
+    let finalValue = ob.invoice_detail_rate * ob.invoice_detail_quantity
+    return `<p>${Number(finalValue).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</p>`;
@@ -1266,7 +1268,7 @@ const fillDataIntoInvoicePrint = (headerKey) => {
         {dataType: 'function', propertyName: getItemNameForPrint},
         {dataType: 'function', propertyName: getItemQuantity},
         {dataType: 'function', propertyName: getItemRate},
-        {dataType: 'function', propertyName: getItemDiscount},
+        // {dataType: 'function', propertyName: getItemDiscount},
         {dataType: 'function', propertyName: getItemValue},
     ];
 
@@ -1405,14 +1407,15 @@ const automateWaragodaCashCustomer = ()=>{
     invoiceHeader.invoice_header_master_pay_type="cash";
 
 
+    //discount 30%
+    selectDiscount.value= 30;
+    invoiceHeader.invoice_header_discount=selectDiscount.value;
+    selectDiscount.style.border="2px solid green";
+
+
 
 
 }
-
-
-
-
-
 
 const printQuickBill =async ()=>{
 
@@ -1430,6 +1433,19 @@ const printQuickBill =async ()=>{
 
 }
 
+const handelBalance = (fieldID) => {
+    const payedAmount = Number(fieldID.value);
+
+    const finalBillValue = Number(
+        document.getElementById("displayTotalValue")
+            .innerText.replace(/,/g, "")
+    );
+
+    const balanceValue = payedAmount - finalBillValue;
+
+    document.getElementById("lblShowBalance").innerText =
+        `Balance is ${balanceValue}`;
+};
 
 
 
