@@ -344,7 +344,7 @@ const refreshInvoiceDetailsTable = () => {
         {dataType: 'function', propertyName: getItemName},
         {dataType: 'function', propertyName: getItemQuantity},
         {dataType: 'function', propertyName: getItemRate},
-        // {dataType: 'function', propertyName: getItemDiscount},
+        {dataType: 'function', propertyName: getItemDiscount},
         {dataType: 'function', propertyName: getItemValue},
     ];
 

@@ -1186,19 +1186,19 @@ const refreshBillTable = (headerKey) => {
 }
 
 const getItemNameForBillPrint = (ob) => {
-    return `<p>${ob.item_master_id.item_short_name}</p>`
+    return `<p class="fw-bold">${ob.item_master_id.item_short_name}</p>`
 }
 
 
 const getItemQuantityForBillPrint = (ob) => {
-    return `<p>${Number(ob.invoice_detail_quantity).toLocaleString('en-US', {
+    return `<p class="fw-bold">${Number(ob.invoice_detail_quantity).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</p>`;
 }
 
 const getItemRateForBillPrint = (ob) => {
-    return `<p>${Number(ob.invoice_detail_rate).toLocaleString('en-US', {
+    return `<p class="fw-bold">${Number(ob.invoice_detail_rate).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</p>`;
@@ -1214,7 +1214,7 @@ const getItemDiscountForBillPrint = (ob) => {
 
 const getItemAmountForBillPrint = (ob) => {
     let finalValue = ob.invoice_detail_rate * ob.invoice_detail_quantity
-    return `<p>${Number(finalValue).toLocaleString('en-US', {
+    return `<p class="fw-bold">${Number(finalValue).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })}</p>`;

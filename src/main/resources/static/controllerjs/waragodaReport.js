@@ -109,8 +109,22 @@ ${tableWaragodaReportPrint.outerHTML}
 }
 
 
+// prasad request to put datatable.
+const viewWaragodaStock = ()=>{
+    const waragodaStockList = ajaxGetRequest(`/stock-report/waragodaStock/${waragodaReport.fromdate}/${waragodaReport.todate}`);
+
+    divWaragodaReportPrint2.classList.remove("d-none");
+
+    const displayColumns = [
+        {dataType: 'function', propertyName: getItemCategoryName},
+        {dataType: 'function', propertyName: getItemShortName},
+        {dataType: 'function', propertyName: stockQuantity},
+    ];
 
 
+    fillDataIntoTable2(tableWaragodaReportPrint2,waragodaStockList,displayColumns,false);
+    $("#tableWaragodaReportPrint2").dataTable();
+}
 
 
 

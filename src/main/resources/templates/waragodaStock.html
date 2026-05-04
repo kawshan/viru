@@ -75,6 +75,7 @@
 
 
             <div class="modal-footer" id="ExampleModelFooterDiv">
+                <button type="button" class="btn" style="background-color: #e11d48; color: whitesmoke" onclick="viewWaragodaStock()">View</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="buttonPrint" style="pointer-events: all;" onclick="printProductionReport()">Print</button>
             </div>
@@ -101,7 +102,17 @@
 </div>
 
 
-
+<div id="divWaragodaReportPrint2" class="d-none m-9 p-9">
+    <table class="table table-bordered" style="font-family: Verdana; font-size: 11px; border: 1px solid black" id="tableWaragodaReportPrint2">
+        <thead>
+        <th>#</th>
+        <th>Item Category</th>
+        <th>Item Short name</th>
+        <th>Quantity</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
 
 
