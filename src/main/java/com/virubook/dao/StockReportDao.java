@@ -99,7 +99,7 @@ public interface StockReportDao extends JpaRepository<CustomerMaster,Integer> {
             "    im.item_short_name,\n" +
             "    icm.item_category_name,\n" +
             "    lm.location_master_name\n" +
-            "ORDER BY im.item_short_name;\n",nativeQuery = true)
+            "ORDER BY im.item_code;\n",nativeQuery = true)
     public List<Object[]> getStockReportForShopWaragoda(String fromDate,String toDate);
 
 

@@ -508,6 +508,7 @@ const loadDataIntoTablePrint = ()=>{
         {dataType:'function',propertyName:getCategoryNameForPrint},
         {dataType:'text',propertyName:'item_name'},
         {dataType:'text',propertyName:'item_short_name'},
+        {dataType:'text',propertyName:'item_code'},
         {dataType:'function',propertyName:getItemSize},
         {dataType:'function',propertyName:getNumberOfPages},
         {dataType:'function',propertyName:getItemCost},

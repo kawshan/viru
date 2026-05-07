@@ -19,6 +19,7 @@ public class SalesReportDto {
     private String customer_name;
     private String payment_type;
     private BigDecimal total_invoice_value;
+    private BigDecimal additional_discount;
 
 
 

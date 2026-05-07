@@ -30,7 +30,8 @@ public class SalesReportService {
                         (Integer) obj[2],
                         (String) obj[3],
                         (String) obj[4],
-                        (BigDecimal) obj[5]
+                        (BigDecimal) obj[5],
+                        (BigDecimal) obj[6]
                 )
                 ).collect(Collectors.toList());
     }

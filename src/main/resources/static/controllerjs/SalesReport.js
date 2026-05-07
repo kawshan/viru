@@ -61,59 +61,128 @@ const getDate = (ob)=>{
 
 
 const getCash = (ob)=>{
-    if (ob.payment_type==="cash"){
-        totalCashAmount=totalCashAmount+Number(ob.total_invoice_value);
-        return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
-    }else if (ob.payment_type==="credit"){
-        return " "
-    }else if (ob.payment_type==="online-transfer"){
-        return " "
-    }else if (ob.payment_type==="vps"){
-        return " "
+    if(ob.additional_discount==null){
+        if (ob.payment_type==="cash"){
+            totalCashAmount=totalCashAmount+Number(ob.total_invoice_value);
+            return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+        }else if (ob.payment_type==="credit"){
+            return " "
+        }else if (ob.payment_type==="online-transfer"){
+            return " "
+        }else if (ob.payment_type==="vps"){
+            return " "
+        }
+    }else {
+
+        // additional discount ekak thiyenawa nam
+
+        if (ob.payment_type==="cash"){
+            totalCashAmount=totalCashAmount+Number(ob.total_invoice_value)-(Number(ob.total_invoice_value)/100)*Number(ob.additional_discount);
+            return `<div class="text-end">${(Number(ob.total_invoice_value)-(Number(ob.total_invoice_value)/100)*Number(ob.additional_discount)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+        }else if (ob.payment_type==="credit"){
+            return " "
+        }else if (ob.payment_type==="online-transfer"){
+            return " "
+        }else if (ob.payment_type==="vps"){
+            return " "
+        }
     }
 }
 
 
 const getCredit = (ob)=>{
-    if (ob.payment_type==="credit"){
-        totalCreditAmount=totalCreditAmount+Number(ob.total_invoice_value);
-        return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
-    }else if (ob.payment_type==="cash"){
-        return " "
-    }else if (ob.payment_type==="online-transfer"){
-        return " "
-    }else if (ob.payment_type==="vps"){
-        return " "
+
+    if (ob.additional_discount==null){
+        if (ob.payment_type==="credit"){
+            totalCreditAmount=totalCreditAmount+Number(ob.total_invoice_value);
+            return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+        }else if (ob.payment_type==="cash"){
+            return " "
+        }else if (ob.payment_type==="online-transfer"){
+            return " "
+        }else if (ob.payment_type==="vps"){
+            return " "
+        }
+    }else{
+
+        // additonal discount credit
+
+        if (ob.payment_type==="credit"){
+            totalCreditAmount=totalCreditAmount+Number(ob.total_invoice_value)-(Number(ob.total_invoice_value)/100)*Number(ob.additional_discount);
+            return `<div class="text-end">${(Number(ob.total_invoice_value)-(Number(ob.total_invoice_value)/100)*Number(ob.additional_discount)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+        }else if (ob.payment_type==="cash"){
+            return " "
+        }else if (ob.payment_type==="online-transfer"){
+            return " "
+        }else if (ob.payment_type==="vps"){
+            return " "
+        }
     }
 }
 
 
 
 const getVpsAmount= (ob)=>{
-    if (ob.payment_type==="vps"){
-        totalVpsAMount=totalVpsAMount+Number(ob.total_invoice_value);
-        return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
-    }else if (ob.payment_type==="cash"){
-        return " "
-    }else if (ob.payment_type==="credit"){
-        return " "
-    }else if (ob.payment_type==="online-transfer"){
-        return " "
+
+    if(ob.additional_discount==null){
+        if (ob.payment_type==="vps"){
+            totalVpsAMount=totalVpsAMount+Number(ob.total_invoice_value);
+            return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+        }else if (ob.payment_type==="cash"){
+            return " "
+        }else if (ob.payment_type==="credit"){
+            return " "
+        }else if (ob.payment_type==="online-transfer"){
+            return " "
+        }
+    }else{
+        if (ob.payment_type==="vps"){
+            totalVpsAMount=totalVpsAMount+Number(ob.total_invoice_value)-(Number(ob.total_invoice_value)/100)*Number(ob.additional_discount);
+            return `<div class="text-end">${(Number(ob.total_invoice_value)-(Number(ob.total_invoice_value)/100)*Number(ob.additional_discount)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+        }else if (ob.payment_type==="cash"){
+            return " "
+        }else if (ob.payment_type==="credit"){
+            return " "
+        }else if (ob.payment_type==="online-transfer"){
+            return " "
+        }
     }
+
+
+
+
+
+
 }
 
 
 const getOnlineTransfer = (ob)=>{
-    if (ob.payment_type==="online-transfer"){
-        totalOnlineTransfer=totalOnlineTransfer+Number(ob.total_invoice_value);
-        return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
-    }else if (ob.payment_type==="cash"){
-        return " "
-    }else if (ob.payment_type==="credit"){
-        return " "
-    }else if (ob.payment_type==="vps"){
-        return " "
+
+    if (ob.additional_discount==null){
+        if (ob.payment_type==="online-transfer"){
+            totalOnlineTransfer=totalOnlineTransfer+Number(ob.total_invoice_value);
+            return `<div class="text-end">${Number(ob.total_invoice_value).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+        }else if (ob.payment_type==="cash"){
+            return " "
+        }else if (ob.payment_type==="credit"){
+            return " "
+        }else if (ob.payment_type==="vps"){
+            return " "
+        }
+    }else {
+        if (ob.payment_type==="online-transfer"){
+            totalOnlineTransfer=totalOnlineTransfer+Number(ob.total_invoice_value)-(Number(ob.total_invoice_value)/100)*Number(ob.additional_discount);
+            return `<div class="text-end">${(Number(ob.total_invoice_value)-(Number(ob.total_invoice_value)/100)*Number(ob.additional_discount)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`
+        }else if (ob.payment_type==="cash"){
+            return " "
+        }else if (ob.payment_type==="credit"){
+            return " "
+        }else if (ob.payment_type==="vps"){
+            return " "
+        }
     }
+
+
 }
 
 
