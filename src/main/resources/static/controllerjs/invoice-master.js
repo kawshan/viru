@@ -8,6 +8,7 @@ window.addEventListener('load', function () {
 
     refreshInvoiceMasterHeaderTable();
 
+    lockBackDate();
 
 })
 
@@ -1449,7 +1450,23 @@ const handelBalance = (fieldID) => {
 
 
 
+const lockBackDate = ()=>{
+    // get today's date in YYYY-MM-DD format (required for input[type="date"])
+    const today = new Date().toISOString().split('T')[0];
 
+// get the input field
+    const dateField = document.getElementById("textInvoiceDate");
+
+// set value
+    dateField.value = today;
+
+// disable it so user can't change
+    dateField.disabled = true;
+    dateField.style.border="1px solid green";
+
+// assign to your existing object
+    invoiceHeader.invoice_header_date = today;
+}
 
 
 
