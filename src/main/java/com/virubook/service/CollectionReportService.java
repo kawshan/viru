@@ -22,11 +22,12 @@ public class CollectionReportService {
         return resultList.stream().map(obj->
                 new CollectionReportDto(
                         (String) obj[0],
-                        (Integer) obj[1],
-                        (Date) obj[2],
-                        (BigDecimal) obj[3],
+                        (String) obj[1],
+                        (Integer) obj[2],
+                        (Date) obj[3],
                         (BigDecimal) obj[4],
-                        (BigDecimal) obj[5]
+                        (BigDecimal) obj[5],
+                        (BigDecimal) obj[6]
                 )
                 ).collect(Collectors.toList());
     }
@@ -38,11 +39,12 @@ public class CollectionReportService {
         return resultList.stream().map(obj->
                 new CollectionReportDto(
                         (String) obj[0],
-                        (Integer) obj[1],
-                        (Date) obj[2],
-                        (BigDecimal) obj[3],
+                        (String) obj[1],
+                        (Integer) obj[2],
+                        (Date) obj[3],
                         (BigDecimal) obj[4],
-                        (BigDecimal) obj[5]
+                        (BigDecimal) obj[5],
+                        (BigDecimal) obj[6]
                 )
         ).collect(Collectors.toList());
     }

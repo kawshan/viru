@@ -450,6 +450,7 @@ const refreshPendingCollections = () => {
 
     displayProperty = [
         {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
+        {dataType: 'function', propertyName: getInvoiceKey},
         {dataType: 'function', propertyName: getInvoiceNumber},
         {dataType: 'function', propertyName: getInvoiceDate},
         {dataType: 'function', propertyName: getInvoiceValue},
@@ -470,6 +471,10 @@ const refreshPendingCollections = () => {
 
 const getCustomerNameForPendingCollection = (ob) => {
     return ob.customer_name;
+}
+
+const getInvoiceKey = (ob) => {
+    return `<p class="text-end">${ob.invoice_key}</p>`;
 }
 
 const getInvoiceNumber = (ob) => {
@@ -514,6 +519,7 @@ const refreshCustomerPendingCollections = (fieldId)=>{
 
     displayProperty = [
         {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
+        {dataType: 'function', propertyName: getInvoiceKey},
         {dataType: 'function', propertyName: getInvoiceNumber},
         {dataType: 'function', propertyName: getInvoiceDate},
         {dataType: 'function', propertyName: getInvoiceValue},
@@ -660,6 +666,7 @@ const refreshPendingCollectionsForPrint = () => {
 
     const displayProperty = [
         {dataType: 'function', propertyName: getCustomerNameForPendingCollection},
+        {dataType: 'function', propertyName: getInvoiceKey},
         {dataType: 'function', propertyName: getInvoiceNumber},
         {dataType: 'function', propertyName: getInvoiceDate},
         {dataType: 'function', propertyName: getInvoiceValueForCollectionPrint},

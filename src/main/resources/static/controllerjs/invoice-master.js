@@ -70,6 +70,7 @@ const refreshInvoiceMasterHeaderTable = () => {
     displayProperty = [
         {dataType: 'function', propertyName: getBranchName},
         {dataType: 'function', propertyName: getCustomerName},
+        {dataType: 'text', propertyName: 'invoice_header_key'},
         {dataType: 'text', propertyName: 'invoice_header_master_pay_type'},
         {dataType: 'text', propertyName: 'invoice_header_number'},
         {dataType: 'text', propertyName: 'invoice_header_date'},
@@ -737,9 +738,15 @@ const printInvoice = async (ob) => {
         <div class="col-4">
             <table class="table table-bordered" style="font-size: 11px; border: 1px solid black; line-height: 6px">
                 <tr>
-                    <td>Invoice No</td>
+                    <td>Invoice code</td>
                     <td class="text-end">${ob.invoice_header_key}</td>
                 </tr>
+                
+                <tr>
+                    <td>Invoice No</td>
+                    <td class="text-end">${ob.invoice_header_number}</td>
+                </tr>
+                
 
                 <tr>
                     <td>Date</td>
@@ -914,8 +921,13 @@ const printInvoiceForA5Size = async (ob) => {
         <div class="col-6">
             <table class="table table-bordered" style="font-size: 11px; border: 1px solid black; line-height: 6px">
                 <tr>
-                    <td style="font-size: 10px">Invoice No</td>
+                    <td style="font-size: 10px">Invoice Code</td>
                     <td class="text-end">${ob.invoice_header_key}</td>
+                </tr>
+                
+                <tr>
+                    <td style="font-size: 10px">Invoice No</td>
+                    <td class="text-end">${ob.invoice_header_number}</td>
                 </tr>
 
                 <tr>
@@ -1056,9 +1068,17 @@ const printInvoiceForBill = async (ob) => {
 
 <div>
 <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
-    <span>Invoice No</span>
+    <span>Invoice code</span>
     <span>${ob.invoice_header_key}</span>
 </p>
+
+
+<p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
+    <span>Invoice No</span>
+    <span>${ob.invoice_header_number}</span>
+</p>
+
+
 
 
 <p style="font-size: 12px; display: flex; justify-content: space-between; font-weight: bold; margin: 0; margin-bottom: 2px;">
@@ -1343,9 +1363,10 @@ const readBarcode = (fieldId) => {
         const nameParts = parts.slice(0, -2);
         console.log(`name parts ${nameParts}`);
         console.log(`joined parts ${nameParts.join(' ')}`);
+        const shortName = nameParts.join(' ');
 
-
-        const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName/${nameParts.join(' ')}`);
+        // const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName/${nameParts.join(' ')}`);
+        const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName?shortName=${encodeURIComponent(shortName)}`);
 
         //showing on front end
         textRate.value = getItemObjectFromServer.item_price;

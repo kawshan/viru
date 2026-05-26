@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -93,6 +94,10 @@ public class InvoiceHeaderMasterController {
     @DeleteMapping
     public String deleteInvoiceHeaderMaster(@RequestBody InvoiceHeaderMaster invoiceHeaderMaster){
         try {
+
+            invoiceHeaderMaster.setInvoice_header_master_delete_date(LocalDate.now());
+            invoiceHeaderMasterDao.save(invoiceHeaderMaster);
+
             invoiceService.deleteInvoice(invoiceHeaderMaster.getInvoice_header_key());
             return "ok";
         }catch (Exception e){

@@ -26,6 +26,7 @@ const refreshProductionReportTable = ()=>{
 
     const displayColumns = [
         {dataType: 'function', propertyName: getItemCategoryName},
+        {dataType: 'function', propertyName: getItemCode},
         {dataType: 'function', propertyName: getItemShortName},
         {dataType: 'function', propertyName: stockQuantity},
     ];
@@ -49,6 +50,9 @@ const getItemShortName = (ob) => {
     return ob.item_short_name;
 }
 
+const getItemCode = (ob) => {
+    return ob.item_code;
+}
 
 const stockQuantity = (ob) => {
     return Number(ob.stock_quantity).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})

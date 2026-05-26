@@ -13,6 +13,7 @@ import java.sql.Date;
 public class CollectionReportDto {
 
     private String customer_name;
+    private String invoice_key;
     private Integer invoice_number;
     private Date invoice_date;
     private BigDecimal invoice_value;

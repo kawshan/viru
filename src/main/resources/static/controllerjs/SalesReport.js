@@ -35,7 +35,7 @@ const refreshSalesReportTable = ()=>{
 
     const displayColumns = [
         {dataType:'function',propertyName:getDate},
-        {dataType:'text',propertyName:'invoice_number'},
+        {dataType:'text',propertyName:'invoice_key'},
         {dataType:'text',propertyName:'customer_name'},
         {dataType:'function',propertyName:getCash},
         {dataType:'function',propertyName:getCredit},

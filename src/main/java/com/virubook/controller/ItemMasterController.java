@@ -96,8 +96,8 @@ public class ItemMasterController {
     }
 
 
-    @GetMapping(value = "/getFromShortName/{shortName}")
-    public ItemMaster getFromItemShortName(@PathVariable("shortName") String shortName){
+    @GetMapping(value = "/getFromShortName")
+    public ItemMaster getFromItemShortName(@RequestParam String shortName){
         return itemMasterDao.findByShortName(shortName);
     }
 

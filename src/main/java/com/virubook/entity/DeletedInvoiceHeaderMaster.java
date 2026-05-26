@@ -55,6 +55,9 @@ public class DeletedInvoiceHeaderMaster {
     private String invoice_header_master_deleted_user;
 
 
+    @Column(name = "invoice_header_master_delete_date")
+    private LocalDate invoice_header_master_delete_date;
+
     @ManyToOne
     @JoinColumn(name = "customer_master_id",referencedColumnName = "id")
     private CustomerMaster customer_master_id;

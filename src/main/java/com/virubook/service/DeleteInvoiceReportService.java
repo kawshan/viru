@@ -22,10 +22,11 @@ public class DeleteInvoiceReportService {
                 new DeleteInvoiceReportDto(
                         (String) obj[0],
                         (Date) obj[1],
-                        (Integer) obj[2],
+                        (String) obj[2],
                         (String) obj[3],
                         (BigDecimal) obj[4],
-                        (String) obj[5]
+                        (String) obj[5],
+                        (Date) obj[6]
                 )
                 ).collect(Collectors.toList());
     }
