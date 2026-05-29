@@ -1281,10 +1281,12 @@ const readBarcode = (fieldId) => {
         const nameParts = parts.slice(0, -2);
         console.log(`name parts ${nameParts}`);
         console.log(`joined parts ${nameParts.join(' ')}`);
+        const shortName = nameParts.join(' ');
 
 
 
-        const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName/${nameParts.join(' ')}`);
+
+        const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName?shortName=${encodeURIComponent(shortName)}`);
 
         //showing on front end
         textRate.value = getItemObjectFromServer.item_price;

@@ -65,8 +65,17 @@
                     <button onclick="printInvoiceForBill(window['editOb'],window['editRow'])" type="button"
                             class="btn btn-primary fw-bold"
                             style=" width: 15%; color: whitesmoke;border: 1px solid black">
-                        <i class="fa-solid fa-eye fa-beat"></i> Print
+                        <i class="fa-solid fa-eye fa-beat"></i> Print receipt
                     </button>
+
+
+                    <button onclick="printCollectionHeaderA4(window['editOb'],window['editRow'])" type="button"
+                            class="btn btn-primary fw-bold"
+                            style=" width: 15%; background-color: #6d28d9; border: 1px solid black">
+                        <i class="fa-solid fa-eye fa-beat"></i> Print A4
+                    </button>
+
+
                 </div>
             </div>
             <!--                div modify button 2 end-->
@@ -83,7 +92,8 @@
 
         <div class="col-md-4 text-end">
 
-            <button type="button" class="btn" style="background-color: #16a34a; color: white" onclick="printPendingReport()">
+            <button type="button" class="btn" style="background-color: #16a34a; color: white"
+                    onclick="printPendingReport()">
                 Print Pending Report
             </button>
 
@@ -210,6 +220,11 @@
                             <input type="text" id="textColDetailsBranch" class="form-control text-start fw-bold"
                                    style="height: 60px" placeholder="Branch Name"
                                    onkeyup="textValidator(this,'','collectionMasterDetails','collection_master_details_branch')">
+
+                            <input type="date" id="textColDetailsPdcDate" class="form-control text-start fw-bold"
+                                   style="height: 60px"
+                                   onchange="textValidator(this,'','collectionMasterDetails','collection_master_details_pdc_date')">
+
                         </div>
                     </td>
 
@@ -390,10 +405,10 @@
     </div>
     <!--pending collections model area end-->
 
-
-
+<!--print pending report start-->
     <div class="d-none">
-        <table class="table table-bordered" style="font-family: Verdana; font-size: 11px; border: 1px solid black" id="printCollectionsTable">
+        <table class="table table-bordered" style="font-family: Verdana; font-size: 11px; border: 1px solid black"
+               id="printCollectionsTable">
             <thead>
             <th>#</th>
             <th>Customer name</th>
@@ -402,7 +417,7 @@
             <th class="text-end">Invoice Date</th>
             <th class="text-end">Invoice Value</th>
             <th class="text-end">Collection Amount</th>
-            <th class="text-end">Remaining Amount</th>
+            <th class="text-end">where are you</th>
             </thead>
             <tbody></tbody>
             <tr>
@@ -414,6 +429,28 @@
             </tr>
         </table>
     </div>
+<!--print pending report end-->
+
+    <!--details print table area start-->
+    <div id="divCollectionA4SizePrintDiv" class="d-none">
+        <table class="table table-bordered" style="border: 1px solid black; line-height: 5px; font-family: Verdana; font-size: 11px" id="tableCollectionDetailPrint">
+            <thead style="line-height: 10px" class="text-center">
+            <th>#</th>
+            <th>Invoice Number</th>
+            <th>Payment Type</th>
+            <th>Cheque No</th>
+            <th>Bank Name</th>
+            <th>Branch Name</th>
+            <th>Pdc Date</th>
+            <th>Amount</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <!--details print table area end-->
+
 
 
 </div>

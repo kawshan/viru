@@ -1365,7 +1365,6 @@ const readBarcode = (fieldId) => {
         console.log(`joined parts ${nameParts.join(' ')}`);
         const shortName = nameParts.join(' ');
 
-        // const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName/${nameParts.join(' ')}`);
         const getItemObjectFromServer = ajaxGetRequest(`/item-master/getFromShortName?shortName=${encodeURIComponent(shortName)}`);
 
         //showing on front end

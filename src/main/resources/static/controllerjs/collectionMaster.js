@@ -80,11 +80,11 @@ const getCustomerName = (ob) => {
 const checkErrorsInCollectionHeaderForm = () => {
     let errors = ""
 
-    if (collectionHeader.customer_master_id === null) {
+    if (collectionHeader.customer_master_id == null) {
         errors = errors + "Customer Name Cannot Be Empty \n"
     }
 
-    if (collectionHeader.collection_master_header_date === null) {
+    if (collectionHeader.collection_master_header_date == null) {
         errors = errors + "Date Cannot Be Empty \n"
     }
     return errors;
@@ -220,12 +220,14 @@ const refreshCollectionMasterDetailsForm = () => {
     textColDetailsChequeNo.style.border = "2px solid #ced4da";
     textColDetailsBank.style.border = "2px solid #ced4da";
     textColDetailsBranch.style.border = "2px solid #ced4da";
+    textColDetailsPdcDate.style.border = "2px solid #ced4da";
 
     textColDetailsInvNO.value = "";
     textColDetailsAmount.value = "";
     textColDetailsChequeNo.value = "";
     textColDetailsBank.value = "";
     textColDetailsBranch.value = "";
+    textColDetailsPdcDate.value = "";
 
     //payment type tika uncheck karanwa.
     document.querySelectorAll('input[name=paymentType]').forEach(rb => rb.checked = false);
@@ -296,6 +298,7 @@ const checkErrorsCollectionDetailsForm = () => {
         if (collectionMasterDetails.collection_master_details_branch == null) {
             errors = errors + "Branch cannot be empty \n"
         }
+
     }
 
 
@@ -340,6 +343,7 @@ const refillCollectionDetails = (ob) => {
     textColDetailsChequeNo.value = collectionMasterDetails.collection_master_details_check_no;
     textColDetailsBank.value = collectionMasterDetails.collection_master_details_bank;
     textColDetailsBranch.value = collectionMasterDetails.collection_master_details_branch;
+    textColDetailsPdcDate.value = collectionMasterDetails.collection_master_details_pdc_date;
 
 
     if (collectionMasterDetails.collection_master_details_type == "cash") {
@@ -386,6 +390,11 @@ const checkUpdatesCollectionDetails = () => {
 
     if (collectionMasterDetails.collection_master_details_branch != oldCollectionMasterDetails.collection_master_details_branch) {
         updates = updates + "Branch is updated \n"
+    }
+
+
+    if (collectionMasterDetails.collection_master_details_pdc_date != oldCollectionMasterDetails.collection_master_details_pdc_date) {
+        updates = updates + "Pdc date is updated \n"
     }
 
     return updates;
@@ -733,6 +742,185 @@ ${printCollectionsTable.outerHTML}
 
 
 }
+
+
+// print collection A4 size
+const fillDataIntoCollectionPrintA4 = (headerKey)=>{
+
+    const detailsList = ajaxGetRequest(`/collection-details/findByHeaderKey/${headerKey}`);
+
+    const displayProperty = [
+        {dataType: "text", propertyName: 'collection_master_details_invoice_number'},
+        {dataType: "text", propertyName: 'collection_master_details_type'},
+        {dataType: "function", propertyName: getCollectionDetailsChequeNo},
+        {dataType: "function", propertyName: getCollectionDetailsBankName},
+        {dataType: "function", propertyName: getCollectionDetailsBranchName},
+        {dataType: "function", propertyName: getCollectionDetailsPdcDate},
+        {dataType: "function", propertyName: getCollectionDetailsAmount},
+
+    ];
+
+
+    fillDataIntoTable2(tableCollectionDetailPrint, detailsList, displayProperty, false);
+
+
+}
+
+
+const getCollectionDetailsChequeNo = (ob)=>{
+    if (ob.collection_master_details_check_no == null){
+        return " "
+    }else {
+        return `<p>${ob.collection_master_details_check_no}</p>`
+    }
+
+}
+
+
+const getCollectionDetailsBankName = (ob)=>{
+    if (ob.collection_master_details_bank == null){
+        return " "
+    }else {
+        return `<p>${ob.collection_master_details_bank}</p>`
+    }
+
+
+}
+
+
+const getCollectionDetailsBranchName = (ob)=>{
+    if (ob.collection_master_details_branch == null){
+        return " "
+    }else {
+        return `<p>${ob.collection_master_details_branch}</p>`
+    }
+
+
+}
+
+
+const getCollectionDetailsPdcDate = (ob)=>{
+    if (ob.collection_master_details_pdc_date == null){
+        return " "
+    }else {
+        return `<p>${ob.collection_master_details_pdc_date}</p>`
+    }
+
+}
+
+
+
+
+
+
+
+const printCollectionHeaderA4 = async (ob) => {
+
+    await fillDataIntoCollectionPrintA4(ob.collection_master_header_key);
+
+
+    const newWindow = window.open();
+    await newWindow.document.write(`
+    
+    <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Collection Details</title>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid" style="position: relative">
+
+    <div class="row">
+        <div class="col-12 text-center"><h4>Collection Details</h4></div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4">
+
+        </div>
+        
+        <div class="col-4"></div>
+        <div class="col-4">
+            <table class="table table-bordered" style="border: 1px solid black; height: 50%">
+                <tbody>
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Collection No</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${ob.collection_master_header_number}</td>
+                </tr>
+                
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Collection Code</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${ob.collection_master_header_key}</td>
+                </tr>
+
+                <tr>
+                    <td style="font-size: 11px; width: 50%">Collection Date</td>
+                    <td class="text-end" style="font-size: 12px; width: 50%">${new Date(ob.collection_master_header_date).toLocaleString('en-GB', {
+        day: "2-digit",
+        month: "short",
+        year: "2-digit"
+    })}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    
+    <div class="row" style="margin-left: 3px; margin-right: 1px">
+    ${tableCollectionDetailPrint.outerHTML}
+    </div>
+
+
+
+</div>
+
+<div style="position: absolute; bottom: 1%; width: 100%" >
+    <!--  prepared by, checked by, recieved by area start   -->
+    <div class="row">
+        <div class="col-4 text-start">
+            _____________
+            <p style="font-size: 11px">Prepared By</p>
+        </div>
+        <div class="col-4 text-center">
+            _____________
+            <p style="font-size: 11px">Received By</p>
+        </div>
+        <div class="col-4 text-end">
+            _____________
+            <p style="font-size: 11px; margin-right: 3px">Checked By</p>
+        </div>
+    </div>
+    <!--  prepared by, checked by, recieved by area end   -->
+</div>
+
+
+
+</body>
+</html>
+    `);
+    newWindow.stop();
+    newWindow.print();
+    newWindow.close();
+
+
+    divModifyButton2.classList.add('d-none');
+}
+
+
+
+
+
 
 
 

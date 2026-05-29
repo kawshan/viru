@@ -32,6 +32,7 @@ window.addEventListener('load',function (){
 
             // collection button
             document.getElementById('collectionButton').style.display = 'block';
+            document.getElementById('PDCButton').style.display = 'block';
 
             //stock report button
             document.getElementById('stockReportButton').style.display = 'block';
@@ -69,6 +70,7 @@ window.addEventListener('load',function (){
 
             // collection button
             document.getElementById('collectionButton').style.display = 'none';
+            document.getElementById('PDCButton').style.display = 'none';
 
             //stock report button
             document.getElementById('stockReportButton').style.display = 'none';
@@ -105,7 +107,8 @@ window.addEventListener('load',function (){
             document.getElementById('invoiceButton').style.display = 'block';
 
             // collection button
-            document.getElementById('collectionButton').style.display = 'block';
+            document.getElementById('collectionButton').style.display = 'none';
+            document.getElementById('PDCButton').style.display = 'none';
 
             //stock report button
             document.getElementById('stockReportButton').style.display = 'block';
@@ -142,6 +145,7 @@ window.addEventListener('load',function (){
 
             // collection button
             document.getElementById('collectionButton').style.display = 'block';
+            document.getElementById('PDCButton').style.display = 'block';
 
             //stock report button
             document.getElementById('stockReportButton').style.display = 'block';

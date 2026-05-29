@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "collection_master_details")
@@ -40,6 +41,9 @@ public class CollectionMasterDetails {
 
     @Column(name = "collection_master_details_branch")
     private String collection_master_details_branch;
+
+    @Column(name = "collection_master_details_pdc_date")
+    private LocalDate collection_master_details_pdc_date;
 
 
 
