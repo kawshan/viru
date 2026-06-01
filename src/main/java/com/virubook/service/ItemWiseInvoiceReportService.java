@@ -28,7 +28,8 @@ public class ItemWiseInvoiceReportService {
                         (BigDecimal) obj[4],
                         (BigDecimal) obj[5],
                         (BigDecimal) obj[6],
-                        (String) obj[7]
+                        (String) obj[7],
+                        (String) obj[8]
                 )
                 ).collect(Collectors.toList());
     }

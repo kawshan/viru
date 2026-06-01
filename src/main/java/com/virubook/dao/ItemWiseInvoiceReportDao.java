@@ -9,15 +9,7 @@ import java.util.List;
 public interface ItemWiseInvoiceReportDao extends JpaRepository<InvoiceHeaderMaster,Integer> {
 
 
-    @Query(value = "select cm.customer_name, ihm.invoice_header_date, ihm.invoice_header_number, im.item_short_name,\n" +
-            "(idm.invoice_detail_rate - (coalesce(idm.invoice_detail_discount,0))) as rate,idm.invoice_detail_quantity,\n" +
-            "(idm.invoice_detail_value) * (1 - ifnull(ihm.invoice_header_master_additional_discount, 0) / 100)as net_invoice_value,\n" +
-            "lm.location_master_name\n" +
-            "from invoice_header_master as ihm inner join invoice_detail as idm on ihm.invoice_header_key = idm.invoice_detail_header_key\n" +
-            "inner join item_master im on idm.item_master_id = im.id\n" +
-            "inner join customer_master cm on ihm.customer_master_id = cm.id\n" +
-            "inner join location_master lm on ihm.location_master_id = lm.id\n" +
-            "where ihm.invoice_header_date between ?1 and ?2 order by ihm.invoice_header_date asc;",nativeQuery = true)
+    @Query(value = "SELECT cm.customer_name, ihm.invoice_header_date, ihm.invoice_header_number, im.item_short_name, (idm.invoice_detail_rate - COALESCE(idm.invoice_detail_discount,0)) AS rate, idm.invoice_detail_quantity, (idm.invoice_detail_value) * (1 - IFNULL(ihm.invoice_header_master_additional_discount,0) / 100) AS net_invoice_value, lm.location_master_name, ihm.invoice_header_key FROM invoice_header_master AS ihm LEFT JOIN invoice_detail AS idm ON ihm.invoice_header_key = idm.invoice_detail_header_key LEFT JOIN item_master AS im ON idm.item_master_id = im.id INNER JOIN customer_master AS cm ON ihm.customer_master_id = cm.id INNER JOIN location_master AS lm ON ihm.location_master_id = lm.id WHERE ihm.invoice_header_date BETWEEN ?1 AND ?2 ORDER BY ihm.invoice_header_date ASC;",nativeQuery = true)
     public List<Object[]> getItemWiseInvoiceReport(String fromDate, String toDate);
 
 

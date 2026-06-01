@@ -21,6 +21,7 @@ public class ItemWiseInvoiceReportDto {
     private BigDecimal invoice_detail_quantity;
     private BigDecimal invoice_value_final;
     private String location_name;
+    private String header_key;
 
 
 

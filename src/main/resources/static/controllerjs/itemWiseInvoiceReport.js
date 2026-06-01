@@ -29,9 +29,8 @@ const refreshItemWiseReportTable = ()=>{
         {dataType:'function',propertyName:getLocationName},
         {dataType:'text',propertyName:'invoice_date'},
         {dataType:'function',propertyName:getInvoiceNumber},
+        {dataType:'function',propertyName:getInvoiceCode},
         {dataType:'function',propertyName:getItemShortName},
-        // {dataType:'function',propertyName:getItemRate},
-        // {dataType:'function',propertyName:getQuantity},
         {dataType:'function',propertyName:getAmount},
     ]
 
@@ -42,6 +41,7 @@ const refreshItemWiseReportTable = ()=>{
 }
 
 let invoiceNumber =0;
+let invoiceCode ="";
 let locationName = "";
 
 const getInvoiceNumber = (ob)=>{
@@ -52,6 +52,21 @@ const getInvoiceNumber = (ob)=>{
         return `<div class="text-end">${Number(ob.invoice_number)}</div>`
     }
 }
+
+
+
+const getInvoiceCode = (ob)=>{
+    if (invoiceCode == ob.header_key){
+        return " ";
+    }else {
+        invoiceNumber=ob.header_key;
+        return `<div class="text-end">${ob.header_key}</div>`
+    }
+}
+
+
+
+
 
 const getItemRate = (ob)=>{
     return `<p class="text-end">${Number(ob.rate).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`;
