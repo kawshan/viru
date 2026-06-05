@@ -7,7 +7,9 @@ const users = [
     {username: 'vihaga', password: 'vihaga4893', role: 'invoice'},
     {username: 'samadhi', password: 'samadhi8720', role: 'invoice'},
     {username: 'renuka', password: 'renuka0843', role: 'invoice'},
-    {username: 'prasad', password: 'prasad1454', role: 'manager'}
+    {username: 'prasad', password: 'prasad1454', role: 'manager'},
+    {username: 'sris', password: 'viru12345', role: 'manager'}
+
 ];
 
 
