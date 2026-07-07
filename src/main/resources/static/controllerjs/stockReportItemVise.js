@@ -28,37 +28,6 @@ const refreshStockReportForm = () => {
 }
 
 
-// const printReport =()=>{
-//
-//     console.log(stockReport.branch.id);
-//     console.log(stockReport.item.id);
-//     console.log(stockReport.fromdate);
-//     console.log(stockReport.todate);
-//
-//
-//     const getPreviousValueFromServer = ajaxGetRequest(
-//         `stock-report-item-vise/get-previous-quantity?locationId=${stockReport.branch.id}&itemId=${stockReport.item.id}&fromDate=${stockReport.fromdate}`
-//     );
-//
-//     console.log(`previous value ${Number(getPreviousValueFromServer)}`)
-//
-//
-//     // in here we request our stock report from server.
-//     const getQueryResultFromServer = ajaxGetRequest(
-//         `stock-report-item-vise/get-stock-report?locationId=${stockReport.branch.id}&itemId=${stockReport.item.id}&fromDate=${stockReport.fromdate}&toDate=${stockReport.todate}`
-//     );
-//     console.log('Query result',getQueryResultFromServer);
-//
-//
-//     const newWindow = window.open();
-//     newWindow.document.write(``)
-//
-//
-//
-//
-// }
-
-
 
 
 
