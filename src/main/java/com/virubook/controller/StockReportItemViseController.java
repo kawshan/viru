@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -20,6 +21,15 @@ public class StockReportItemViseController {
 
     @Autowired
     private StockReportItemViseService stockReportItemViseService;
+
+
+    @GetMapping
+    public ModelAndView stockReportItemViseView(){
+        ModelAndView view = new ModelAndView();
+        view.setViewName("stockReportItemVise.html");
+        return view;
+    }
+
 
     @GetMapping(value = "/get-previous-quantity")
     public String getPreviousQuantity(@RequestParam String locationId,@RequestParam String itemId,@RequestParam String fromDate) {
