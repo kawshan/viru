@@ -33,34 +33,21 @@ const refreshStockReportForm = () => {
 
 
 
-const printReport = () => {
 
-    const previousBalance = Number(
-        ajaxGetRequest(
-            `stock-report-item-vise/get-previous-quantity?locationId=${stockReport.branch.id}&itemId=${stockReport.item.id}&fromDate=${stockReport.fromdate}`
-        )
-    );
+const printReport = () => {
 
     const getQueryResultFromServer = ajaxGetRequest(
         `stock-report-item-vise/get-stock-report?locationId=${stockReport.branch.id}&itemId=${stockReport.item.id}&fromDate=${stockReport.fromdate}&toDate=${stockReport.todate}`
     );
 
-    let runningBalance = previousBalance;
-
-    // Opening Balance Row
-    let tableRows = `
-        <tr style="font-weight:bold;background:#f3f3f3;">
-            <td colspan="4">Previous Balance</td>
-            <td style="text-align:right">${runningBalance.toFixed(3)}</td>
-        </tr>
-    `;
+    let runningBalance = 0;
+    let tableRows = "";
 
     getQueryResultFromServer.forEach(item => {
 
         const qty = Number(item.item_quantity);
 
         if (item.code.startsWith("ADJ")) {
-            // Can be + or -
             runningBalance += qty;
         }
         else if (item.code.startsWith("IN")) {
@@ -89,34 +76,39 @@ const printReport = () => {
             <title>Stock Report Item Wise</title>
             <style>
                 body{
-                    font-family:Arial;
-                    margin:20px;
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                }
+
+                h2{
+                    text-align: center;
                 }
 
                 table{
-                    width:100%;
-                    border-collapse:collapse;
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
                 }
 
-                th,td{
-                    border:1px solid #000;
-                    padding:8px;
+                th, td{
+                    border: 1px solid #000;
+                    padding: 8px;
                 }
 
                 th{
-                    background:#eee;
+                    background: #eee;
                 }
 
                 td:nth-child(4),
                 td:nth-child(5){
-                    text-align:right;
+                    text-align: right;
                 }
             </style>
         </head>
 
         <body>
 
-            <h2 style="text-align:center;">Stock Report Item Wise</h2>
+            <h2>Stock Report Item Wise</h2>
 
             <table>
                 <thead>
@@ -140,8 +132,6 @@ const printReport = () => {
 
     newWindow.document.close();
 }
-
-
 
 
 
